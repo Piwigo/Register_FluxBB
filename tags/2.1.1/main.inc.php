@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.1.1
+Version: 2.1.2
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -29,6 +29,8 @@ Author URI: http://www.infernoweb.net
 							- Language files (fr - en) improvement
 
 2.1.1			- 30/04/09	- Bux fixed on profile update
+
+2.1.2			- 22/08/09	- Compatibility bug fixed when used with DynamicRecentPeriod plugin
 
 --------------------------------------------------------------------------------
 */
@@ -119,12 +121,14 @@ function Register_FluxBB_InitPage()
       {
         $errors[] = l10n('maxheight_error');
       }
-      // periods must be integer values, they represents number of days
-      if (!preg_match($int_pattern, $_POST['recent_period'])
-          or $_POST['recent_period'] <= 0)
-      {
-        $errors[] = l10n('periods_error') ;
-      }
+        // periods must be integer values, they represents number of days
+        /* Commented to fix compatibility problem with Dynamic Recent Period Plugin */
+        /* This don't impact the plugin functionnalities */
+        /*if (!preg_match($int_pattern, $_POST['recent_period'])
+            or $_POST['recent_period'] <= 0)
+        {
+          $errors[] = l10n('periods_error') ;
+        }*/
     
       if (isset($_POST['mail_address']))
       {
