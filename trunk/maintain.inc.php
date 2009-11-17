@@ -16,20 +16,20 @@ function plugin_install()
   global $prefixeTable;
 
   $q = '
-    INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-    VALUES ("Register_FluxBB","FluxBB_;PhpWebGallery;Guest;false;false;true","Parametres Register_FluxBB")
-  ;';
+INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
+VALUES ("Register_FluxBB","FluxBB_;PhpWebGallery;Guest;false;false;true","Parametres Register_FluxBB")
+;';
     
   pwg_query($q);
   
-	$q = "
-    CREATE TABLE IF NOT EXISTS ".Register_FluxBB_ID_TABLE." (
-      id_user_pwg smallint(5) NOT NULL default '0',
-      id_user_FluxBB int(10) NOT NULL default '0',
-      PRIMARY KEY  (id_user_pwg),
-      KEY id_user_pwg (id_user_pwg, id_user_FluxBB)
-    )
-  ;";
+  $q = "
+CREATE TABLE IF NOT EXISTS ".Register_FluxBB_ID_TABLE." (
+  id_user_pwg smallint(5) NOT NULL default '0',
+  id_user_FluxBB int(10) NOT NULL default '0',
+PRIMARY KEY  (id_user_pwg),
+  KEY id_user_pwg (id_user_pwg, id_user_FluxBB)
+)
+;";
 
   pwg_query($q);
 
@@ -47,9 +47,9 @@ function plugin_uninstall()
   if (isset($conf['Register_FluxBB']))
   {
     $q = '
-      DELETE FROM '.CONFIG_TABLE.'
-      WHERE param="Register_FluxBB" LIMIT 1
-    ;';
+DELETE FROM '.CONFIG_TABLE.'
+WHERE param="Register_FluxBB" LIMIT 1
+;';
 
     pwg_query($q);
   }
@@ -58,5 +58,4 @@ function plugin_uninstall()
   pwg_query( $q );
 
 }
-
 ?>
