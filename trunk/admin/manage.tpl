@@ -7,7 +7,7 @@
 
 <br>
 
-<form method="post" action={$FluxBB_F_ACTION}>
+<form method="post" action="">
   <fieldset>
   	<legend>{'Register_FluxBB_Config_Title'|@translate}</legend>
     <div align="left">{'Register_FluxBB_Config_Disclaimer'|@translate}</div>
