@@ -1,0 +1,16 @@
+admin/info.tpl
+admin/manage.tpl
+admin/migration.tpl
+admin/synchro.tpl
+admin/Register_FluxBB_admin.php
+include/functions_Register_FluxBB.inc.php
+icon/index.php
+icon/arrow_switch.png
+icon/link_add.png
+icon/link_break.png
+icon/link_delete.png
+icon/link_error.png
+icon/user_add.png
+icon/user_delete.png
+icon/user_refresh.png
+icon/
