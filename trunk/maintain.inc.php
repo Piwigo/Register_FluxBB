@@ -1,14 +1,13 @@
 <?php
 
-define('Register_FluxBB_DIR' , basename(dirname(__FILE__)));
-define('Register_FluxBB_PATH' , PHPWG_PLUGINS_PATH . Register_FluxBB_DIR . '/');
-
+if(!defined("REGFLUXBB_DIR")) define('REGFLUXBB_DIR' , basename(dirname(__FILE__)));
+if(!defined("REGFLUXBB_PATH")) define('REGFLUXBB_PATH' , PHPWG_PLUGINS_PATH.REGFLUXBB_DIR.'/');
 //ini_set('error_reporting', E_ALL);
 //ini_set('display_errors', true);
 
 include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-include_once (Register_FluxBB_PATH.'include/constants.php');
-
+include_once (REGFLUXBB_PATH.'include/constants.php');
+include_once (REGFLUXBB_PATH.'include/functions.inc.php');
 
 
 function plugin_install()
@@ -37,7 +36,11 @@ PRIMARY KEY  (id_user_pwg),
 
 function plugin_activate()
 {
+  global $conf;
 
+/* Cleaning obsolete files */
+/* *********************** */
+  regfluxbb_obsolete_files();
 }
 
 function plugin_uninstall()

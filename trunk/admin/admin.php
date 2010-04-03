@@ -4,15 +4,16 @@ global $user, $lang, $conf, $template, $errors;
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
+if (!defined('REGFLUXBB_PATH')) define('REGFLUXBB_PATH' , PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
+
 //ini_set('error_reporting', E_ALL);
 //ini_set('display_errors', true);
 
 include_once (PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-include_once (Register_FluxBB_PATH.'include/constants.php');
-include_once (Register_FluxBB_PATH.'include/functions_Register_FluxBB.inc.php');
+
 $my_base_url = get_admin_plugin_menu_link(__FILE__);
-load_language('plugin.lang', Register_FluxBB_PATH);
+load_language('plugin.lang', REGFLUXBB_PATH);
 
 // +-----------------------------------------------------------------------+
 // |                            Tabssheet                                  |
@@ -41,6 +42,12 @@ $tabsheet->assign();
 
 $page['infos'] = array();
 $error = array();
+
+// +-----------------------------------------------------------------------+
+// |                      Getting plugin version                           |
+// +-----------------------------------------------------------------------+
+$plugin =  RegFluxBB_Infos(REGFLUXBB_PATH);
+$version = $plugin['version'] ;
 
 // +-----------------------------------------------------------------------+
 // |                            Functions
@@ -75,12 +82,12 @@ HAVING COUNT(*) > 1
   $result = pwg_query($query);
   
   while($row = mysql_fetch_array($result))
-    $msg_error_PWG_Dup .= '<br/>'.l10n('Register_FluxBB_Error_PWG_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
+    $msg_error_PWG_Dup .= '<br>'.l10n('Error_PWG_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
   if ($msg_error_PWG_Dup == '')
-    array_push($page['infos'], l10n('Register_FluxBB_Audit_PWG_Dup').'<br/>'.l10n('Register_FluxBB_Audit_OK'));
+    array_push($page['infos'], l10n('Audit_PWG_Dup').'<br>'.l10n('Audit_OK'));
   else
-    $msg_error_PWG_Dup = l10n('Register_FluxBB_Audit_PWG_Dup').$msg_error_PWG_Dup.'<br>'.l10n('Register_FluxBB_Advise_PWG_Dup');
+    $msg_error_PWG_Dup = l10n('Audit_PWG_Dup').$msg_error_PWG_Dup.'<br>'.l10n('Advise_PWG_Dup');
   
 
 
@@ -94,7 +101,7 @@ HAVING COUNT(*) > 1
   
   while($row = mysql_fetch_array($result))
   {
-    $msg_error_FluxBB_Dup .= '<br/>'.l10n('Register_FluxBB_Error_FluxBB_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
+    $msg_error_FluxBB_Dup .= '<br>'.l10n('Error_FluxBB_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
     $subquery = "
 SELECT id, username, email
@@ -105,7 +112,7 @@ WHERE BINARY username = BINARY '".$row['username']."'
   
     while($subrow = mysql_fetch_array($subresult))
     {
-      $msg_error_FluxBB_Dup .= '<br/>id:'.$subrow['id'].'='.stripslashes($subrow['username']).' ('.$subrow['email'].')';
+      $msg_error_FluxBB_Dup .= '<br>id:'.$subrow['id'].'='.stripslashes($subrow['username']).' ('.$subrow['email'].')';
   
       if ( !is_adviser() )
       {
@@ -116,19 +123,19 @@ WHERE BINARY username = BINARY '".$row['username']."'
           'id' => $subrow['id'],
         ));
         
-        $msg_error_FluxBB_Dup .= '" title="'.l10n('Register_FluxBB_Del_User').stripslashes($subrow['username']).'"';
+        $msg_error_FluxBB_Dup .= '" title="'.l10n('Del_User').stripslashes($subrow['username']).'"';
         
         $msg_error_FluxBB_Dup .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
         
-        $msg_error_FluxBB_Dup .= '><img src="'.Register_FluxBB_PATH.'/icon/user_delete.png" alt="'.l10n('Register_FluxBB_Del_User').$subrow['username'].'" /></a>';
+        $msg_error_FluxBB_Dup .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_delete.png" alt="'.l10n('Del_User').$subrow['username'].'" /></a>';
       }
     }
   }
 
   if ($msg_error_FluxBB_Dup == '')
-    array_push($page['infos'], l10n('Register_FluxBB_Audit_FluxBB_Dup').'<br/>'.l10n('Register_FluxBB_Audit_OK'));
+    array_push($page['infos'], l10n('Audit_FluxBB_Dup').'<br>'.l10n('Audit_OK'));
   else
-    $msg_error_FluxBB_Dup = l10n('Register_FluxBB_Audit_FluxBB_Dup').$msg_error_FluxBB_Dup.'<br>'.l10n('Register_FluxBB_Advise_FluxBB_Dup');
+    $msg_error_FluxBB_Dup = l10n('Audit_FluxBB_Dup').$msg_error_FluxBB_Dup.'<br>'.l10n('Advise_FluxBB_Dup');
   
 
 
@@ -151,7 +158,7 @@ AND pwg.mail_address = bb.email
   
   while($row = mysql_fetch_array($result))
   {
-    $msg_error_Link_Break .= '<br/>'.l10n('Register_FluxBB_Error_Link_Break').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
+    $msg_error_Link_Break .= '<br>'.l10n('Error_Link_Break').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
 
     if ( !is_adviser() )
     {
@@ -163,18 +170,18 @@ AND pwg.mail_address = bb.email
         'bb_id' => $row['bb_id'],
       ));
       
-      $msg_error_Link_Break .= '" title="'.l10n('Register_FluxBB_New_Link').stripslashes($row['pwg_user']).'"';
+      $msg_error_Link_Break .= '" title="'.l10n('New_Link').stripslashes($row['pwg_user']).'"';
       
       $msg_error_Link_Break .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
-      $msg_error_Link_Break .= '><img src="'.Register_FluxBB_PATH.'/icon/link_break.png" alt="'.l10n('Register_FluxBB_New_Link').stripslashes($row['pwg_user']).'" /></a>';
+      $msg_error_Link_Break .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/link_break.png" alt="'.l10n('New_Link').stripslashes($row['pwg_user']).'" /></a>';
     }
   }
 
   if ($msg_error_Link_Break == '')
-    array_push($page['infos'], l10n('Register_FluxBB_Audit_Link_Break').'<br/>'.l10n('Register_FluxBB_Audit_OK'));
+    array_push($page['infos'], l10n('Audit_Link_Break').'<br>'.l10n('Audit_OK'));
   else
-    $msg_error_Link_Break = l10n('Register_FluxBB_Audit_Link_Break').$msg_error_Link_Break;
+    $msg_error_Link_Break = l10n('Audit_Link_Break').$msg_error_Link_Break;
     
 
   
@@ -190,7 +197,7 @@ WHERE pwg.username <> bb.username
   
   while($row = mysql_fetch_array($result))
   {
-    $msg_error_Link_Bad .= '<br/>'.l10n('Register_FluxBB_Error_Link_Del').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')'.' -- '.stripslashes($row['bb_user']).' ('.$row['bb_mail'].')';
+    $msg_error_Link_Bad .= '<br>'.l10n('Error_Link_Del').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')'.' -- '.stripslashes($row['bb_user']).' ('.$row['bb_mail'].')';
 
     if ( !is_adviser() )
     {
@@ -202,11 +209,11 @@ WHERE pwg.username <> bb.username
         'bb_id'  => $row['bb_id'],
       ));
       
-      $msg_error_Link_Bad .= '" title="'.l10n('Register_FluxBB_Link_Del').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'"';
+      $msg_error_Link_Bad .= '" title="'.l10n('Link_Del').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'"';
       
       $msg_error_Link_Bad .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
       
-      $msg_error_Link_Bad .= '><img src="'.Register_FluxBB_PATH.'/icon/link_delete.png" alt="'.l10n('Register_FluxBB_Link_Del').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'" /></a>';
+      $msg_error_Link_Bad .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/link_delete.png" alt="'.l10n('Link_Del').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'" /></a>';
 
       $msg_error_Link_Bad .= ' -- <a href="';
 
@@ -215,11 +222,11 @@ WHERE pwg.username <> bb.username
         'username' => stripslashes($row['pwg_user']),
       ));
       
-      $msg_error_Link_Bad .= '" title="'.l10n('Register_FluxBB_Sync_User').stripslashes($row['pwg_user']).' --> '.stripslashes($row['bb_user']).'"';
+      $msg_error_Link_Bad .= '" title="'.l10n('Sync_User').stripslashes($row['pwg_user']).' --> '.stripslashes($row['bb_user']).'"';
       
       $msg_error_Link_Bad .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
       
-      $msg_error_Link_Bad .= '><img src="'.Register_FluxBB_PATH.'/icon/arrow_switch.png" alt="'.l10n('Register_FluxBB_Sync_User').stripslashes($row['pwg_user']).' --> '.stripslashes($row['bb_user']).'" /></a>';
+      $msg_error_Link_Bad .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/arrow_switch.png" alt="'.l10n('Sync_User').stripslashes($row['pwg_user']).' --> '.stripslashes($row['bb_user']).'" /></a>';
     }
   }
 
@@ -241,7 +248,7 @@ OR id_user_pwg NOT IN (
 
   if (!empty($Compteur) and $Compteur['nbr_dead'] > 0)
   { 
-    $msg_error_Link_Bad .= '<br/>'.l10n('Register_FluxBB_Error_Link_Dead').$Compteur['nbr_dead'];
+    $msg_error_Link_Bad .= '<br>'.l10n('Error_Link_Dead').$Compteur['nbr_dead'];
 
     if ( !is_adviser() )
     {
@@ -251,11 +258,11 @@ OR id_user_pwg NOT IN (
         'action'   => 'link_dead',
       ));
       
-      $msg_error_Link_Bad .= '" title="'.l10n('Register_FluxBB_Link_Dead').$Compteur['nbr_dead'].'"';
+      $msg_error_Link_Bad .= '" title="'.l10n('Link_Dead').$Compteur['nbr_dead'].'"';
       
       $msg_error_Link_Bad .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
       
-      $msg_error_Link_Bad .= '><img src="'.Register_FluxBB_PATH.'/icon/link_delete.png" alt="'.l10n('Register_FluxBB_Link_Dead').$Compteur['nbr_dead'].'" /></a>';
+      $msg_error_Link_Bad .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/link_delete.png" alt="'.l10n('Link_Dead').$Compteur['nbr_dead'].'" /></a>';
     }
   }
 
@@ -272,7 +279,7 @@ HAVING COUNT(*) > 1
   
   while($row = mysql_fetch_array($result))
   {
-    $msg_error_Link_Bad .= '<br/>'.l10n('Register_FluxBB_Error_Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
+    $msg_error_Link_Bad .= '<br>'.l10n('Error_Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
 
     if ( !is_adviser() )
     {
@@ -284,18 +291,18 @@ HAVING COUNT(*) > 1
         'bb_id' => $row['bb_id'],
       ));
       
-      $msg_error_Link_Bad .= '" title="'.l10n('Register_FluxBB_Link_Dup').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'"';
+      $msg_error_Link_Bad .= '" title="'.l10n('Link_Dup').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'"';
       
       $msg_error_Link_Bad .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
       
-      $msg_error_Link_Bad .= '><img src="'.Register_FluxBB_PATH.'/icon/link_error.png" alt="'.l10n('Register_FluxBB_Link_Dup').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'" /></a>';
+      $msg_error_Link_Bad .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/link_error.png" alt="'.l10n('Link_Dup').stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).'" /></a>';
     }      
   }
 
   if ($msg_error_Link_Bad == '')
-    array_push($page['infos'], l10n('Register_FluxBB_Audit_Link_Bad').'<br/>'.l10n('Register_FluxBB_Audit_OK'));
+    array_push($page['infos'], l10n('Audit_Link_Bad').'<br>'.l10n('Audit_OK'));
   else
-    $msg_error_Link_Bad = l10n('Register_FluxBB_Audit_Link_Bad').$msg_error_Link_Bad;
+    $msg_error_Link_Bad = l10n('Audit_Link_Bad').$msg_error_Link_Bad;
     
 
   
@@ -314,7 +321,7 @@ ORDER BY LOWER(pwg.username)
   {
     if ( ($row['pwg_pwd'] != $row['bb_pwd']) or ($row['pwg_eml'] != $row['bb_eml']) )
     {
-      $msg_error_Synchro .= '<br/>'.l10n('Register_FluxBB_Error_Synchro').stripslashes($row['username']);
+      $msg_error_Synchro .= '<br>'.l10n('Error_Synchro').stripslashes($row['username']);
 
       if ( !is_adviser() )
       {
@@ -325,30 +332,30 @@ ORDER BY LOWER(pwg.username)
           'username' => stripslashes($row['username']),
         ));
         
-        $msg_error_Synchro .= '" title="'.l10n('Register_FluxBB_Sync_User').stripslashes($row['username']).'"';
+        $msg_error_Synchro .= '" title="'.l10n('Sync_User').stripslashes($row['username']).'"';
         
         $msg_error_Synchro .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
-        $msg_error_Synchro .= '><img src="'.Register_FluxBB_PATH.'/icon/user_refresh.png" alt="'.l10n('Register_FluxBB_Sync_User').stripslashes($row['username']).'" /></a>';
+        $msg_error_Synchro .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_refresh.png" alt="'.l10n('Sync_User').stripslashes($row['username']).'" /></a>';
       }
       
       if ($row['pwg_pwd'] != $row['bb_pwd'])
-        $msg_error_Synchro .= '<br>'.l10n('Register_FluxBB_Error_Synchro_Pswd');
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Pswd');
       
       if ($row['pwg_eml'] != $row['bb_eml'])
-        $msg_error_Synchro .= '<br>'.l10n('Register_FluxBB_Error_Synchro_Mail').'<br/>-- PWG = '.$row['pwg_eml'].'<br/>-- FluxBB = '.$row['bb_eml'];
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Mail').'<br>-- PWG = '.$row['pwg_eml'].'<br>-- FluxBB = '.$row['bb_eml'];
     }
     else if ($conf_Register_FluxBB[5] == 'true')
-      $msg_ok_Synchro .= '<br/> - '.stripslashes($row['username']).' ('.$row['pwg_eml'].')'.l10n('Register_FluxBB_Audit_Synchro_OK');
+      $msg_ok_Synchro .= '<br> - '.stripslashes($row['username']).' ('.$row['pwg_eml'].')'.l10n('Audit_Synchro_OK');
   }
 
   if ($msg_error_Synchro <> '')
-    $msg_error_Synchro = l10n('Register_FluxBB_Audit_Synchro').$msg_error_Synchro;
+    $msg_error_Synchro = l10n('Audit_Synchro').$msg_error_Synchro;
     
   if ($msg_ok_Synchro <> '')
     if ($msg_error_Synchro <> '')
-      array_push($page['infos'], l10n('Register_FluxBB_Audit_Synchro').$msg_ok_Synchro.'<br/><br/>');
+      array_push($page['infos'], l10n('Audit_Synchro').$msg_ok_Synchro.'<br><br>');
     else
-      array_push($page['infos'], l10n('Register_FluxBB_Audit_Synchro').$msg_ok_Synchro.'<br/><br/>'.l10n('Register_FluxBB_Audit_OK'));
+      array_push($page['infos'], l10n('Audit_Synchro').$msg_ok_Synchro.'<br><br>'.l10n('Audit_OK'));
 
 
   $query = "
@@ -367,7 +374,7 @@ ORDER BY LOWER(username)
 
   while($row = mysql_fetch_array($result))
   {
-    $msg_error_PWG2FluxBB .= '<br/>'.l10n('Register_FluxBB_Error_PWG2FluxBB').stripslashes($row['username']).' ('.$row['mail_address'].')';
+    $msg_error_PWG2FluxBB .= '<br>'.l10n('Error_PWG2FluxBB').stripslashes($row['username']).' ('.$row['mail_address'].')';
 
     if ( !is_adviser() )
     {
@@ -378,18 +385,18 @@ ORDER BY LOWER(username)
         'username' => stripslashes($row['username']),
       ));
       
-      $msg_error_PWG2FluxBB .= '" title="'.l10n('Register_FluxBB_Add_User').stripslashes($row['username']).'" ';
+      $msg_error_PWG2FluxBB .= '" title="'.l10n('Add_User').stripslashes($row['username']).'" ';
       
       $msg_error_PWG2FluxBB .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
-      $msg_error_PWG2FluxBB .= '><img src="'.Register_FluxBB_PATH.'/icon/user_add.png" alt="'.l10n('Register_FluxBB_Add_User').stripslashes($row['username']).'" /></a>';
+      $msg_error_PWG2FluxBB .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_add.png" alt="'.l10n('Add_User').stripslashes($row['username']).'" /></a>';
     }
   }
 
   if ($msg_error_PWG2FluxBB == '')
-    array_push($page['infos'], l10n('Register_FluxBB_Audit_PWG2FluxBB').'<br/>'.l10n('Register_FluxBB_Audit_OK'));
+    array_push($page['infos'], l10n('Audit_PWG2FluxBB').'<br>'.l10n('Audit_OK'));
   else
-    $msg_error_PWG2FluxBB = l10n('Register_FluxBB_Audit_PWG2FluxBB').$msg_error_PWG2FluxBB;
+    $msg_error_PWG2FluxBB = l10n('Audit_PWG2FluxBB').$msg_error_PWG2FluxBB;
 
   
 
@@ -409,7 +416,7 @@ ORDER BY LOWER(username)
 
   while($row = mysql_fetch_array($result))
   {
-    $msg_error_FluxBB2PWG .= '<br/>'.l10n('Register_FluxBB_Error_FluxBB2PWG').stripslashes($row['username']).' ('.$row['email'].')';
+    $msg_error_FluxBB2PWG .= '<br>'.l10n('Error_FluxBB2PWG').stripslashes($row['username']).' ('.$row['email'].')';
 
     if ( !is_adviser() )
     {
@@ -420,38 +427,38 @@ ORDER BY LOWER(username)
         'id' => $row['id'],
       ));
       
-      $msg_error_FluxBB2PWG .= '" title="'.l10n('Register_FluxBB_Del_User').stripslashes($row['username']).'"';
+      $msg_error_FluxBB2PWG .= '" title="'.l10n('Del_User').stripslashes($row['username']).'"';
       
       $msg_error_FluxBB2PWG .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
-      $msg_error_FluxBB2PWG .= '><img src="'.Register_FluxBB_PATH.'/icon/user_delete.png" alt="'.l10n('Register_FluxBB_Del_User').stripslashes($row['username']).'" /></a>';
+      $msg_error_FluxBB2PWG .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_delete.png" alt="'.l10n('Del_User').stripslashes($row['username']).'" /></a>';
     }
   }
 
   if ($msg_error_FluxBB2PWG == '')
-    array_push($page['infos'], l10n('Register_FluxBB_Audit_FluxBB2PWG').'<br/>'.l10n('Register_FluxBB_Audit_OK'));
+    array_push($page['infos'], l10n('Audit_FluxBB2PWG').'<br>'.l10n('Audit_OK'));
   else
-    $msg_error_FluxBB2PWG = l10n('Register_FluxBB_Audit_FluxBB2PWG').$msg_error_FluxBB2PWG;
+    $msg_error_FluxBB2PWG = l10n('Audit_FluxBB2PWG').$msg_error_FluxBB2PWG;
 
 
 
   if ($msg_error_PWG_Dup <> '')
-    $errors[] = $msg_error_PWG_Dup . ( ($msg_error_FluxBB_Dup == '' and $msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+    $errors[] = $msg_error_PWG_Dup . ( ($msg_error_FluxBB_Dup == '' and $msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
   
   if ($msg_error_FluxBB_Dup <> '')
-    $errors[] = $msg_error_FluxBB_Dup . ( ($msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+    $errors[] = $msg_error_FluxBB_Dup . ( ($msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
   if ($msg_error_Link_Break <> '')
-    $errors[] = $msg_error_Link_Break . ( ($msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+    $errors[] = $msg_error_Link_Break . ( ($msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
   if ($msg_error_Link_Bad <> '')
-    $errors[] = $msg_error_Link_Bad . ( ($msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+    $errors[] = $msg_error_Link_Bad . ( ($msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
   if ($msg_error_Synchro <> '')
-    $errors[] = $msg_error_Synchro . ( ($msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+    $errors[] = $msg_error_Synchro . ( ($msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
   if ($msg_error_PWG2FluxBB <> '')
-    $errors[] = $msg_error_PWG2FluxBB . ( ($msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+    $errors[] = $msg_error_PWG2FluxBB . ( ($msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
   if ($msg_error_FluxBB2PWG <> '')
     $errors[] = $msg_error_FluxBB2PWG;
@@ -549,8 +556,15 @@ else if ( isset($_GET['action']) and ($_GET['action']=='del_user') and isset($_G
 switch ($page['tab'])
 {
   case 'info':
+
+  $template->assign(
+    array(
+      'REGFLUXBB_PATH'    => REGFLUXBB_PATH,
+      'REGFLUXBB_VERSION' => $version,
+    )
+  );
   
-  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/info.tpl');
+  $template->set_filename('plugin_admin_content', dirname(__FILE__).'/template/info.tpl');
   $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
 	break;
@@ -570,26 +584,29 @@ LIMIT 1
 
     pwg_query($query);
 
-    array_push($page['infos'], l10n('Register_FluxBB_save_config'));
+    array_push($page['infos'], l10n('save_config'));
   }
 
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
 
-  $template->assign(array(
-    'FluxBB_PREFIX'           => $conf_Register_FluxBB[0],
-    'FluxBB_ADMIN'            => stripslashes($conf_Register_FluxBB[1]),
-    'FluxBB_GUEST'            => stripslashes($conf_Register_FluxBB[2]),
-    'FluxBB_DEL_PT_TRUE'      => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'true') ? 'checked="checked"' : '' ,
-    'FluxBB_DEL_PT_FALSE'     => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'false') ? 'checked="checked"' : '' ,
-    'FluxBB_CONFIRM_TRUE'     => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'true') ? 'checked="checked"' : '' ,
-    'FluxBB_CONFIRM_FALSE'    => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'false') ? 'checked="checked"' : '' ,
-    'FluxBB_DETAILS_TRUE'     => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'true') ? 'checked="checked"' : '' ,
-    'FluxBB_DETAILS_FALSE'    => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'false') ? 'checked="checked"' : '' ,
+  $template->assign(
+    array
+    (
+      'REGFLUXBB_PATH'       => REGFLUXBB_PATH,
+      'REGFLUXBB_VERSION'    => $version,
+      'FluxBB_PREFIX'        => $conf_Register_FluxBB[0],
+      'FluxBB_ADMIN'         => stripslashes($conf_Register_FluxBB[1]),
+      'FluxBB_GUEST'         => stripslashes($conf_Register_FluxBB[2]),
+      'FluxBB_DEL_PT_TRUE'   => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'true') ? 'checked="checked"' : '' ,
+      'FluxBB_DEL_PT_FALSE'  => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'false') ? 'checked="checked"' : '' ,
+      'FluxBB_CONFIRM_TRUE'  => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'true') ? 'checked="checked"' : '' ,
+      'FluxBB_CONFIRM_FALSE' => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'false') ? 'checked="checked"' : '' ,
+      'FluxBB_DETAILS_TRUE'  => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'true') ? 'checked="checked"' : '' ,
+      'FluxBB_DETAILS_FALSE' => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'false') ? 'checked="checked"' : '' ,
     )
   );
 
-
-  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/manage.tpl');
+  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/template/manage.tpl');
   $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
 	break;
@@ -598,9 +615,9 @@ LIMIT 1
 	
   if ( isset($_POST['Migration']) and !is_adviser() )
   {
-    array_push($page['infos'], l10n('Register_FluxBB_Mig_Start').'<br/><br/>');
+    array_push($page['infos'], l10n('Mig_Start').'<br><br>');
   
-    array_push($page['infos'], l10n('Register_FluxBB_Mig_Del_Link').'<br/><br/>');
+    array_push($page['infos'], l10n('Mig_Del_Link').'<br><br>');
 
     $query = "TRUNCATE ".Register_FluxBB_ID_TABLE.";";
     $result = pwg_query($query);
@@ -619,13 +636,13 @@ FROM ".FluxBB_USERS_TABLE."
     {
       if((stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[2])) and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[1])))
       {
-        $msg_Mig_Del_AllUsers .= '<br/> - '.l10n('Register_FluxBB_Mig_Del_User').stripslashes($row['username']);
+        $msg_Mig_Del_AllUsers .= '<br> - '.l10n('Mig_Del_User').stripslashes($row['username']);
         
         FluxBB_Deluser($row['id'], false);
       }
     }
 
-    array_push($page['infos'], l10n('Register_FluxBB_Mig_Del_AllUsers').$msg_Mig_Del_AllUsers.'<br/><br/>');
+    array_push($page['infos'], l10n('Mig_Del_AllUsers').$msg_Mig_Del_AllUsers.'<br><br>');
 
 
     $query = "
@@ -644,13 +661,13 @@ FROM ".USERS_TABLE."
     {
       if((stripslashes($row['username']) != 'guest') and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[1])))
       {
-        $msg_Mig_Add_AllUsers .= '<br/> - '.l10n('Register_FluxBB_Mig_Add_User').stripslashes($row['username']);
+        $msg_Mig_Add_AllUsers .= '<br> - '.l10n('Mig_Add_User').stripslashes($row['username']);
 
         FluxBB_Adduser($row['id'], stripslashes($row['username']), $row['password'], $row['mail_address']);
       }
     }
 
-    array_push($page['infos'], l10n('Register_FluxBB_Mig_Add_AllUsers').$msg_Mig_Add_AllUsers.'<br/><br/>');
+    array_push($page['infos'], l10n('Mig_Add_AllUsers').$msg_Mig_Add_AllUsers.'<br><br>');
 
 
     $query = "
@@ -663,19 +680,27 @@ WHERE username = '".$conf_Register_FluxBB[1]."'
 
     if (!empty($row))
     {
-      array_push($page['infos'], l10n('Register_FluxBB_Sync_User').stripslashes($row['username']).'<br/><br/>');
+      array_push($page['infos'], l10n('Sync_User').stripslashes($row['username']).'<br><br>');
       
       FluxBB_Updateuser($row['id'], stripslashes($row['username']), $row['password'], $row['mail_address']);
     }
 
-    array_push($page['infos'], l10n('Register_FluxBB_Mig_End'));
+    array_push($page['infos'], l10n('Mig_End'));
   }
   else if ( isset($_POST['Audit']))
   {
     Audit_PWG_FluxBB();
   }
 
-  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/migration.tpl');
+  $template->assign(
+    array
+    (
+      'REGFLUXBB_PATH'    => REGFLUXBB_PATH,
+      'REGFLUXBB_VERSION' => $version,
+    )
+  );
+
+  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/template/migration.tpl');
   $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
 	break;
@@ -711,10 +736,10 @@ HAVING COUNT(*) > 1
     $result = pwg_query($query);
   
     while($row = mysql_fetch_array($result))
-      $msg_error_PWG_Dup .= '<br/>'.l10n('Register_FluxBB_Error_PWG_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
+      $msg_error_PWG_Dup .= '<br>'.l10n('Error_PWG_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
       if ($msg_error_PWG_Dup <> '')
-        $msg_error_PWG_Dup = l10n('Register_FluxBB_Audit_PWG_Dup').$msg_error_PWG_Dup.'<br>'.l10n('Register_FluxBB_Advise_PWG_Dup');
+        $msg_error_PWG_Dup = l10n('Audit_PWG_Dup').$msg_error_PWG_Dup.'<br>'.l10n('Advise_PWG_Dup');
   
 
     $query = "
@@ -728,7 +753,7 @@ HAVING COUNT(*) > 1
   
     while($row = mysql_fetch_array($result))
     {
-      $msg_error_FluxBB_Dup .= '<br/>'.l10n('Register_FluxBB_Error_FluxBB_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
+      $msg_error_FluxBB_Dup .= '<br>'.l10n('Error_FluxBB_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
       $subquery = "
 SELECT id, username, email
@@ -740,7 +765,7 @@ WHERE BINARY username = BINARY '".$row['username']."'
   
       while($subrow = mysql_fetch_array($subresult))
       {
-        $msg_error_FluxBB_Dup .= '<br/>id:'.$subrow['id'].'='.stripslashes($subrow['username']).' ('.$subrow['email'].')';
+        $msg_error_FluxBB_Dup .= '<br>id:'.$subrow['id'].'='.stripslashes($subrow['username']).' ('.$subrow['email'].')';
   
         if ( !is_adviser() )
         {
@@ -751,17 +776,17 @@ WHERE BINARY username = BINARY '".$row['username']."'
             'id' => $subrow['id'],
           ));
 
-          $msg_error_FluxBB_Dup .= '" title="'.l10n('Register_FluxBB_Del_User').stripslashes($subrow['username']).'"';
+          $msg_error_FluxBB_Dup .= '" title="'.l10n('Del_User').stripslashes($subrow['username']).'"';
 
           $msg_error_FluxBB_Dup .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
-          $msg_error_FluxBB_Dup .= '><img src="'.Register_FluxBB_PATH.'/icon/user_delete.png" alt="'.l10n('Register_FluxBB_Del_User').stripslashes($subrow['username']).'" /></a>';
+          $msg_error_FluxBB_Dup .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_delete.png" alt="'.l10n('Del_User').stripslashes($subrow['username']).'" /></a>';
         }
       }
     }
 
     if ($msg_error_FluxBB_Dup <> '')
-      $msg_error_FluxBB_Dup = l10n('Register_FluxBB_Sync_Check_Dup').$msg_error_FluxBB_Dup.'<br>'.l10n('Register_FluxBB_Advise_FluxBB_Dup');
+      $msg_error_FluxBB_Dup = l10n('Sync_Check_Dup').$msg_error_FluxBB_Dup.'<br>'.l10n('Advise_FluxBB_Dup');
   
 
     if ($msg_error_FluxBB_Dup == '' and $msg_error_PWG_Dup == '')
@@ -785,15 +810,15 @@ AND pwg.mail_address = bb.email
     
       while($row = mysql_fetch_array($result))
       {
-        $msg_error_Link_Break .= '<br/>'.l10n('Register_FluxBB_New_Link').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
+        $msg_error_Link_Break .= '<br>'.l10n('New_Link').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
   
         FluxBB_Linkuser($row['pwg_id'], $row['bb_id']);
       }
   
       if ($msg_error_Link_Break == '')
-        array_push($page['infos'], l10n('Register_FluxBB_Sync_Link_Break').'<br/>'.l10n('Register_FluxBB_Sync_OK'));
+        array_push($page['infos'], l10n('Sync_Link_Break').'<br>'.l10n('Sync_OK'));
       else
-        $msg_error_Link_Break = l10n('Register_FluxBB_Sync_Link_Break').$msg_error_Link_Break;
+        $msg_error_Link_Break = l10n('Sync_Link_Break').$msg_error_Link_Break;
   
     
       $query = "
@@ -808,7 +833,7 @@ WHERE BINARY pwg.username <> BINARY bb.username
     
       while($row = mysql_fetch_array($result))
       {
-        $msg_error_Link_Bad .= '<br/>'.l10n('Register_FluxBB_Link_Del').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')'.' -- '.stripslashes($row['bb_user']).' ('.$row['bb_mail'].')';
+        $msg_error_Link_Bad .= '<br>'.l10n('Link_Del').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')'.' -- '.stripslashes($row['bb_user']).' ('.$row['bb_mail'].')';
 
         $subquery = "
 DELETE FROM ".Register_FluxBB_ID_TABLE."
@@ -837,7 +862,7 @@ OR id_user_pwg NOT IN (
     
       if ( !empty($Compteur) and $Compteur['nbr_dead'] > 0)
       { 
-        $msg_error_Link_Bad .= '<br/>'.l10n('Register_FluxBB_Link_Dead').$Compteur['nbr_dead'];
+        $msg_error_Link_Bad .= '<br>'.l10n('Link_Dead').$Compteur['nbr_dead'];
     
         $query = "
 DELETE FROM ".Register_FluxBB_ID_TABLE."
@@ -868,15 +893,15 @@ HAVING COUNT(*) > 1
     
       while($row = mysql_fetch_array($result))
       {
-        $msg_error_Link_Bad .= '<br/>'.l10n('Register_FluxBB_Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
+        $msg_error_Link_Bad .= '<br>'.l10n('Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
   
         FluxBB_Linkuser($row['pwg_id'], $row['bb_id']);
       }
 
       if ($msg_error_Link_Bad == '')
-        array_push($page['infos'], l10n('Register_FluxBB_Sync_Link_Bad').'<br/>'.l10n('Register_FluxBB_Sync_OK'));
+        array_push($page['infos'], l10n('Sync_Link_Bad').'<br>'.l10n('Sync_OK'));
       else
-        $msg_error_Link_Bad = l10n('Register_FluxBB_Sync_Link_Bad').$msg_error_Link_Bad;
+        $msg_error_Link_Bad = l10n('Sync_Link_Bad').$msg_error_Link_Bad;
   
     
       $query = "
@@ -894,7 +919,7 @@ ORDER BY LOWER(pwg.username)
       {
         if ( ($row['pwg_pwd'] != $row['bb_pwd']) or ($row['pwg_eml'] != $row['bb_eml']) )
         {
-          $msg_error_Synchro .= '<br/>'.l10n('Register_FluxBB_Sync_User').stripslashes($row['username']);
+          $msg_error_Synchro .= '<br>'.l10n('Sync_User').stripslashes($row['username']);
   
           $query = "
 SELECT id, username, password, mail_address 
@@ -910,9 +935,9 @@ WHERE BINARY id = '".$row['pwg_id']."'
       }
   
       if ($msg_error_Synchro == '')
-        array_push($page['infos'], l10n('Register_FluxBB_Sync_DataUser').'<br/>'.l10n('Register_FluxBB_Sync_OK'));
+        array_push($page['infos'], l10n('Sync_DataUser').'<br>'.l10n('Sync_OK'));
       else
-        $msg_error_Synchro = l10n('Register_FluxBB_Sync_DataUser').$msg_error_Synchro;
+        $msg_error_Synchro = l10n('Sync_DataUser').$msg_error_Synchro;
 
   
       $query = "
@@ -931,7 +956,7 @@ ORDER BY LOWER(username)
   
       while($row = mysql_fetch_array($result))
       {
-        $msg_error_PWG2FluxBB .= '<br/>'.l10n('Register_FluxBB_Add_User').stripslashes($row['username']).' ('.$row['mail_address'].')';
+        $msg_error_PWG2FluxBB .= '<br>'.l10n('Add_User').stripslashes($row['username']).' ('.$row['mail_address'].')';
 
         $query = "
 SELECT id, username, password, mail_address 
@@ -947,9 +972,9 @@ LIMIT 1
       }
   
       if ($msg_error_PWG2FluxBB == '')
-        array_push($page['infos'], l10n('Register_FluxBB_Sync_PWG2FluxBB').'<br/>'.l10n('Register_FluxBB_Sync_OK'));
+        array_push($page['infos'], l10n('Sync_PWG2FluxBB').'<br>'.l10n('Sync_OK'));
       else
-        $msg_error_PWG2FluxBB = l10n('Register_FluxBB_Sync_PWG2FluxBB').$msg_error_PWG2FluxBB;
+        $msg_error_PWG2FluxBB = l10n('Sync_PWG2FluxBB').$msg_error_PWG2FluxBB;
     
   
       $query = "
@@ -968,7 +993,7 @@ ORDER BY LOWER(username)
   
       while($row = mysql_fetch_array($result))
       {
-        $msg_error_FluxBB2PWG .= '<br/>'.l10n('Register_FluxBB_Error_FluxBB2PWG').stripslashes($row['username']).' ('.$row['email'].')';
+        $msg_error_FluxBB2PWG .= '<br>'.l10n('Error_FluxBB2PWG').stripslashes($row['username']).' ('.$row['email'].')';
   
         if ( !is_adviser() )
         {
@@ -979,40 +1004,40 @@ ORDER BY LOWER(username)
             'id' => $row['id'],
           ));
 
-          $msg_error_FluxBB2PWG .= '" title="'.l10n('Register_FluxBB_Del_User').stripslashes($row['username']).'"';
+          $msg_error_FluxBB2PWG .= '" title="'.l10n('Del_User').stripslashes($row['username']).'"';
 
           $msg_error_FluxBB2PWG .= $conf_Register_FluxBB[4]=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
-          $msg_error_FluxBB2PWG .= '><img src="'.Register_FluxBB_PATH.'/icon/user_delete.png" alt="'.l10n('Register_FluxBB_Del_User').stripslashes($row['username']).'" /></a>';
+          $msg_error_FluxBB2PWG .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_delete.png" alt="'.l10n('Del_User').stripslashes($row['username']).'" /></a>';
         }
       }
   
       if ($msg_error_FluxBB2PWG == '')
-        array_push($page['infos'], l10n('Register_FluxBB_Sync_FluxBB2PWG').'<br/>'.l10n('Register_FluxBB_Sync_OK'));
+        array_push($page['infos'], l10n('Sync_FluxBB2PWG').'<br>'.l10n('Sync_OK'));
       else
-        $msg_error_FluxBB2PWG = l10n('Register_FluxBB_Sync_FluxBB2PWG').$msg_error_FluxBB2PWG;
+        $msg_error_FluxBB2PWG = l10n('Sync_FluxBB2PWG').$msg_error_FluxBB2PWG;
     }
     else
-      $errors[] = l10n('Register_FluxBB_Advise_Check_Dup');
+      $errors[] = l10n('Advise_Check_Dup');
 
 
     if ($msg_error_PWG_Dup <> '')
-      $errors[] = $msg_error_PWG_Dup . ( ($msg_error_FluxBB_Dup == '' and $msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+      $errors[] = $msg_error_PWG_Dup . ( ($msg_error_FluxBB_Dup == '' and $msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
   
     if ($msg_error_FluxBB_Dup <> '')
-      $errors[] = $msg_error_FluxBB_Dup . ( ($msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+      $errors[] = $msg_error_FluxBB_Dup . ( ($msg_error_Link_Break == '' and $msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
     if ($msg_error_Link_Break <> '')
-      $errors[] = $msg_error_Link_Break . ( ($msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+      $errors[] = $msg_error_Link_Break . ( ($msg_error_Link_Bad == '' and $msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
     if ($msg_error_Link_Bad <> '')
-      $errors[] = $msg_error_Link_Bad . ( ($msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+      $errors[] = $msg_error_Link_Bad . ( ($msg_error_Synchro == '' and $msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
     if ($msg_error_Synchro <> '')
-      $errors[] = $msg_error_Synchro . ( ($msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+      $errors[] = $msg_error_Synchro . ( ($msg_error_PWG2FluxBB == '' and $msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
     if ($msg_error_PWG2FluxBB <> '')
-      $errors[] = $msg_error_PWG2FluxBB . ( ($msg_error_FluxBB2PWG == '') ? '' : '<br/><br/>' );
+      $errors[] = $msg_error_PWG2FluxBB . ( ($msg_error_FluxBB2PWG == '') ? '' : '<br><br>' );
 
     if ($msg_error_FluxBB2PWG <> '')
       $errors[] = $msg_error_FluxBB2PWG;
@@ -1022,7 +1047,15 @@ ORDER BY LOWER(username)
     Audit_PWG_FluxBB();
   }
 
-  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/synchro.tpl');
+  $template->assign(
+    array
+    (
+      'REGFLUXBB_PATH'    => REGFLUXBB_PATH,
+      'REGFLUXBB_VERSION' => $version,
+    )
+  );
+
+  $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/template/synchro.tpl');
   $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');	
 
 	break;

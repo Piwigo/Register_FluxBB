@@ -1,10 +1,10 @@
 <?php
 
+  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
+  include_once (REGFLUXBB_PATH.'include/constants.php');
+
 function FluxBB_Linkuser($pwg_id, $bb_id)
 {
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (Register_FluxBB_PATH.'include/constants.php');
-
   $query = "
 SELECT pwg.id as pwg_id, bb.id as bb_id
 FROM ".USERS_TABLE." pwg, ".FluxBB_USERS_TABLE." bb
@@ -39,9 +39,6 @@ VALUES (".$pwg_id.", ".$bb_id.")
 
 function FluxBB_Unlinkuser($bb_id)
 {
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (Register_FluxBB_PATH.'include/constants.php');
-
   $query = "
 DELETE FROM ".Register_FluxBB_ID_TABLE."
 WHERE id_user_FluxBB = ".$bb_id."
@@ -54,9 +51,6 @@ WHERE id_user_FluxBB = ".$bb_id."
 
 function FluxBB_Adduser($pwg_id, $login, $password, $adresse_mail)
 {
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (Register_FluxBB_PATH.'include/constants.php');
-
   global $conf;
 
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
@@ -134,9 +128,6 @@ VALUES(
 
 function FluxBB_Searchuser($id_user_pwg)
 {
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (Register_FluxBB_PATH.'include/constants.php');
-
   $query = "
 SELECT id_user_FluxBB, id_user_pwg FROM ".Register_FluxBB_ID_TABLE."
 WHERE id_user_pwg = ".$id_user_pwg."
@@ -155,9 +146,6 @@ LIMIT 1
 
 function FluxBB_Deluser($id_user_FluxBB, $SuppTopicsPosts)
 {
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (Register_FluxBB_PATH.'include/constants.php');
-
   global $conf;
 
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
@@ -213,8 +201,6 @@ WHERE id = ".$id_user_FluxBB."
 
 function FluxBB_Updateuser($pwg_id, $username, $password, $adresse_mail)
 {
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (Register_FluxBB_PATH.'include/constants.php');
   include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
   $query = "
@@ -258,6 +244,69 @@ WHERE id = ".$row['FluxBB_id']."
       $result = pwg_query($query);
       
       FluxBB_Linkuser($pwg_id, $row['FluxBB_id']);
+    }
+  }
+}
+
+
+function RegFluxBB_Infos($dir)
+{
+  $path = $dir;
+
+  $plg_data = implode( '', file($path.'main.inc.php') );
+  if ( preg_match("|Plugin Name: (.*)|", $plg_data, $val) )
+  {
+    $plugin['name'] = trim( $val[1] );
+  }
+  if (preg_match("|Version: (.*)|", $plg_data, $val))
+  {
+    $plugin['version'] = trim($val[1]);
+  }
+  if ( preg_match("|Plugin URI: (.*)|", $plg_data, $val) )
+  {
+    $plugin['uri'] = trim($val[1]);
+  }
+  if ($desc = load_language('description.txt', $path.'/', array('return' => true)))
+  {
+    $plugin['description'] = trim($desc);
+  }
+  elseif ( preg_match("|Description: (.*)|", $plg_data, $val) )
+  {
+    $plugin['description'] = trim($val[1]);
+  }
+  if ( preg_match("|Author: (.*)|", $plg_data, $val) )
+  {
+    $plugin['author'] = trim($val[1]);
+  }
+  if ( preg_match("|Author URI: (.*)|", $plg_data, $val) )
+  {
+    $plugin['author uri'] = trim($val[1]);
+  }
+  if (!empty($plugin['uri']) and strpos($plugin['uri'] , 'extension_view.php?eid='))
+  {
+    list( , $extension) = explode('extension_view.php?eid=', $plugin['uri']);
+    if (is_numeric($extension)) $plugin['extension'] = $extension;
+  }
+// IMPORTANT SECURITY !
+  $plugin = array_map('htmlspecialchars', $plugin);
+
+  return $plugin ;
+}
+
+function regfluxbb_obsolete_files()
+{
+  if (file_exists(REGFLUXBB_PATH.'obsolete.list')
+    and $old_files = file(REGFLUXBB_PATH.'obsolete.list', FILE_IGNORE_NEW_LINES)
+    and !empty($old_files))
+  {
+    array_push($old_files, 'obsolete.list');
+    foreach($old_files as $old_file)
+    {
+      $path = REGFLUXBB_PATH.$old_file;
+      if (is_file($path))
+      {
+        @unlink($path);
+      }
     }
   }
 }
