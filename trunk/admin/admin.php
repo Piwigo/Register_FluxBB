@@ -81,7 +81,7 @@ HAVING COUNT(*) > 1
 ;";
   $result = pwg_query($query);
   
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
     $msg_error_PWG_Dup .= '<br>'.l10n('Error_PWG_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
   if ($msg_error_PWG_Dup == '')
@@ -99,7 +99,7 @@ HAVING COUNT(*) > 1
 ;";
   $result = pwg_query($query);
   
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     $msg_error_FluxBB_Dup .= '<br>'.l10n('Error_FluxBB_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
@@ -110,7 +110,7 @@ WHERE BINARY username = BINARY '".$row['username']."'
 ;";
     $subresult = pwg_query($subquery);
   
-    while($subrow = mysql_fetch_array($subresult))
+    while($subrow = pwg_db_fetch_assoc($subresult))
     {
       $msg_error_FluxBB_Dup .= '<br>id:'.$subrow['id'].'='.stripslashes($subrow['username']).' ('.$subrow['email'].')';
   
@@ -156,7 +156,7 @@ AND pwg.mail_address = bb.email
 
   $result = pwg_query($query);
   
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     $msg_error_Link_Break .= '<br>'.l10n('Error_Link_Break').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
 
@@ -195,7 +195,7 @@ WHERE pwg.username <> bb.username
 
   $result = pwg_query($query);
   
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     $msg_error_Link_Bad .= '<br>'.l10n('Error_Link_Del').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')'.' -- '.stripslashes($row['bb_user']).' ('.$row['bb_mail'].')';
 
@@ -244,7 +244,7 @@ OR id_user_pwg NOT IN (
   )
 ;";
 
-  $Compteur = mysql_fetch_array(pwg_query($query));
+  $Compteur = pwg_db_fetch_assoc(pwg_query($query));
 
   if (!empty($Compteur) and $Compteur['nbr_dead'] > 0)
   { 
@@ -277,7 +277,7 @@ HAVING COUNT(*) > 1
 
   $result = pwg_query($query);
   
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     $msg_error_Link_Bad .= '<br>'.l10n('Error_Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
 
@@ -317,7 +317,7 @@ ORDER BY LOWER(pwg.username)
 
   $result = pwg_query($query);
   
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     if ( ($row['pwg_pwd'] != $row['bb_pwd']) or ($row['pwg_eml'] != $row['bb_eml']) )
     {
@@ -372,7 +372,7 @@ ORDER BY LOWER(username)
 
   $result = pwg_query($query);
 
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     $msg_error_PWG2FluxBB .= '<br>'.l10n('Error_PWG2FluxBB').stripslashes($row['username']).' ('.$row['mail_address'].')';
 
@@ -414,7 +414,7 @@ ORDER BY LOWER(username)
 
   $result = pwg_query($query);
 
-  while($row = mysql_fetch_array($result))
+  while($row = pwg_db_fetch_assoc($result))
   {
     $msg_error_FluxBB2PWG .= '<br>'.l10n('Error_FluxBB2PWG').stripslashes($row['username']).' ('.$row['email'].')';
 
@@ -512,11 +512,11 @@ else if ( isset($_GET['action']) and ($_GET['action']=='sync_user') and isset($_
   $query = "
 SELECT id AS id_pwg, username, password, mail_address 
 FROM ".USERS_TABLE."
-WHERE BINARY username = BINARY '".mysql_real_escape_string($_GET['username'])."'
+WHERE BINARY username = BINARY '".pwg_db_real_escape_string($_GET['username'])."'
 LIMIT 1
 ;";
 
-  $data = mysql_fetch_array(pwg_query($query));
+  $data = pwg_db_fetch_assoc(pwg_query($query));
   
   if (!empty($data))
   {
@@ -530,11 +530,11 @@ else if ( isset($_GET['action']) and ($_GET['action']=='add_user') and isset($_G
   $query = "
 SELECT id, username, password, mail_address 
 FROM ".USERS_TABLE."
-WHERE BINARY username = BINARY '".mysql_real_escape_string($_GET['username'])."'
+WHERE BINARY username = BINARY '".pwg_db_real_escape_string($_GET['username'])."'
 LIMIT 1
 ;";
 
-  $data = mysql_fetch_array(pwg_query($query));
+  $data = pwg_db_fetch_assoc(pwg_query($query));
   
   if (!empty($data))
     FluxBB_Adduser($data['id'], stripslashes($data['username']), $data['password'], $data['mail_address']);  
@@ -632,7 +632,7 @@ FROM ".FluxBB_USERS_TABLE."
 
     $result = pwg_query($query);
   
-    while ($row = mysql_fetch_array($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       if((stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[2])) and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[1])))
       {
@@ -657,7 +657,7 @@ FROM ".USERS_TABLE."
   
     $msg_Mig_Add_AllUsers = '';
   
-    while ($row = mysql_fetch_array($result))
+    while ($row = pwg_db_fetch_assoc($result))
     {
       if((stripslashes($row['username']) != 'guest') and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[1])))
       {
@@ -676,7 +676,7 @@ FROM ".USERS_TABLE."
 WHERE username = '".$conf_Register_FluxBB[1]."'
 ;";
 
-    $row = mysql_fetch_array(pwg_query($query));
+    $row = pwg_db_fetch_assoc(pwg_query($query));
 
     if (!empty($row))
     {
@@ -735,7 +735,7 @@ HAVING COUNT(*) > 1
 
     $result = pwg_query($query);
   
-    while($row = mysql_fetch_array($result))
+    while($row = pwg_db_fetch_assoc($result))
       $msg_error_PWG_Dup .= '<br>'.l10n('Error_PWG_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
       if ($msg_error_PWG_Dup <> '')
@@ -751,7 +751,7 @@ HAVING COUNT(*) > 1
 
     $result = pwg_query($query);
   
-    while($row = mysql_fetch_array($result))
+    while($row = pwg_db_fetch_assoc($result))
     {
       $msg_error_FluxBB_Dup .= '<br>'.l10n('Error_FluxBB_Dup').$row['nbr_dup'].' x '.stripslashes($row['username']);
 
@@ -763,7 +763,7 @@ WHERE BINARY username = BINARY '".$row['username']."'
 
       $subresult = pwg_query($subquery);
   
-      while($subrow = mysql_fetch_array($subresult))
+      while($subrow = pwg_db_fetch_assoc($subresult))
       {
         $msg_error_FluxBB_Dup .= '<br>id:'.$subrow['id'].'='.stripslashes($subrow['username']).' ('.$subrow['email'].')';
   
@@ -808,7 +808,7 @@ AND pwg.mail_address = bb.email
 
       $result = pwg_query($query);
     
-      while($row = mysql_fetch_array($result))
+      while($row = pwg_db_fetch_assoc($result))
       {
         $msg_error_Link_Break .= '<br>'.l10n('New_Link').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
   
@@ -831,7 +831,7 @@ WHERE BINARY pwg.username <> BINARY bb.username
 
       $result = pwg_query($query);
     
-      while($row = mysql_fetch_array($result))
+      while($row = pwg_db_fetch_assoc($result))
       {
         $msg_error_Link_Bad .= '<br>'.l10n('Link_Del').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')'.' -- '.stripslashes($row['bb_user']).' ('.$row['bb_mail'].')';
 
@@ -858,7 +858,7 @@ OR id_user_pwg NOT IN (
   )
 ;";
 
-      $Compteur = mysql_fetch_array(pwg_query($query));
+      $Compteur = pwg_db_fetch_assoc(pwg_query($query));
     
       if ( !empty($Compteur) and $Compteur['nbr_dead'] > 0)
       { 
@@ -891,7 +891,7 @@ HAVING COUNT(*) > 1
 
       $result = pwg_query($query);
     
-      while($row = mysql_fetch_array($result))
+      while($row = pwg_db_fetch_assoc($result))
       {
         $msg_error_Link_Bad .= '<br>'.l10n('Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
   
@@ -915,7 +915,7 @@ ORDER BY LOWER(pwg.username)
 
       $result = pwg_query($query);
     
-      while($row = mysql_fetch_array($result))
+      while($row = pwg_db_fetch_assoc($result))
       {
         if ( ($row['pwg_pwd'] != $row['bb_pwd']) or ($row['pwg_eml'] != $row['bb_eml']) )
         {
@@ -927,7 +927,7 @@ FROM ".USERS_TABLE."
 WHERE BINARY id = '".$row['pwg_id']."'
 ;";
 
-          $data = mysql_fetch_array(pwg_query($query));
+          $data = pwg_db_fetch_assoc(pwg_query($query));
         
           if (!empty($data))
             FluxBB_Updateuser($data['id'], stripslashes($data['username']), $data['password'], $data['mail_address']);
@@ -954,7 +954,7 @@ ORDER BY LOWER(username)
 
       $result = pwg_query($query);
   
-      while($row = mysql_fetch_array($result))
+      while($row = pwg_db_fetch_assoc($result))
       {
         $msg_error_PWG2FluxBB .= '<br>'.l10n('Add_User').stripslashes($row['username']).' ('.$row['mail_address'].')';
 
@@ -965,7 +965,7 @@ WHERE BINARY username = BINARY '".$row['username']."'
 LIMIT 1
 ;";
 
-        $data = mysql_fetch_array(pwg_query($query));
+        $data = pwg_db_fetch_assoc(pwg_query($query));
       
         if (!empty($data))
           FluxBB_Adduser($data['id'], stripslashes($data['username']), $data['password'], $data['mail_address']);  
@@ -991,7 +991,7 @@ ORDER BY LOWER(username)
 
       $result = pwg_query($query);
   
-      while($row = mysql_fetch_array($result))
+      while($row = pwg_db_fetch_assoc($result))
       {
         $msg_error_FluxBB2PWG .= '<br>'.l10n('Error_FluxBB2PWG').stripslashes($row['username']).' ('.$row['email'].')';
   

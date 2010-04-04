@@ -13,7 +13,7 @@ AND bb.id = ".$bb_id."
 AND pwg.username = bb.username
 ;";
   
-  $data = mysql_fetch_array(pwg_query($query));
+  $data = pwg_db_fetch_row(pwg_query($query));
   
   if (!empty($data))
   {
@@ -64,7 +64,7 @@ FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_default_user_group'
 ;";
 
-  $o_default_user_group = mysql_fetch_array(pwg_query($query));
+  $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
   
   $query = "
 SELECT conf_value
@@ -72,7 +72,7 @@ FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_server_timezone'
 ;";
 
-  $o_server_timezone = mysql_fetch_array(pwg_query($query));
+  $o_server_timezone = pwg_db_fetch_assoc(pwg_query($query));
   
   $query = "
 SELECT conf_value
@@ -80,7 +80,7 @@ FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_default_lang'
 ;";
 
-  $o_default_lang = mysql_fetch_array(pwg_query($query));
+  $o_default_lang = pwg_db_fetch_assoc(pwg_query($query));
   
   $query = "
 SELECT conf_value
@@ -88,7 +88,7 @@ FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_default_style'
 ;";
 
-  $o_default_style = mysql_fetch_array(pwg_query($query));
+  $o_default_style = pwg_db_fetch_assoc(pwg_query($query));
   
   $query = '
 INSERT INTO '.FluxBB_USERS_TABLE." (
@@ -104,7 +104,7 @@ INSERT INTO '.FluxBB_USERS_TABLE." (
   last_visit
   )
 VALUES(
-  '".mysql_real_escape_string($login)."',
+  '".pwg_db_real_escape_string($login)."',
   ". ( isset($o_default_user_group['conf_value']) ? "'".$o_default_user_group['conf_value']."'" : '' ) .",
   '".$password."', 
 	'".$adresse_mail."',
@@ -119,7 +119,7 @@ VALUES(
 
   $result = pwg_query($query);
 
-  $bb_id = mysql_insert_id();
+  $bb_id = pwg_db_insert_id();
   
   FluxBB_Linkuser($pwg_id, $bb_id);
 }
@@ -134,7 +134,7 @@ WHERE id_user_pwg = ".$id_user_pwg."
 LIMIT 1
 ;";
 
-  $data = mysql_fetch_array(pwg_query($query));
+  $data = pwg_db_fetch_assoc(pwg_query($query));
   
   if (!empty($data))
     return $data['id_user_FluxBB'];
@@ -156,7 +156,7 @@ WHERE id = ".$id_user_FluxBB."
 LIMIT 1
 ;";
 
-  $data0 = mysql_fetch_array(pwg_query($query0));
+  $data0 = pwg_db_fetch_assoc(pwg_query($query0));
 
   // Si égale à VRAI, suppression de tous les posts et topics
   if ($SuppTopicsPosts and $conf_Register_FluxBB[3])
@@ -172,7 +172,7 @@ WHERE poster_id = ".$id_user_FluxBB."
     // Suppression des topics de cet utilisateur
     $subquery = "
 DELETE FROM ".FluxBB_TOPICS_TABLE."
-WHERE BINARY poster = BINARY '".mysql_real_escape_string($data0['username'])."'
+WHERE BINARY poster = BINARY '".pwg_db_real_escape_string($data0['username'])."'
 ;";
 
     $subresult = pwg_query($subquery);
@@ -209,13 +209,13 @@ FROM ".Register_FluxBB_ID_TABLE."
 WHERE id_user_pwg = ".$pwg_id."
 ;";
 
-  $row = mysql_fetch_array(pwg_query($query));
+  $row = pwg_db_fetch_assoc(pwg_query($query));
 
   if (!empty($row))
   {
     $query = "
 UPDATE ".FluxBB_USERS_TABLE."
-SET username = '".mysql_real_escape_string($username)."', email = '".$adresse_mail."', password = '".$password."' 
+SET username = '".pwg_db_real_escape_string($username)."', email = '".$adresse_mail."', password = '".$password."' 
 WHERE id = ".$row['FluxBB_id']."
 ;";
    
@@ -228,16 +228,16 @@ WHERE id = ".$row['FluxBB_id']."
     $query = "
 SELECT id as FluxBB_id
 FROM ".FluxBB_USERS_TABLE."
-WHERE BINARY username = BINARY '".mysql_real_escape_string($username)."'
+WHERE BINARY username = BINARY '".pwg_db_real_escape_string($username)."'
 ;";
 
-    $row = mysql_fetch_array(pwg_query($query));
+    $row = pwg_db_fetch_assoc(pwg_query($query));
   
     if (!empty($row))
     {
       $query = "
 UPDATE ".FluxBB_USERS_TABLE."
-SET username = '".mysql_real_escape_string($username)."', email = '".$adresse_mail."', password = '".$password."' 
+SET username = '".pwg_db_real_escape_string($username)."', email = '".$adresse_mail."', password = '".$password."' 
 WHERE id = ".$row['FluxBB_id']."
 ;";
      

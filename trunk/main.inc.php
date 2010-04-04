@@ -164,7 +164,7 @@ FROM '.USERS_TABLE.'
 WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
 ;';
 
-          list($current_password) = mysql_fetch_row(pwg_query($query));
+          list($current_password) = pwg_db_fetch_row(pwg_query($query));
       
           if ($conf['pass_convert']($_POST['password']) != $current_password)
           {
@@ -183,7 +183,7 @@ FROM '.USERS_TABLE.'
 WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
 ;';
 
-        list($username) = mysql_fetch_row(pwg_query($query));
+        list($username) = pwg_db_fetch_row(pwg_query($query));
 
         FluxBB_Updateuser($user['id'], stripslashes($username), sha1($_POST['use_new_pwd']), $_POST['mail_address']);
       }
