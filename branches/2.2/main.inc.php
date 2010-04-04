@@ -44,6 +44,8 @@ Author URI: http://www.infernoweb.net
                       - Language files revision
                       - Obsolete files management
 
+2.2.1     - 04/04/10  - Bug 1577 fixed : Multiple database support
+
 --------------------------------------------------------------------------------
 */
 
