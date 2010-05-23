@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.2.1
+Version: 2.2.2
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -45,6 +45,9 @@ Author URI: http://www.infernoweb.net
                       - Obsolete files management
 
 2.2.1     - 04/04/10  - Bug 1577 fixed : Multiple database support
+
+2.2.2     - 23/05/10  - Bug 1674 fixed : Adding of mods for Fluxbb when users loose their password
+                      - Adding of German language (Thx to duke)
 
 --------------------------------------------------------------------------------
 */

@@ -31,15 +31,6 @@ $lang['Del_Pt_false'] = ' --&gt; Themen und Beiträge nicht löschen';
 $lang['Confirm'] = 'Bestätigung zum Löschen im Audit durch einen Administrator.';
 $lang['Confirm_true'] = ' --&gt; Bestätigung unterdrücken';
 $lang['Confirm_false'] = ' --&gt; Bestätigung erforderlich bevor Aktionen im Audit durchgeführt werden';
-$lang['No_Reg_advise'] = '<b>Über die Registrierung von Benutzern im FluxBB Forum</b><br><br>
-  Um die Registrierung für Ihre Benutzer möglichst einfach zu gestalten, empfehle ich Ihnen zwei Änderungen vorzunehmen:<br>
-  <b>* Deaktivieren Sie die Option "Neuanmeldungen erlauben" auf der FluxBB-Administrationsseite (unter: Einstellungen - Registrierung)</b><br><br>
-  <b>* Ändern Sie die Datei</b> : [FluxBBRoot]/lang/German/register.php und ersetzen Sie die folgende Zeile :
-  <div class="info">\'No new regs\'				=>	\'Dieses Forum akzeptiert momentan keine neuen Mitglieder.\'</div>
-  <b>mit :</b>
-  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Registrieren Sie sich bitte hier &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
-  <br>
-  Selbstverständlich sollten Sie diese Änderung für alle installierten Sprachen Ihres FluxBB Forums vornehmen.<br>';
 
 $lang['save_config'] ='Einstellungen gespeichert';
 
@@ -121,4 +112,30 @@ $lang['Mig_Add_AllUsers'] = '<b>Benutzerkonten von Piwigo werden übertragen</b>
 $lang['Mig_Add_User'] = '<b>Übertragenes Benutzerkonto:</b> ';
 $lang['Mig_End'] = '<b>Migration abgeschlossen !</b>';
 $lang['Title_Tab'] = 'Register_FluxBB - Version: ';
+
+// --------- Starting below: New or revised $lang ---- from version 2.2.2
+$lang['No_Reg_advise'] = '<b>Über die Registrierung von Benutzern im FluxBB Forum</b><br><br>
+  Für eine bessere Integration, ist es ratsam, die folgenden drei Änderungen an Ihrem FluxBB Forum (<b>Warnung: Nehmen Sie diese Änderungen werden verschwinden, wenn Update-Forum</b>):<br>
+  <b>* Deaktivieren Sie die Option "Neuanmeldungen erlauben" auf der FluxBB-Administrationsseite (unter: Einstellungen - Registrierung)</b>
+<br>
+<br>
+  <b>* Ändern Sie die Datei</b> : [FluxBBRoot]/lang/German/register.php und ersetzen Sie die folgende Zeile:
+  <div class="mod">\'No new regs\'				=>	\'Dieses Forum akzeptiert momentan keine neuen Mitglieder.\'</div>
+  <b>mit :</b>
+  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Registrieren Sie sich bitte hier &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+  <br>
+  Selbstverständlich sollten Sie diese Änderung für alle installierten Sprachen Ihres FluxBB Forums vornehmen.
+<br>
+<br>
+  <b>* Modifier le fichier</b> : [RacineDeFluxBB]/login.php und ersetzen Sie die Zeile 69:
+  <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
+  <b>mit :</b>
+  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[VotreRacineDePiwigo]/identification.php&quot;&gt;</div>
+<br>
+  Und am Zeile 216:
+  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <b>mit :</b>
+  <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/identification.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <br>';
+// --------- End: New or revised $lang ---- from version 2.2.2
 ?>
