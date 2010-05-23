@@ -131,12 +131,12 @@ $lang['No_Reg_advise'] = '<b>A propos de l\'enregistrement d\'utilisateur sur le
   <b>* Modifier le fichier</b> : [RacineDeFluxBB]/login.php en remplacant à la ligne 69:
   <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
   <b>par :</b>
-  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[VotreRacineDePiwigo]/identification.php&quot;&gt;</div>
+  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[VotreRacineDePiwigo]/password.php&quot;&gt;</div>
 <br>
   à la ligne 216:
   <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
   <b>par :</b>
-  <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/identification.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
   <br>';
 // --------- End: New or revised $lang ---- from version 2.2.2
 ?>
