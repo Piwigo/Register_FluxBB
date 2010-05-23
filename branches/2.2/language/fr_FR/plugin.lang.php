@@ -31,15 +31,6 @@ $lang['Del_Pt_false'] = ' --&gt; Ne supprime pas les posts et les topics';
 $lang['Confirm'] = 'Suppression des confirmations sur les actions d\'administration dans l\'audit.';
 $lang['Confirm_true'] = ' --&gt; Supprime les confirmations';
 $lang['Confirm_false'] = ' --&gt; Confirmation obligatoire avant action dans l\'audit';
-$lang['No_Reg_advise'] = '<b>A propos de l\'enregistrement d\'utilisateur sur le forum FluxBB</b><br><br>
-  Pour plus de facilité pour vos utilisateurs, je vous conseille de modifier 2 choses:<br>
-  <b>* modifier dans l\'interface d\'administration de FluxBB "Autoriser les nouvelles inscriptions" à NON ( dans : Options - Inscriptions )</b><br><br>
-  <b>* modifier le fichier</b> : [RacineDeFluxBB]/lang/French/register.php en remplacant la ligne suivante:
-  <div class="info">\'No new regs\'				=>	\'Ce forum n\\\'accepte pas de nouveaux utilisateurs.\'</div>
-  <b>par :</b>
-  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[VotreRacineDePiwigo]/register.php&quot; &gt; Cliquez ici pour vous inscrire &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
-  <br>
-  Bien sur vous devez aussi faire le même changement pour les autres langues de votre forum FluxBB.<br>';
 
 $lang['save_config'] ='Configuration enregistrée.';
 
@@ -121,4 +112,31 @@ $lang['Mig_Add_AllUsers'] = '<b>Transfert des comptes Piwigo</b>';
 $lang['Mig_Add_User'] = '<b>Transfert du compte :</b> ';
 $lang['Mig_End'] = '<b>Migration finie !</b>';
 $lang['Title_Tab'] = 'Register_FluxBB - Version: ';
+
+
+// --------- Starting below: New or revised $lang ---- from version 2.2.2
+$lang['No_Reg_advise'] = '<b>A propos de l\'enregistrement d\'utilisateur sur le forum FluxBB</b><br><br>
+  Pour une meilleur intégration, il est conseille d\'apporter les 3 modifications suivantes à votre forum FluxBB (<b>Attention! Ces modifications disparaitront en cas de mise à jour du forum</b>):<br>
+  <b>* Modifier dans l\'interface d\'administration de FluxBB "Autoriser les nouvelles inscriptions" à NON ( dans : Options - Inscriptions )</b>
+<br>
+<br>
+  <b>* Modifier le fichier</b> : [RacineDeFluxBB]/lang/French/register.php en remplacant la ligne suivante:
+  <div class="mod">\'No new regs\'				=>	\'Ce forum n\\\'accepte pas de nouveaux utilisateurs.\'</div>
+  <b>par :</b>
+  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[VotreRacineDePiwigo]/register.php&quot; &gt; Cliquez ici pour vous inscrire &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+  <br>
+  Et reporter cette modification pour toutes les langues gérées sur votre forum.
+<br>
+<br>
+  <b>* Modifier le fichier</b> : [RacineDeFluxBB]/login.php en remplacant à la ligne 69:
+  <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
+  <b>par :</b>
+  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[VotreRacineDePiwigo]/identification.php&quot;&gt;</div>
+<br>
+  à la ligne 216:
+  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <b>par :</b>
+  <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/identification.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <br>';
+// --------- End: New or revised $lang ---- from version 2.2.2
 ?>

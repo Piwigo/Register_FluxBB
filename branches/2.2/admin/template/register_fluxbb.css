@@ -31,3 +31,18 @@
   color: #0a0;
   background-color:#c2f5c2;
 }
+
+.mod{
+  margin: 5px;
+  padding: 50px 50px 10px 10px;
+  font-weight:bold;
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+  padding: 5px 60px 0pt 60px;
+  min-height: 20px;
+}
+
+.mod {
+  color: #f22;
+  background-color: #ffd5dc;
+}
