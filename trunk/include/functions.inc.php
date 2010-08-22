@@ -65,14 +65,34 @@ WHERE conf_name = 'o_default_user_group'
 ;";
 
   $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
-  
-  $query = "
+
+// Check for FluxBB version 1.4.x and get the correct value
+  $query1 = "
+SELECT conf_value
+FROM ".FluxBB_CONFIG_TABLE."
+WHERE conf_name = 'o_default_timezone'
+;";
+
+  $count1 = pwg_db_num_rows(pwg_query($query1));
+
+// Check for FluxBB version 1.2.x and get the correct value
+  $query2 = "
 SELECT conf_value
 FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_server_timezone'
 ;";
 
-  $o_server_timezone = pwg_db_fetch_assoc(pwg_query($query));
+  $count2 = pwg_db_num_rows(pwg_query($query2));
+  
+  if ($count1 == 1 and $count2 == 0)
+  {
+    $o_default_timezone = pwg_db_fetch_assoc(pwg_query($query1));
+  }
+  else if ($count1 == 0 and $count2 == 1)
+  {
+    $o_default_timezone = pwg_db_fetch_assoc(pwg_query($query2));
+  }
+  
   
   $query = "
 SELECT conf_value
@@ -96,7 +116,7 @@ INSERT INTO '.FluxBB_USERS_TABLE." (
   ". ( isset($o_default_user_group['conf_value']) ? 'group_id' : '' ) .",
   password, 
   email, 
-  ". ( isset($o_server_timezone['conf_value']) ? 'timezone' : '' ) .",
+  ". ( isset($o_default_timezone['conf_value']) ? 'timezone' : '' ) .",
   ". ( isset($o_default_lang['conf_value']) ? 'language' : '' ) .",
   ". ( isset($o_default_style['conf_value']) ? 'style' : '' ) .",
   registered, 
@@ -108,7 +128,7 @@ VALUES(
   ". ( isset($o_default_user_group['conf_value']) ? "'".$o_default_user_group['conf_value']."'" : '' ) .",
   '".$password."', 
 	'".$adresse_mail."',
-  ". ( isset($o_server_timezone['conf_value']) ? "'".$o_server_timezone['conf_value']."'" : '' ) .",
+  ". ( isset($o_default_timezone['conf_value']) ? "'".$o_default_timezone['conf_value']."'" : '' ) .",
   ". ( isset($o_default_lang['conf_value']) ? "'".$o_default_lang['conf_value']."'" : '' ) .",
   ". ( isset($o_default_style['conf_value']) ? "'".$o_default_style['conf_value']."'" : '' ) .",
   '".$registred."',
