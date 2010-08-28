@@ -571,9 +571,9 @@ switch ($page['tab'])
 
 	case 'manage':
   
-  if ( isset($_POST['submit']) and !is_adviser() and isset($_POST['FluxBB_prefix']) and isset($_POST['FluxBB_admin']) and isset($_POST['FluxBB_guest']) and isset($_POST['FluxBB_del_pt']) and isset($_POST['FluxBB_confirm']) and isset($_POST['FluxBB_details']) )
+  if (isset($_POST['submit']) and !is_adviser() and isset($_POST['FluxBB_prefix']) and isset($_POST['FluxBB_admin']) and isset($_POST['FluxBB_guest']) and isset($_POST['FluxBB_del_pt']) and isset($_POST['FluxBB_confirm']) and isset($_POST['FluxBB_details']))
   {
-    $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'];
+    $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';'.$_POST['FluxBB_UAM'].';'.$_POST['FluxBB_group'];
 
     $query = '
 UPDATE '.CONFIG_TABLE.'
@@ -597,12 +597,34 @@ LIMIT 1
       'FluxBB_PREFIX'        => $conf_Register_FluxBB[0],
       'FluxBB_ADMIN'         => stripslashes($conf_Register_FluxBB[1]),
       'FluxBB_GUEST'         => stripslashes($conf_Register_FluxBB[2]),
-      'FluxBB_DEL_PT_TRUE'   => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'true') ? 'checked="checked"' : '' ,
-      'FluxBB_DEL_PT_FALSE'  => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'false') ? 'checked="checked"' : '' ,
-      'FluxBB_CONFIRM_TRUE'  => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'true') ? 'checked="checked"' : '' ,
-      'FluxBB_CONFIRM_FALSE' => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'false') ? 'checked="checked"' : '' ,
-      'FluxBB_DETAILS_TRUE'  => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'true') ? 'checked="checked"' : '' ,
-      'FluxBB_DETAILS_FALSE' => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'false') ? 'checked="checked"' : '' ,
+      'FluxBB_DEL_PT_TRUE'   => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'true') ? 'checked="checked"' : '',
+      'FluxBB_DEL_PT_FALSE'  => (isset($conf_Register_FluxBB[3]) and $conf_Register_FluxBB[3] == 'false') ? 'checked="checked"' : '',
+      'FluxBB_CONFIRM_TRUE'  => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'true') ? 'checked="checked"' : '',
+      'FluxBB_CONFIRM_FALSE' => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'false') ? 'checked="checked"' : '',
+      'FluxBB_DETAILS_TRUE'  => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'true') ? 'checked="checked"' : '',
+      'FluxBB_DETAILS_FALSE' => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'false') ? 'checked="checked"' : '',
+    )
+  );
+
+// If UAM exists and if UAM ConfirmMail is set, we can set this feature
+  if (function_exists('FindAvailableConfirmMailID'))
+  {  
+    $conf_UAM = unserialize($conf['UserAdvManager']);
+    $UAM_bridge = false;
+    
+    if (isset($conf_UAM[1]) and ($conf_UAM[1] == 'true' or $conf_UAM[1] == 'local') and isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
+    {
+      $UAM_bridge = true;
+    }
+  }
+  
+  $template->assign(
+    array
+    (
+      'UAM_BRIDGE'            => $UAM_bridge,
+      'FluxBB_UAM_LINK_TRUE'  => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true') ? 'checked="checked"' : '',
+      'FluxBB_UAM_LINK_FALSE' => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'false') ? 'checked="checked"' : '',
+      'FluxBB_GROUP'          => $conf_Register_FluxBB[7],
     )
   );
 

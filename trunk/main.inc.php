@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.2.4
+Version: 2.3.0
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -53,6 +53,8 @@ Author URI: http://www.infernoweb.net
                       - Re-adding of German language that was missed at last release :-( (Thx to duke)
 
 2.2.4     - 22/08/10  - Bug 1812 fixed : Compliance with FluxBB 1.4
+
+2.3.0     - 01/09/10  - Bug 1434 fixed : Bridge between Register_FluxBB and UserAdvManager for new users validation
 --------------------------------------------------------------------------------
 */
 
@@ -90,7 +92,7 @@ function Register_FluxBB_Adduser($register_user)
 	
   include_once (REGFLUXBB_PATH.'include/functions.inc.php');
 
-  // Warning : FluxBB uses Sha1 hash instead of md5 for Piwigo !
+  // Warning : FluxBB uses Sha1 hash instead of md5 for Piwigo!
   FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
 }
 
@@ -196,6 +198,77 @@ WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
 
         FluxBB_Updateuser($user['id'], stripslashes($username), sha1($_POST['use_new_pwd']), $_POST['mail_address']);
       }
+    }
+  }
+}
+
+
+/* Access validation in FluxBB when validated in Piwigo through UAM plugin */
+add_event_handler('login_success', 'UAM_Bridge');
+
+function UAM_Bridge()
+{
+  global $conf, $user;
+  
+  $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
+  
+  // Check if UAM is installed and if bridge is set - Exception for admins and webmasters
+  if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true' and !is_admin() and !is_webmaster())
+  {
+    $conf_UAM = unserialize($conf['UserAdvManager']);
+    
+    // Getting unvalidated users group else Piwigo's default group
+    if (isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
+    {
+      $Waitingroup = $conf_UAM[2];
+    }
+    else
+    {
+      $query = '
+SELECT id
+FROM '.GROUPS_TABLE.'
+WHERE is_default = "true"
+LIMIT 1
+;';
+      $data = pwg_db_fetch_assoc(pwg_query($query));
+      $Waitingroup = $data['id'];
+    }
+    
+    // check if logged in user is in a Piwigo's validated or unvalidated users group
+    $query = '
+SELECT *
+FROM '.USER_GROUP_TABLE.'
+WHERE user_id = '.$user['id'].'
+AND group_id = '.$Waitingroup.'
+;';
+    $count = pwg_db_num_rows(pwg_query($query));
+
+    // Check if logged in user is in a FluxBB's unvalidated group
+    $query = "
+SELECT group_id
+FROM ".FluxBB_USERS_TABLE."
+WHERE id = ".FluxBB_Searchuser($user['id'])."
+;";
+
+    $data = pwg_db_fetch_assoc(pwg_query($query));
+
+    // Logged in user switch to the default FluxBB's group if he'is validated
+    if ($count == 0 and $data['group_id'] = $conf_Register_FluxBB[7])
+    {
+      $query = "
+SELECT conf_value
+FROM ".FluxBB_CONFIG_TABLE."
+WHERE conf_name = 'o_default_user_group'
+;";
+
+      $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+      
+      $query = "
+UPDATE ".FluxBB_USERS_TABLE."
+SET group_id = ".$o_default_user_group['conf_value']." 
+WHERE id = ".FluxBB_Searchuser($user['id'])."
+;";
+      pwg_query($query);
     }
   }
 }

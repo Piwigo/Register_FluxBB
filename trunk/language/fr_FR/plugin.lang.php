@@ -114,29 +114,47 @@ $lang['Mig_End'] = '<b>Migration finie !</b>';
 $lang['Title_Tab'] = 'Register_FluxBB - Version: ';
 
 
-// --------- Starting below: New or revised $lang ---- from version 2.2.2
-$lang['No_Reg_advise'] = '<b>A propos de l\'enregistrement d\'utilisateur sur le forum FluxBB</b><br><br>
-  Pour une meilleur intégration, il est conseille d\'apporter les 3 modifications suivantes à votre forum FluxBB (<b>Attention! Ces modifications disparaitront en cas de mise à jour du forum</b>):<br>
-  <b>* Modifier dans l\'interface d\'administration de FluxBB "Autoriser les nouvelles inscriptions" à NON ( dans : Options - Inscriptions )</b>
-<br>
-<br>
+// --------- Starting below: New or revised $lang ---- from version 2.3.0
+$lang['No_Reg_advise'] = '
+  Pour une meilleur intégration, il est conseillé d\'apporter les modifications suivantes à votre forum FluxBB (<b>Attention! Ces modifications disparaitront en cas de mise à jour du forum</b>):
+<br><br>
+  <b>* Modifier dans l\'interface d\'administration de FluxBB l\'option "Autoriser les nouvelles inscriptions" à NON ( dans : Options - Inscriptions )</b>
+<br><br>
   <b>* Modifier le fichier</b> : [RacineDeFluxBB]/lang/French/register.php en remplacant la ligne suivante:
   <div class="mod">\'No new regs\'				=>	\'Ce forum n\\\'accepte pas de nouveaux utilisateurs.\'</div>
   <b>par :</b>
   <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[VotreRacineDePiwigo]/register.php&quot; &gt; Cliquez ici pour vous inscrire &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
   <br>
   Et reporter cette modification pour toutes les langues gérées sur votre forum.
-<br>
-<br>
+<br><br>
   <b>* Modifier le fichier</b> : [RacineDeFluxBB]/login.php en remplacant à la ligne 69:
   <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
   <b>par :</b>
   <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[VotreRacineDePiwigo]/password.php&quot;&gt;</div>
 <br>
   à la ligne 216:
-  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
   <b>par :</b>
-  <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
   <br>';
-// --------- End: New or revised $lang ---- from version 2.2.2
+$lang['About_Reg'] = 'A propos de l\'enregistrement d\'utilisateur sur le forum FluxBB';
+$lang['Bridge_UAM'] = 'Validation d\'accès au forum via le plugin UserAdvManager (UAM): Activez ici le pont entre les deux plugins qui vous permettra d\'interdir l\'accès à votre forum FluxBB tant que l\'utilisateur n\'a pas validé son inscription à la galerie (la fonction correspondante doit être active sur UAM).';
+$lang['Bridge_UAM_true'] = ' --> Pont Register_FluxBB / UAM activé';
+$lang['Bridge_UAM_false'] = ' --> Pont Register_FluxBB / UAM désactivé (par défaut)';
+$lang['FluxBB_Group'] = 'Précisez ici l\'ID du <b>groupe FluxBB</b> dans lequel les utilisateurs non validé doivent se trouver (à créer au préalable dans FluxBB). Pour être efficace, ce groupe ne doit avoir aucune permission sur le forum (voir à la fin de cette page pour les détails d\'utilisation de cette option).';
+$lang['About_Bridge'] = 'A propos du pont Register_FluxBB / UAM';
+$lang['UAM_Bridge_advice'] = 'Le plugin UserAdvManager permet de forcer les nouveaux inscrits à valider leur inscription avant de leur permettre d\'accéder à la totalité de la galerie. L\'utilisation conjointe de ce plugin avec Register_FluxBB permet de faire de même sur le forum lié: Ils ne pourront pas poster tant qu\'ils n\'auront pas validé leur inscription à la galerie.<br>
+Voici la procédure générale à appliquer:
+<br><br>
+- Dans la partie d\'administration de votre forum FluxBB, établissez au minimum 2 groupes d\'utilisateurs (par exemple: "validés" et "non_validés").<br>
+- Attribuez au premier groupe ("validés") les permissions d\'accès souhaitées sur votre forum et définissez le comme groupe par défaut.<br>
+- Retirez au second groupe ("non_validés") toutes les permissions sur votre forum (les membres de ce groupe ne pourront que lire les posts publics).<br>
+- Repérez l\'ID du second groupe "non_validés".<br>
+- Notez l\'ID dans le plugin Register_FluxBB, activez le pont et sauvegardez les paramètres.
+<br><br>
+<b class="mod"><u>Notes importantes:</u></b>
+<br><br>
+Si vous utilisiez déjà Register_FluxBB dans une version antérieur, les comptes liés entre votre galerie Piwigo et votre forum FluxBB ne seront pas impactés par les effets du pont. Seuls les nouveaux inscrits après l\'activation du pont y seront soumis.<b><u>La fonction de resynchronisation des comptes sera sans effet.</u></b><br><br>
+De même, si vous n\'avez jamais utilisé Register_FluxBB, la phase de migration des comptes de votre galerie Piwigo vers votre forum FluxBB ne tiendra pas compte de l\'état validé ou non de vos inscrits au moment du lancement de la phase de migration.';
+// --------- End: New or revised $lang ---- from version 2.3.0
 ?>

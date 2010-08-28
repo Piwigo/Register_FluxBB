@@ -16,7 +16,7 @@ function plugin_install()
 
   $q = '
 INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-VALUES ("Register_FluxBB","FluxBB_;PhpWebGallery;Guest;false;false;true","Parametres Register_FluxBB")
+VALUES ("Register_FluxBB","FluxBB_;PhpWebGallery;Guest;false;false;true;false;0","Parametres Register_FluxBB")
 ;';
     
   pwg_query($q);
@@ -41,6 +41,22 @@ function plugin_activate()
 /* Cleaning obsolete files */
 /* *********************** */
   regfluxbb_obsolete_files();
+
+/* Check version < 2.3.0 */
+  $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
+  
+  if (!isset($conf_Register_FluxBB[6]) and !isset($conf_Register_FluxBB[7]))
+  {
+    $upgrade_RFBB = $conf_Register_FluxBB[0].';'.$conf_Register_FluxBB[1].';'.$conf_Register_FluxBB[2].';'.$conf_Register_FluxBB[3].';'.$conf_Register_FluxBB[4].';'.$conf_Register_FluxBB[5].';false;0';
+		
+    $query = '
+UPDATE '.CONFIG_TABLE.'
+SET value="'.$upgrade_RFBB.'"
+WHERE param="Register_FluxBB"
+LIMIT 1
+;';
+		pwg_query($query);
+  }
 }
 
 function plugin_uninstall()

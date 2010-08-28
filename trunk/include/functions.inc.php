@@ -57,14 +57,22 @@ function FluxBB_Adduser($pwg_id, $login, $password, $adresse_mail)
 
   $registred = time();
   $registred_ip = $_SERVER['REMOTE_ADDR'];
-
-  $query = "
+  
+  // Check if UAM is installed and if bridge is set - Exception for admins and webmasters
+  if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true')
+  {
+    $o_default_user_group = $conf_Register_FluxBB[7];
+  }
+  else
+  {
+    $query = "
 SELECT conf_value
 FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_default_user_group'
 ;";
 
-  $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+    $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+  }
 
 // Check for FluxBB version 1.4.x and get the correct value
   $query1 = "

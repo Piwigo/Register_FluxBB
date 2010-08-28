@@ -113,29 +113,47 @@ $lang['Mig_Add_User'] = '<b>Übertragenes Benutzerkonto:</b> ';
 $lang['Mig_End'] = '<b>Migration abgeschlossen !</b>';
 $lang['Title_Tab'] = 'Register_FluxBB - Version: ';
 
-// --------- Starting below: New or revised $lang ---- from version 2.2.2
-$lang['No_Reg_advise'] = '<b>Über die Registrierung von Benutzern im FluxBB Forum</b><br><br>
-  Für eine bessere Integration, ist es ratsam, die folgenden drei Änderungen an Ihrem FluxBB Forum (<b>Warnung: Nehmen Sie diese Änderungen werden verschwinden, wenn Update-Forum</b>):<br>
-  <b>* Deaktivieren Sie die Option "Neuanmeldungen erlauben" auf der FluxBB-Administrationsseite (unter: Einstellungen - Registrierung)</b>
-<br>
-<br>
-  <b>* Ändern Sie die Datei</b> : [FluxBBRoot]/lang/German/register.php und ersetzen Sie die folgende Zeile:
-  <div class="mod">\'No new regs\'				=>	\'Dieses Forum akzeptiert momentan keine neuen Mitglieder.\'</div>
-  <b>mit :</b>
-  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Registrieren Sie sich bitte hier &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+// --------- Starting below: New or revised $lang ---- from version 2.3.0
+/*TODO*/$lang['No_Reg_advise'] = '
+  For better integration, it is advisable to make the following changes to your FluxBB forum (<b>Warning: These changes will disappear when updating the forum</b>):
+<br><br>
+  <b>* In FluxBB\'s administration panel, change "Allow new registrations" to NO (in: Options - Registration)</b>
+<br><br>
+  <b>* Modify the file</b> : [FluxBBRoot]/lang/English/register.php by replacing the following line:
+  <div class="mod">\'No new regs\'				=>	\'This forum is not accepting new users.\'</div>
+  <b>with :</b>
+  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Go here to register &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
   <br>
-  Selbstverständlich sollten Sie diese Änderung für alle installierten Sprachen Ihres FluxBB Forums vornehmen.
-<br>
-<br>
-  <b>* Modifier le fichier</b> : [RacineDeFluxBB]/login.php und ersetzen Sie die Zeile 69:
+  Of course you should also make the same change for other languages of your FluxBB forum.
+<br><br>
+  <b>* Modify the file</b> : [FluxBBRoot]/login.php by replacing the line 69:
   <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
-  <b>mit :</b>
+  <b>with :</b>
   <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[PiwigoRoot]/password.php&quot;&gt;</div>
 <br>
-  Und am Zeile 216:
+  and at line 216:
   <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
-  <b>mit :</b>
+  <b>with :</b>
   <div class="info">&lt;a href=&quot;../[PiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
   <br>';
-// --------- End: New or revised $lang ---- from version 2.2.2
+/*TODO*/$lang['About_Reg'] = 'About the registration of users on the forum FluxBB';
+/*TODO*/$lang['Bridge_UAM'] = 'Validation d\'accès au forum via le plugin UserAdvManager (UAM): Activez ici le pont entre les deux plugins qui vous permettra d\'interdir l\'accès à votre forum FluxBB tant que l\'utilisateur n\'a pas validé son inscription à la galerie (la fonction correspondante doit être active sur UAM). Access validation to the forum via UserAdvManager (UAM) plugin: Turn the bridge on between the two plugins that will allow you to prohibit the access to your FluxBB forum until the user has not validated its registration in the gallery (the function must be active on UAM).';
+/*TODO*/$lang['Bridge_UAM_true'] = ' --> Enable bridge Register_FluxBB / UAM';
+/*TODO*/$lang['Bridge_UAM_false'] = ' --> Disable bridge Register_FluxBB / UAM (default)';
+/*TODO*/$lang['FluxBB_Group'] = 'Précisez ici l\'ID du <b>groupe FluxBB</b> dans lequel les utilisateurs non validé doivent se trouver (à créer au préalable dans FluxBB). Pour être efficace, ce groupe ne doit avoir aucune permission sur le forum (voir à la fin de cette page pour les détails d\'utilisation de cette option).Specify the ID of <b>FluxBB\' group</b> in which non validated users must be (to be created in advance in FluxBB). To be effective, this group should have no permission on the forum (see the end of this page for details on using this option).';
+/*TODO*/$lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
+/*TODO*/$lang['UAM_Bridge_advice'] = 'The UserAdvManager plugin allows forcing new registrants to confirm their registration before allowing them to access the entire gallery. The joint use of this plugin with Register_FluxBB can do the same on the forum linked: Registrants can not post until they have validated their registration in the gallery. <br>
+Here is the general procedure to apply:
+<br>
+- In the administration of your FluxBB forum, set at least 2 groups of users (for example: "validated" and "no_validated").<br>
+- Give the first group ("validated") access permissions you want on your forum and set it as the default group.<br>
+- Remove the second group ("no_validated") all permissions on your forum (the members of this group can only read public posts).<br>
+- Locate the ID of the second group "no_validated".<br>
+- Enter this ID in Register_FluxBB plugin, activate the bridge and save the settings.
+<br>
+<b class="mod"><u>Important notes:</u></b>
+<br>
+If you already use an earlier version of Register_FluxBB, Piwigo\'s accounts linked between your gallery and your FluxBB forum will not be impacted by the effects of the bridge. Only new registers will be impacted after activation of the bridge.<b><u>Accounts resynchronization function will be void.</u></b><br>
+Similarly, if you\'ve never used Register_FluxBB, the Piwigo\'s accounts migration phase from your gallery to your FluxBB forum will disregard the state validated or not for the accounts at the launch of the migration phase.';
+// --------- End: New or revised $lang ---- from version 2.3.0
 ?>
