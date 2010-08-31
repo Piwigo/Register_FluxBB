@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.3.0
+Version: 2.3.1
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -54,7 +54,9 @@ Author URI: http://www.infernoweb.net
 
 2.2.4     - 22/08/10  - Bug 1812 fixed : Compliance with FluxBB 1.4
 
-2.3.0     - 01/09/10  - Bug 1434 fixed : Bridge between Register_FluxBB and UserAdvManager for new users validation
+2.3.0     - 28/08/10  - Bug 1434 fixed : Bridge between Register_FluxBB and UserAdvManager for new users validation
+
+2.3.1     - 31/08/10  - Bug 1825 fixed : Password corruption after Piwigo's profile page visit 
 --------------------------------------------------------------------------------
 */
 
@@ -108,95 +110,29 @@ function Register_FluxBB_Deluser($user_id)
 }
 
 
-
-add_event_handler('init', 'Register_FluxBB_InitPage');
- 
-function Register_FluxBB_InitPage()
+/* Profile management */
+if (script_basename() == 'profile')
 {
-  global $conf, $user ;
-  include_once (REGFLUXBB_PATH.'include/functions.inc.php');
+  add_event_handler('loc_begin_profile', 'Register_FluxBB_InitPage', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
 
-/* user update */
-  if (script_basename() == 'profile')
+  function Register_FluxBB_InitPage()
   {
-    if (isset($_POST['validate']))
+    global $conf, $user;
+    include_once (REGFLUXBB_PATH.'include/functions.inc.php');
+    
+    if (isset($_POST['validate']) and !is_admin())
     {
-      $errors = array();
-
-      $int_pattern = '/^\d+$/';
-      if (empty($_POST['nb_image_line'])
-        or (!preg_match($int_pattern, $_POST['nb_image_line'])))
+    if (!empty($_POST['use_new_pwd']))
       {
-        $errors[] = l10n('nb_image_line_error');
-      }
-    
-      if (empty($_POST['nb_line_page'])
-        or (!preg_match($int_pattern, $_POST['nb_line_page'])))
-      {
-        $errors[] = l10n('nb_line_page_error');
-      }
-    
-      if ($_POST['maxwidth'] != ''
-        and (!preg_match($int_pattern, $_POST['maxwidth'])
-        or $_POST['maxwidth'] < 50))
-      {
-        $errors[] = l10n('maxwidth_error');
-      }
-
-      if ($_POST['maxheight']
-        and (!preg_match($int_pattern, $_POST['maxheight'])
-        or $_POST['maxheight'] < 50))
-      {
-        $errors[] = l10n('maxheight_error');
-      }
-
-      if (isset($_POST['mail_address']))
-      {
-        $mail_error = validate_mail_address($user['id'],$_POST['mail_address']);
-        if (!empty($mail_error))
-        {
-          $errors[] = $mail_error;
-        }
-      }
-    
-      if (!empty($_POST['use_new_pwd']))
-      {
-        // password must be the same as its confirmation
-        if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
-        {
-          $errors[] = l10n('New password confirmation does not correspond');
-        }
-    
-        if ( !defined('IN_ADMIN') )
-        {// changing password requires old password
-          $query = '
-SELECT '.$conf['user_fields']['password'].' AS password
-FROM '.USERS_TABLE.'
-WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
-;';
-
-          list($current_password) = pwg_db_fetch_row(pwg_query($query));
-      
-          if ($conf['pass_convert']($_POST['password']) != $current_password)
-          {
-            $errors[] = l10n('Current password is wrong');
-          }
-        }
-      }
-    
-      if (count($errors) == 0)
-      {
-        include_once (REGFLUXBB_PATH.'include/functions.inc.php');
-      
-        $query = '
+      $query = '
 SELECT '.$conf['user_fields']['username'].' AS username
 FROM '.USERS_TABLE.'
 WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
 ;';
 
-        list($username) = pwg_db_fetch_row(pwg_query($query));
+      list($username) = pwg_db_fetch_row(pwg_query($query));
 
-        FluxBB_Updateuser($user['id'], stripslashes($username), sha1($_POST['use_new_pwd']), $_POST['mail_address']);
+      FluxBB_Updateuser($user['id'], stripslashes($username), sha1($_POST['use_new_pwd']), $_POST['mail_address']);
       }
     }
   }
@@ -204,7 +140,7 @@ WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
 
 
 /* Access validation in FluxBB when validated in Piwigo through UAM plugin */
-add_event_handler('login_success', 'UAM_Bridge');
+add_event_handler('login_success', 'UAM_Bridge', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
 
 function UAM_Bridge()
 {
