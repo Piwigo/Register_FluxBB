@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.3.1
+Version: 2.3.2
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -56,7 +56,9 @@ Author URI: http://www.infernoweb.net
 
 2.3.0     - 28/08/10  - Bug 1434 fixed : Bridge between Register_FluxBB and UserAdvManager for new users validation
 
-2.3.1     - 31/08/10  - Bug 1825 fixed : Password corruption after Piwigo's profile page visit 
+2.3.1     - 31/08/10  - Bug 1825 fixed : Password corruption after Piwigo's profile page visit
+
+2.3.2     - 11/09/10  - Bug 1847 fixed : Admins and webmasters was not excluded from registration validation 
 --------------------------------------------------------------------------------
 */
 
@@ -149,62 +151,72 @@ function UAM_Bridge()
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
   
   // Check if UAM is installed and if bridge is set - Exception for admins and webmasters
-  if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true' and !is_admin() and !is_webmaster())
+  $query ='
+SELECT user_id, status
+FROM '.USER_INFOS_TABLE.'
+WHERE user_id = '.$user['id'].'
+;';
+  $data = pwg_db_fetch_assoc(pwg_query($query));
+  
+  if ($data['status'] <> "admin" and $data['status'] <> "webmaster")
   {
-    $conf_UAM = unserialize($conf['UserAdvManager']);
+    if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true')
+    {
+      $conf_UAM = unserialize($conf['UserAdvManager']);
     
-    // Getting unvalidated users group else Piwigo's default group
-    if (isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
-    {
-      $Waitingroup = $conf_UAM[2];
-    }
-    else
-    {
-      $query = '
+      // Getting unvalidated users group else Piwigo's default group
+      if (isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
+      {
+        $Waitingroup = $conf_UAM[2];
+      }
+      else
+      {
+        $query = '
 SELECT id
 FROM '.GROUPS_TABLE.'
 WHERE is_default = "true"
 LIMIT 1
 ;';
-      $data = pwg_db_fetch_assoc(pwg_query($query));
-      $Waitingroup = $data['id'];
-    }
+        $data = pwg_db_fetch_assoc(pwg_query($query));
+        $Waitingroup = $data['id'];
+      }
     
-    // check if logged in user is in a Piwigo's validated or unvalidated users group
-    $query = '
+      // check if logged in user is in a Piwigo's validated or unvalidated users group
+      $query = '
 SELECT *
 FROM '.USER_GROUP_TABLE.'
 WHERE user_id = '.$user['id'].'
 AND group_id = '.$Waitingroup.'
 ;';
-    $count = pwg_db_num_rows(pwg_query($query));
+      $count = pwg_db_num_rows(pwg_query($query));
 
-    // Check if logged in user is in a FluxBB's unvalidated group
-    $query = "
+      // Check if logged in user is in a FluxBB's unvalidated group
+      $query = "
 SELECT group_id
 FROM ".FluxBB_USERS_TABLE."
 WHERE id = ".FluxBB_Searchuser($user['id'])."
 ;";
 
-    $data = pwg_db_fetch_assoc(pwg_query($query));
+      $data = pwg_db_fetch_assoc(pwg_query($query));
 
-    // Logged in user switch to the default FluxBB's group if he'is validated
-    if ($count == 0 and $data['group_id'] = $conf_Register_FluxBB[7])
-    {
-      $query = "
+      // Logged in user switch to the default FluxBB's group if he'is validated
+      if ($count == 0 and $data['group_id'] = $conf_Register_FluxBB[7])
+      {
+        $query = "
 SELECT conf_value
 FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_default_user_group'
 ;";
 
-      $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+        $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
       
-      $query = "
+        $query = "
 UPDATE ".FluxBB_USERS_TABLE."
 SET group_id = ".$o_default_user_group['conf_value']." 
 WHERE id = ".FluxBB_Searchuser($user['id'])."
 ;";
-      pwg_query($query);
+        pwg_query($query);
+      }
     }
   }
 }
