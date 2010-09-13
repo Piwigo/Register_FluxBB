@@ -46,7 +46,6 @@ function rfbb_blockToggleDisplay( headerId, contentId )
     	</li>
     	<li><label>{'Admin'|@translate}</label><br>
     		<input type="text" name="FluxBB_admin" value={$FluxBB_ADMIN} size="20" style="text-align: center;"><br>
-    		{'User'|@translate}
       <br>
     	</li>
     	<li><label>{'Guest'|@translate}</label><br>

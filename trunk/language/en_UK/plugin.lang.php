@@ -18,10 +18,8 @@ $lang['Config_Title'] = 'Plugin setup';
 $lang['Config_Disclaimer'] = '
   Check the settings of your FluxBB installation and correct them if necessary. <br>
   Change, if any, the behavior of the plugin at your convenience.';
-$lang['FluxBB_Prefix'] = 'FluxBB Prefix tables :';
-$lang['FluxBB_Admin'] = 'Username of the Piwigo administrator.';
+$lang['Prefix'] = 'FluxBB Prefix tables :';
 $lang['Guest'] = 'Username of the FluxBB Guest user.';
-$lang['User'] = '<div class="warning">FluxBB\'s administrator name must be the same</div>';
 $lang['Details'] = 'Level of detail in reports of operations.';
 $lang['Details_true'] = ' --&gt; View all details of the results of operations.';
 $lang['Details_false'] = ' --&gt; Shows that most of the results of operations';
@@ -156,4 +154,11 @@ Here is the general procedure to apply:
 If you already use an earlier version of Register_FluxBB, Piwigo\'s accounts linked between your gallery and your FluxBB forum will not be impacted by the effects of the bridge. Only new registers will be impacted after activation of the bridge.<b><u>Accounts resynchronization function will be void.</u></b><br>
 Similarly, if you\'ve never used Register_FluxBB, the Piwigo\'s accounts migration phase from your gallery to your FluxBB forum will disregard the state validated or not for the accounts at the launch of the migration phase.';
 // --------- End: New or revised $lang ---- from version 2.3.0
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.3
+$lang['Admin'] = 'Piwigo\'s administrator username. <b style="color: red">The username of FluxBB\'s administrator account has to be the same!</b>';
+$lang['error_config_admin1'] = 'ERROR : Piwigo\'s admin username is wrong!';
+$lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
+$lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
+// --------- End: New or revised $lang ---- from version 2.3.3
 ?>

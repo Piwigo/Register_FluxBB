@@ -6,8 +6,8 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 if (!defined('REGFLUXBB_PATH')) define('REGFLUXBB_PATH' , PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
 
-//ini_set('error_reporting', E_ALL);
-//ini_set('display_errors', true);
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', true);
 
 include_once (PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 include_once (PHPWG_ROOT_PATH.'/include/constants.php');
@@ -573,18 +573,79 @@ switch ($page['tab'])
   
   if (isset($_POST['submit']) and !is_adviser() and isset($_POST['FluxBB_prefix']) and isset($_POST['FluxBB_admin']) and isset($_POST['FluxBB_guest']) and isset($_POST['FluxBB_del_pt']) and isset($_POST['FluxBB_confirm']) and isset($_POST['FluxBB_details']))
   {
-    $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';'.$_POST['FluxBB_UAM'].';'.$_POST['FluxBB_group'];
 
-    $query = '
+/* Configuration controls */
+// Piwigo's admin username control
+    $query1 = "
+SELECT username, id
+FROM ".USERS_TABLE."
+WHERE id = ".$conf['webmaster_id']."
+;";
+
+    $pwgadmin = pwg_db_fetch_assoc(pwg_query($query1));
+
+// FluxBB's admin username control
+    $query2 = "
+SELECT username, id
+FROM ".FluxBB_USERS_TABLE."
+WHERE id = 2
+;";
+
+    $fbbadmin = pwg_db_fetch_assoc(pwg_query($query2));
+
+// FluxBB's Guest username control
+    $query3 = "
+SELECT username, id
+FROM ".FluxBB_USERS_TABLE."
+WHERE id = 1
+;";
+
+    $fbbguest = pwg_db_fetch_assoc(pwg_query($query3));
+
+// Compute configuration errors
+    if (stripslashes($pwgadmin['username']) != stripslashes($_POST['FluxBB_admin']))
+    {
+      array_push($page['errors'], l10n('error_config_admin1'));
+    }
+    if (stripslashes($pwgadmin['username']) != stripslashes($fbbadmin['username']))
+    {
+      array_push($page['errors'], l10n('error_config_admin2'));
+    }
+    if (stripslashes($fbbguest['username']) != stripslashes($_POST['FluxBB_guest']))
+    {
+      array_push($page['errors'], l10n('error_config_guest'));
+    }
+    elseif (count($page['errors']) == 0)
+    {
+      if (!function_exists('FindAvailableConfirmMailID'))
+      {
+      $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';false;0';
+      }
+      elseif (function_exists('FindAvailableConfirmMailID'))
+      {
+        $conf_UAM = unserialize($conf['UserAdvManager']);
+        
+        if (isset($conf_UAM[1]) and ($conf_UAM[1] == 'true' or $conf_UAM[1] == 'local') and isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
+        {
+          $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';'.$_POST['FluxBB_UAM'].';'.$_POST['FluxBB_group'];
+        }
+        else
+        {
+          $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';false;0';
+        }
+      }
+
+      $query = '
 UPDATE '.CONFIG_TABLE.'
 SET value="'.$conf['Register_FluxBB'].'"
 WHERE param="Register_FluxBB"
 LIMIT 1
 ;';
 
-    pwg_query($query);
-
-    array_push($page['infos'], l10n('save_config'));
+      pwg_query($query);
+      
+      array_push($page['infos'], l10n('save_config'));
+    }
   }
 
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
@@ -616,24 +677,26 @@ LIMIT 1
     {
       $UAM_bridge = true;
     }
-  }
   
-  $template->assign(
-    array
-    (
-      'UAM_BRIDGE'            => $UAM_bridge,
-      'FluxBB_UAM_LINK_TRUE'  => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true') ? 'checked="checked"' : '',
-      'FluxBB_UAM_LINK_FALSE' => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'false') ? 'checked="checked"' : '',
-      'FluxBB_GROUP'          => $conf_Register_FluxBB[7],
-    )
-  );
-
+    $template->assign(
+      array
+      (
+        'UAM_BRIDGE'            => $UAM_bridge,
+        'FluxBB_UAM_LINK_TRUE'  => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true') ? 'checked="checked"' : '',
+        'FluxBB_UAM_LINK_FALSE' => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'false') ? 'checked="checked"' : '',
+        'FluxBB_GROUP'          => $conf_Register_FluxBB[7],
+      )
+    );
+  }
+    
   $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/template/manage.tpl');
   $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
 	break;
 
 	case 'Migration':
+  
+  $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
 	
   if ( isset($_POST['Migration']) and !is_adviser() )
   {
@@ -653,7 +716,7 @@ FROM ".FluxBB_USERS_TABLE."
 ;";
 
     $result = pwg_query($query);
-  
+       
     while ($row = pwg_db_fetch_assoc($result))
     {
       if((stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[2])) and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB[1])))
