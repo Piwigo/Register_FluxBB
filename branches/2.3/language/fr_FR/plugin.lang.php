@@ -19,9 +19,7 @@ $lang['Config_Disclaimer'] = '
   Vérifiez les paramètres relatifs à votre installation de FluxBB et corrigez les au besoin.<br>
   Modifiez, le cas échéant, le comportement du plugin à votre convenance.';
 $lang['Prefix'] = 'Préfixe des tables de FluxBB :';
-$lang['Admin'] = 'Nom d\'utilisateur de l\'administrateur de Piwigo.';
 $lang['Guest'] = 'Nom d\'utilisateur de l\'invité de FluxBB.';
-$lang['User'] = '<div class="warning">Le nom de l\'administrateur de FluxBB doit être identique</div>';
 $lang['Details'] = 'Niveau de détails dans les rapports d\'opérations.';
 $lang['Details_true'] = ' --&gt; Afficher tous les détails des résultats sur les opérations.';
 $lang['Details_false'] = ' --&gt; N\'affiche que l\'essentiel des résultats sur les opérations';
@@ -157,4 +155,11 @@ Voici la procédure générale à appliquer:
 Si vous utilisiez déjà Register_FluxBB dans une version antérieur, les comptes liés entre votre galerie Piwigo et votre forum FluxBB ne seront pas impactés par les effets du pont. Seuls les nouveaux inscrits après l\'activation du pont y seront soumis.<b><u>La fonction de resynchronisation des comptes sera sans effet.</u></b><br><br>
 De même, si vous n\'avez jamais utilisé Register_FluxBB, la phase de migration des comptes de votre galerie Piwigo vers votre forum FluxBB ne tiendra pas compte de l\'état validé ou non de vos inscrits au moment du lancement de la phase de migration.';
 // --------- End: New or revised $lang ---- from version 2.3.0
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.3
+$lang['Admin'] = 'Nom d\'utilisateur de l\'administrateur de Piwigo. <b style="color: red">Le nom de l\'administrateur de FluxBB doit être identique !</b>';
+$lang['error_config_admin1'] = 'ERREUR : Le nom du compte administrateur de Piwigo est incorrect !';
+$lang['error_config_admin2'] = 'ERREUR : Le nom du compte administrateur de FluxBB est différent de celui de Piwigo ! Vérifiez la configuration de votre forum FluxBB et nommez le compte administrateur de la même manière que celui de Piwigo.';
+$lang['error_config_guest'] = 'ERREUR : Le nom du compte visiteur (guest) de FluxBB est incorrect !';
+// --------- End: New or revised $lang ---- from version 2.3.3
 ?>

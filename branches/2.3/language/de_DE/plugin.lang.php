@@ -18,10 +18,8 @@ $lang['Config_Title'] = 'Pluginkonfiguration';
 $lang['Config_Disclaimer'] = '
   Überprüfen Sie die Einstellungen ihrer FluxBB Installation und korrigieren Sie sie gegebenenfalls. <br>
   Passen Sie das Verhalten des Plugins nach Ihren Wünschen an.';
-$lang['FluxBB_Prefix'] = 'FluxBB Tabellenpräfix :';
-$lang['FluxBB_Admin'] = 'Benutzername des Piwigo-administrators.';
+$lang['Prefix'] = 'FluxBB Tabellenpräfix :';
 $lang['Guest'] = 'Benutzername des FluxBB Gast-benutzers.';
-$lang['User'] = '<div class="warning">Das Administratorkonto von FluxBB muss das selbe sein</div>';
 $lang['Details'] = 'Detailgrad der generierten Reports.';
 $lang['Details_true'] = ' --&gt; Alle Ergebnisdetails anzeigen.';
 $lang['Details_false'] = ' --&gt; Nur die wichtigsten Details der Ergebnisse anzeigen';
@@ -156,4 +154,11 @@ Here is the general procedure to apply:
 If you already use an earlier version of Register_FluxBB, Piwigo\'s accounts linked between your gallery and your FluxBB forum will not be impacted by the effects of the bridge. Only new registers will be impacted after activation of the bridge.<b><u>Accounts resynchronization function will be void.</u></b><br>
 Similarly, if you\'ve never used Register_FluxBB, the Piwigo\'s accounts migration phase from your gallery to your FluxBB forum will disregard the state validated or not for the accounts at the launch of the migration phase.';
 // --------- End: New or revised $lang ---- from version 2.3.0
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.3
+/*TODO*/$lang['Admin'] = 'Piwigo\'s administrator username. <b style="color: red">The username of FluxBB\'s administrator account has to be the same!</b>';
+/*TODO*/$lang['error_config_admin1'] = 'ERROR : Piwigo\'s admin username is wrong!';
+/*TODO*/$lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
+/*TODO*/$lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
+// --------- End: New or revised $lang ---- from version 2.3.3
 ?>
