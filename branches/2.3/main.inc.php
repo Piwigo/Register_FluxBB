@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.3.3
+Version: 2.3.4
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -63,6 +63,8 @@ Author URI: http://www.infernoweb.net
 2.3.3     - 13/09/10  - Bug 1853 fixed : Add of controls on plugin configuration settings to avoid some mistakes
                       - Bug 1855 fixed : Improvement of use of UAM bridge (fixes php notices)
                       - Several language files fix
+
+2.3.4     - 22/09/10  - Compatibility with Plugin Adult_Content
 --------------------------------------------------------------------------------
 */
 
@@ -98,10 +100,14 @@ function Register_FluxBB_Adduser($register_user)
 {
   global $conf;
 	
-  include_once (REGFLUXBB_PATH.'include/functions.inc.php');
+  // Exclusion of Adult_Content users
+  if ($register_user['username'] != "16" and $register_user['username'] != "18")
+  {
+    include_once (REGFLUXBB_PATH.'include/functions.inc.php');
 
-  // Warning : FluxBB uses Sha1 hash instead of md5 for Piwigo!
-  FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
+    // Warning : FluxBB uses Sha1 hash instead of md5 for Piwigo!
+    FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
+  }
 }
 
 
