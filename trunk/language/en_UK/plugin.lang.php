@@ -135,12 +135,12 @@ $lang['No_Reg_advise'] = '
   <div class="info">&lt;a href=&quot;../[PiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
   <br>';
 $lang['About_Reg'] = 'About the registration of users on the forum FluxBB';
-$lang['Bridge_UAM'] = 'Validation d\'accès au forum via le plugin UserAdvManager (UAM): Activez ici le pont entre les deux plugins qui vous permettra d\'interdir l\'accès à votre forum FluxBB tant que l\'utilisateur n\'a pas validé son inscription à la galerie (la fonction correspondante doit être active sur UAM). Access validation to the forum via UserAdvManager (UAM) plugin: Turn the bridge on between the two plugins that will allow you to prohibit the access to your FluxBB forum until the user has not validated its registration in the gallery (the function must be active on UAM).';
+$lang['Bridge_UAM'] = 'Access validation to the forum via UserAdvManager (UAM) plugin: Turn the bridge on between the two plugins that will allow you to prohibit the access to your FluxBB forum until the user has not validated its registration in the gallery (the function must be active on UAM).';
 $lang['Bridge_UAM_true'] = ' --> Enable bridge Register_FluxBB / UAM';
 $lang['Bridge_UAM_false'] = ' --> Disable bridge Register_FluxBB / UAM (default)';
-$lang['FluxBB_Group'] = 'Précisez ici l\'ID du <b>groupe FluxBB</b> dans lequel les utilisateurs non validé doivent se trouver (à créer au préalable dans FluxBB). Pour être efficace, ce groupe ne doit avoir aucune permission sur le forum (voir à la fin de cette page pour les détails d\'utilisation de cette option).Specify the ID of <b>FluxBB\' group</b> in which non validated users must be (to be created in advance in FluxBB). To be effective, this group should have no permission on the forum (see the end of this page for details on using this option).';
+$lang['FluxBB_Group'] = 'Specify the ID of <b>FluxBB\' group</b> in which non validated users must be (to be created in advance in FluxBB). To be effective, this group should have no permission on the forum (see the end of this page for details on using this option).';
 $lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
-$lang['UAM_Bridge_advice'] = 'The UserAdvManager plugin allows forcing new registrants to confirm their registration before allowing them to access the entire gallery. The joint use of this plugin with Register_FluxBB can do the same on the forum linked: Registrants can not post until they have validated their registration in the gallery. <br>
+$lang['UAM_Bridge_advice'] = 'The UserAdvManager plugin allows forcing new registrants to confirm their registration before allowing them to access the entire gallery. The joint use of this plugin with Register_FluxBB can do the same on the linked forum: Registrants can not post until they have validated their registration in the gallery. <br>
 Here is the general procedure to apply:
 <br>
 - In the administration of your FluxBB forum, set at least 2 groups of users (for example: "validated" and "no_validated").<br>
