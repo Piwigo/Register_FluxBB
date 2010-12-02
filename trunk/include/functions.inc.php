@@ -1,7 +1,157 @@
 <?php
 
-  include_once (PHPWG_ROOT_PATH.'/include/constants.php');
-  include_once (REGFLUXBB_PATH.'include/constants.php');
+include_once (PHPWG_ROOT_PATH.'/include/constants.php');
+include_once (REGFLUXBB_PATH.'include/constants.php');
+
+
+function Register_FluxBB_admin_menu($menu)
+{
+  array_push($menu, array(
+    'NAME' => 'Register FluxBB',
+    'URL'  => get_admin_plugin_menu_link(REGFLUXBB_PATH.'admin/admin.php')));
+  return $menu;
+}
+
+
+function Register_FluxBB_Adduser($register_user)
+{
+  global $errors, $conf;
+	
+  // Exclusion of Adult_Content users
+  if ($register_user['username'] != "16" and $register_user['username'] != "18")
+  {
+    // Warning : FluxBB uses Sha1 hash instead of md5 for Piwigo!
+    FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
+  }
+}
+
+
+function Register_FluxBB_Deluser($user_id)
+{
+  FluxBB_Deluser(FluxBB_Searchuser($user_id), true);
+}
+
+
+function Register_FluxBB_InitPage()
+{
+  global $conf, $user;
+
+  if (isset($_POST['validate']) and !is_admin())
+  {
+    if (!empty($_POST['use_new_pwd']))
+    {
+      $query = '
+SELECT '.$conf['user_fields']['username'].' AS username
+FROM '.USERS_TABLE.'
+WHERE '.$conf['user_fields']['id'].' = \''.$user['id'].'\'
+;';
+
+      list($username) = pwg_db_fetch_row(pwg_query($query));
+
+      FluxBB_Updateuser($user['id'], stripslashes($username), sha1($_POST['use_new_pwd']), $_POST['mail_address']);
+    }
+  }
+}
+
+
+function UAM_Bridge()
+{
+  global $conf, $user;
+  
+  $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
+  
+  // Check if UAM is installed and if bridge is set - Exception for admins and webmasters
+  $query ='
+SELECT user_id, status
+FROM '.USER_INFOS_TABLE.'
+WHERE user_id = '.$user['id'].'
+;';
+  $data = pwg_db_fetch_assoc(pwg_query($query));
+  
+  if ($data['status'] <> "admin" and $data['status'] <> "webmaster")
+  {
+    if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true')
+    {
+      $conf_UAM = unserialize($conf['UserAdvManager']);
+    
+      // Getting unvalidated users group else Piwigo's default group
+      if (isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
+      {
+        $Waitingroup = $conf_UAM[2];
+      }
+      else
+      {
+        $query = '
+SELECT id
+FROM '.GROUPS_TABLE.'
+WHERE is_default = "true"
+LIMIT 1
+;';
+        $data = pwg_db_fetch_assoc(pwg_query($query));
+        $Waitingroup = $data['id'];
+      }
+    
+      // check if logged in user is in a Piwigo's validated or unvalidated users group
+      $query = '
+SELECT *
+FROM '.USER_GROUP_TABLE.'
+WHERE user_id = '.$user['id'].'
+AND group_id = '.$Waitingroup.'
+;';
+      $count = pwg_db_num_rows(pwg_query($query));
+
+      // Check if logged in user is in a FluxBB's unvalidated group
+      $query = "
+SELECT group_id
+FROM ".FluxBB_USERS_TABLE."
+WHERE id = ".FluxBB_Searchuser($user['id'])."
+;";
+
+      $data = pwg_db_fetch_assoc(pwg_query($query));
+
+      // Logged in user switch to the default FluxBB's group if he'is validated
+      if ($count == 0 and $data['group_id'] = $conf_Register_FluxBB[7])
+      {
+        $query = "
+SELECT conf_value
+FROM ".FluxBB_CONFIG_TABLE."
+WHERE conf_name = 'o_default_user_group'
+;";
+
+        $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+      
+        $query = "
+UPDATE ".FluxBB_USERS_TABLE."
+SET group_id = ".$o_default_user_group['conf_value']." 
+WHERE id = ".FluxBB_Searchuser($user['id'])."
+;";
+        pwg_query($query);
+      }
+    }
+  }
+}
+
+
+function Register_FluxBB_RegistrationCheck($err, $register_user)
+{
+  global $errors, $conf;
+  
+  //Because FluxBB is case insensitive on login name, we have to check if a similar login already exists in FluxBB's user table
+  // If "test" user already exists, "TEST" or "Test" (and so on...) can't register
+  $query = "
+SELECT username
+  FROM ".FluxBB_USERS_TABLE."
+WHERE LOWER(".stripslashes('username').") = '".strtolower($register_user['username'])."'
+;";
+
+    $count = pwg_db_num_rows(pwg_query($query));
+
+    if ($count > 0)
+    {
+      return l10n('this login is already used');
+    }
+}
+
 
 function FluxBB_Linkuser($pwg_id, $bb_id)
 {
@@ -51,7 +201,7 @@ WHERE id_user_FluxBB = ".$bb_id."
 
 function FluxBB_Adduser($pwg_id, $login, $password, $adresse_mail)
 {
-  global $conf;
+  global $errors, $conf;
 
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
 
@@ -117,9 +267,9 @@ WHERE conf_name = 'o_default_style'
 ;";
 
   $o_default_style = pwg_db_fetch_assoc(pwg_query($query));
-  
-  $query = '
-INSERT INTO '.FluxBB_USERS_TABLE." (
+
+  $query = "
+INSERT INTO ".FluxBB_USERS_TABLE." (
   username, 
   ". ( isset($o_default_user_group['conf_value']) ? 'group_id' : '' ) .",
   password, 
@@ -186,10 +336,10 @@ LIMIT 1
 
   $data0 = pwg_db_fetch_assoc(pwg_query($query0));
 
-  // Si égale à VRAI, suppression de tous les posts et topics
+  // If True, delete related topics and posts
   if ($SuppTopicsPosts and $conf_Register_FluxBB[3])
   {
-    // Suppression des posts de cet utilisateur
+    // Delete posts and topics of this user
     $subquery = "
 DELETE FROM ".FluxBB_POSTS_TABLE."
 WHERE poster_id = ".$id_user_FluxBB."
@@ -197,7 +347,7 @@ WHERE poster_id = ".$id_user_FluxBB."
 
     $subresult = pwg_query($subquery);
 
-    // Suppression des topics de cet utilisateur
+    // Delete topics of this user
     $subquery = "
 DELETE FROM ".FluxBB_TOPICS_TABLE."
 WHERE BINARY poster = BINARY '".pwg_db_real_escape_string($data0['username'])."'
@@ -206,7 +356,7 @@ WHERE BINARY poster = BINARY '".pwg_db_real_escape_string($data0['username'])."'
     $subresult = pwg_query($subquery);
   }
 
-  // Suppression des abonnements de l'utilisateur
+  // Delete user's subscriptions
   $subquery = "
 DELETE FROM ".FluxBB_SUBSCRIPTIONS_TABLE."
 WHERE user_id = ".$id_user_FluxBB."
@@ -214,7 +364,7 @@ WHERE user_id = ".$id_user_FluxBB."
 
   $subresult = pwg_query($subquery);
   
-  // Suppression du compte utilisateur
+  // Delete user's account
   $subquery = "
 DELETE FROM ".FluxBB_USERS_TABLE."
 WHERE id = ".$id_user_FluxBB."

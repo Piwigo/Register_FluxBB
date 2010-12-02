@@ -5,14 +5,6 @@ $lang['Tab_Migration'] = 'Step 2 : Accounts migration';
 $lang['Tab_Synchro'] = 'Maintenance : Accounts re-synchronization';
 
 $lang['Title'] = 'Register FluxBB';
-$lang['Disclaimer'] = '
-  *** To begin, follow this 2 steps ***<br>
-  Step 1 : Set plugin with the parameters of FluxBB.<br>
-  Step 2 : Migrate user accounts from Piwigo to FluxBB.<br><br>
-  After these 2 main steps, the plugin is fully functional and you will not have to return to this pages.<br><br>
-  *** For the maintenance of already active connections ***<br>
-  Maintenance : Synchronize tables (in case an addition, an update or a user deletion mismatched) allows to update passwords and email addresses and see users intruder (But you should not need to use ).<br><br>
-  <div class="warning">WARNING !! For safety, consider making a backup of your database, especially ###_user tables before any action.</div>';
 
 $lang['Config_Title'] = 'Plugin setup';
 $lang['Config_Disclaimer'] = '
@@ -161,4 +153,20 @@ $lang['error_config_admin1'] = 'ERROR : Piwigo\'s admin username is wrong!';
 $lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
 $lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
 // --------- End: New or revised $lang ---- from version 2.3.3
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.5
+$lang['Disclaimer'] = '
+  *** To begin, follow this 2 steps ***<br>
+  Step 1 : Set plugin with the parameters of FluxBB.<br>
+  Step 2 : Migrate user accounts from Piwigo to FluxBB.<br><br>
+  After these 2 main steps, the plugin is fully functional and you will not have to return to this pages.<br><br>
+  *** For the maintenance of already active connections ***<br>
+  Maintenance : Synchronize tables (in case an addition, an update or a user deletion mismatched) allows to update passwords and email addresses and see users intruder (But you should not need to use ).<br><br>
+  <div class="warning">WARNING !! For safety, consider making a backup of your database, especially ###_user tables before any action.</div>
+<br><br>
+  <div class="warning">Important to know:<br>
+  By default, <b>FluxBB</b> is case <u>insensitive</u> on usernames. That is, if a user called "test" is already registered, other entries like "Test" or "TEST" or "TEst" (etc. ..) will be rejected.<br><br>
+  By default, <b>Piwigo</b> works in reverse and is therefore case <u>sensitive</u> on logins ("test" will be a different user of "Test" or "TEST", etc. ...).<br>
+  To avoid problems (even if Piwigo\'s behavior can be easily changed - See configuration options), Register_FluxBB will link the two applications as FluxBB: Being case <u>insensitive</u> for logins.<br><br></div>';
+// --------- End: New or revised $lang ---- from version 2.3.5
 ?>

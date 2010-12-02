@@ -5,14 +5,6 @@ $lang['Tab_Migration'] = 'Step 2 : Kontenmigration';
 $lang['Tab_Synchro'] = 'Wartung : Kontensynchronisierung';
 
 $lang['Title'] = 'Register FluxBB';
-$lang['Disclaimer'] = '
-  *** Befolgen Sie bitte die folgenden zwei Schritte, um zu beginnen ***<br>
-  Step 1 : Konfigurieren Sie den Plugin für den Zugriff auf FluxBB.<br>
-  Step 2 : Migrieren Sie die Benutzerkonten von Piwigo nach FluxBB.<br><br>
-  Wenn dies erfolgt ist arbeitet der Plugin voll funktionstüchtig und Sie müssen diese Seiten nicht mehr aufsuchen.<br><br>
-  *** Für die Wartung bereits bestehender Verbindungen ***<br>
-  Wartung: : Tabellensynchronisation (im Fall des Hinzufügens, Aktualisierens oder Löschens eines Users) erlaubt Ihnen, Passwörter und e-mail Adressen auf den neuesten Stand zu bringen und unerwünschte User zu erkennen (Dies sollten Sie jedoch im Normalfall nicht benötigen).<br><br>
-  <div class="warning">Warnung !! Aus Sicherheitsgründen sollten Sie ein Backup Ihrer Datenbank anfertigen (Speziell die ###_user Tabellen).</div>';
 
 $lang['Config_Title'] = 'Pluginkonfiguration';
 $lang['Config_Disclaimer'] = '
@@ -112,53 +104,69 @@ $lang['Mig_End'] = '<b>Migration abgeschlossen !</b>';
 $lang['Title_Tab'] = 'Register_FluxBB - Version: ';
 
 // --------- Starting below: New or revised $lang ---- from version 2.3.0
-$lang['No_Reg_advise'] = '
-  Um eine bessere Integration zu gewährleisten, empfehlen wir, folgende Änderungen in Ihrem FluxBB Forum vorzunehmen (<b>Warnung: Diese Änderungen gehen verloren, wenn Sie das Forum updaten</b>):
+/*TODO*/$lang['No_Reg_advise'] = '
+  For better integration, it is advisable to make the following changes to your FluxBB forum (<b>Warning: These changes will disappear when updating the forum</b>):
 <br><br>
-  <b>* Setzen Sie im FluxBB Administratorpanel die Option "Neue Registrierungen erlauben" auf Nein (in: Optionen - Registrierung)</b>
+  <b>* In FluxBB\'s administration panel, change "Allow new registrations" to NO (in: Options - Registration)</b>
 <br><br>
-  <b>* Ersetzen Sie in der Datei</b> : [FluxBBRoot]/lang/Deutsch/register.php die folgende Zeile:
-  <div class="mod">\'No new regs\'				=>	\'Dieses Forum akzeptiert momentan keine neuen Mitglieder.\'</div>
-  <b>durch :</b>
-  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Registrieren Sie sich bitte hier &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+  <b>* Modify the file</b> : [FluxBBRoot]/lang/English/register.php by replacing the following line:
+  <div class="mod">\'No new regs\'				=>	\'This forum is not accepting new users.\'</div>
+  <b>with :</b>
+  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Go here to register &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
   <br>
-  Selbstverständlich sollten Sie diese Änderung für alle installierten Sprachen Ihres FluxBB Forums vornehmen.
+  Of course you should also make the same change for other languages of your FluxBB forum.
 <br><br>
-  <b>* Ersetzen Sie in der Datei</b> : [FluxBBRoot]/login.php die Zeile 69:
+  <b>* Modify the file</b> : [FluxBBRoot]/login.php by replacing the line 69:
   <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
-  <b>durch :</b>
+  <b>with :</b>
   <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[PiwigoRoot]/password.php&quot;&gt;</div>
 <br>
-  und die Zeile 216:
+  and at line 216:
   <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
-  <b>durch :</b>
+  <b>with :</b>
   <div class="info">&lt;a href=&quot;../[PiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
   <br>';
-$lang['About_Reg'] = 'Über die Benutzerregistrierung in FluxBB';
-$lang['Bridge_UAM'] = 'Zugriffsvalidierung zum Forum mit dem UserAdvManager (UAM) Plugin: Aktivieren Sie die Brückenfunktion zwischen den zwei Plugins, um den Zugriff auf Ihr FluxBB Forum zu unterbinden, solang der Benutzer seine Registrierung in der Gallerie nicht validiert hat (Die Funktion muss im UAM Plugin aktiviert sein).';
-$lang['Bridge_UAM_true'] = ' --> Aktiviere Brückenfunktion zwischen Register_FluxBB und UAM';
-$lang['Bridge_UAM_false'] = ' --> Deaktiviere Brückenfunktion zwischen Register_FluxBB und UAM (Standard)';
-$lang['FluxBB_Group'] = 'Definieren Sie die ID der FluxBB Gruppe, zu der nicht-validierte Benutzer zugewiesen werden (muss bereits in FluxBB vorhanden sein). Aus Sicherheitsgründen sollte diese Gruppe keinerlei Berechtigungen im Forum haben (Lesen Sie am Ende dieser Seite weiter, um Details über diese Einstellung zu erfahren).';
-$lang['About_Bridge'] = 'Über die Register_FluxBB / UAM Brückenfunktion';
-$lang['UAM_Bridge_advice'] = 'Mit der UserAdvManager-Erweiterung können Sie Benutzern den Zugriff auf die komplette Gallerie verweigern, solang sie Ihre Registrierung nicht bestätigt haben. Die gemeinsame Nutzung mit Register_FluxBB kann die selbe Funktion im verlinkten Forum bereitstellen: Benutzer können keine Forumeinträge erstellen, solang sie ihre Registrierung in der Gallerie nicht validiert haben. <br>
-Gehen Sie wie folgt vor:
+/*TODO*/$lang['About_Reg'] = 'About the registration of users on the forum FluxBB';
+/*TODO*/$lang['Bridge_UAM'] = 'Validation d\'accès au forum via le plugin UserAdvManager (UAM): Activez ici le pont entre les deux plugins qui vous permettra d\'interdir l\'accès à votre forum FluxBB tant que l\'utilisateur n\'a pas validé son inscription à la galerie (la fonction correspondante doit être active sur UAM). Access validation to the forum via UserAdvManager (UAM) plugin: Turn the bridge on between the two plugins that will allow you to prohibit the access to your FluxBB forum until the user has not validated its registration in the gallery (the function must be active on UAM).';
+/*TODO*/$lang['Bridge_UAM_true'] = ' --> Enable bridge Register_FluxBB / UAM';
+/*TODO*/$lang['Bridge_UAM_false'] = ' --> Disable bridge Register_FluxBB / UAM (default)';
+/*TODO*/$lang['FluxBB_Group'] = 'Précisez ici l\'ID du <b>groupe FluxBB</b> dans lequel les utilisateurs non validé doivent se trouver (à créer au préalable dans FluxBB). Pour être efficace, ce groupe ne doit avoir aucune permission sur le forum (voir à la fin de cette page pour les détails d\'utilisation de cette option).Specify the ID of <b>FluxBB\' group</b> in which non validated users must be (to be created in advance in FluxBB). To be effective, this group should have no permission on the forum (see the end of this page for details on using this option).';
+/*TODO*/$lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
+/*TODO*/$lang['UAM_Bridge_advice'] = 'The UserAdvManager plugin allows forcing new registrants to confirm their registration before allowing them to access the entire gallery. The joint use of this plugin with Register_FluxBB can do the same on the forum linked: Registrants can not post until they have validated their registration in the gallery. <br>
+Here is the general procedure to apply:
 <br>
-- Erstellen Sie mindestens zwei Benutzergruppen auf der Administrationsseite Ihres FluxBB Forums (zum Beispiel: "validiert" and "nicht_validiert").<br>
-- Geben Sie der ersten Gruppe ("validiert") alle Zugriffsberechtigungen, die Sie für Ihre Benutzer vorgesehen haben, und markieren Sie die Gruppe als Standardgruppe.<br>
-- Entziehen Sie der zweiten Gruppe ("nicht_validiert") jegliche Zugriffsberechtigungen auf Ihr Forum (Die Mitglieder dieser Gruppe können nur öffentliche Beiträge lesen).<br>
-- Ermitteln Sie die ID der zweiten Gruppe "nicht_validiert".<br>
-- Geben Sie diese ID in der Konfiguration des Register_FluxBB Plugins ein, aktivieren Sie die Brückenfunktion und speichern Sie die Änderungen.
+- In the administration of your FluxBB forum, set at least 2 groups of users (for example: "validated" and "no_validated").<br>
+- Give the first group ("validated") access permissions you want on your forum and set it as the default group.<br>
+- Remove the second group ("no_validated") all permissions on your forum (the members of this group can only read public posts).<br>
+- Locate the ID of the second group "no_validated".<br>
+- Enter this ID in Register_FluxBB plugin, activate the bridge and save the settings.
 <br>
-<b class="mod"><u>Wichtige Informationen:</u></b>
+<b class="mod"><u>Important notes:</u></b>
 <br>
-Wenn Sie bereits eine ältere Version von Register_FluxBB einsetzen, werden Benutzerkonten, die zwischen Piwigo und FluxxBB verlinkt sind, durch die Aktivierung der Brückenfunktion nicht beeinträchtigt. Die Funktion wirkt sich nur auf Neuregistrierungen aus.<b><u>Die Kontensynchronisierung ist deaktiviert.</u></b><br>
-Sollten Sie Register_FluxBB noch nicht benutzt haben, wird die Migration der Konten von Piwigo nach FluxBB den Validierungsstatus der Benutzer beim Start der Migrationsphase nicht berücksichtigen.';
+If you already use an earlier version of Register_FluxBB, Piwigo\'s accounts linked between your gallery and your FluxBB forum will not be impacted by the effects of the bridge. Only new registers will be impacted after activation of the bridge.<b><u>Accounts resynchronization function will be void.</u></b><br>
+Similarly, if you\'ve never used Register_FluxBB, the Piwigo\'s accounts migration phase from your gallery to your FluxBB forum will disregard the state validated or not for the accounts at the launch of the migration phase.';
 // --------- End: New or revised $lang ---- from version 2.3.0
 
 // --------- Starting below: New or revised $lang ---- from version 2.3.3
-$lang['Admin'] = 'Der Benutzername des Administrators in Piwigo. <b style="color: red">Der Benutzername des Administrators in FuxBB muss der Selbe sein!</b>';
-$lang['error_config_admin1'] = 'FEHLER : Der Benutzername für Piwigos Administratorkonto ist falsch!';
-$lang['error_config_admin2'] = 'FEHLER : Der Benutzername für FluxBBs Administratorkonto unterscheidet sich vom Administratorkonto von Piwigo ! Überprüfen Sie die Konfiguration Ihres FluxBB Forums und benennen Sie den Benutzer des Administratorkontos um.';
-$lang['error_config_guest'] = 'FEHLER : Der Name des Gastkontos in FluxBB ist falsch!';
+/*TODO*/$lang['Admin'] = 'Piwigo\'s administrator username. <b style="color: red">The username of FluxBB\'s administrator account has to be the same!</b>';
+/*TODO*/$lang['error_config_admin1'] = 'ERROR : Piwigo\'s admin username is wrong!';
+/*TODO*/$lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
+/*TODO*/$lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
 // --------- End: New or revised $lang ---- from version 2.3.3
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.5
+$lang['Disclaimer'] = '
+  *** Befolgen Sie bitte die folgenden zwei Schritte, um zu beginnen ***<br>
+  Step 1 : Konfigurieren Sie den Plugin für den Zugriff auf FluxBB.<br>
+  Step 2 : Migrieren Sie die Benutzerkonten von Piwigo nach FluxBB.<br><br>
+  Wenn dies erfolgt ist arbeitet der Plugin voll funktionstüchtig und Sie müssen diese Seiten nicht mehr aufsuchen.<br><br>
+  *** Für die Wartung bereits bestehender Verbindungen ***<br>
+  Wartung: : Tabellensynchronisation (im Fall des Hinzufügens, Aktualisierens oder Löschens eines Users) erlaubt Ihnen, Passwörter und e-mail Adressen auf den neuesten Stand zu bringen und unerwünschte User zu erkennen (Dies sollten Sie jedoch im Normalfall nicht benötigen).<br><br>
+  <div class="warning">Warnung !! Aus Sicherheitsgründen sollten Sie ein Backup Ihrer Datenbank anfertigen (Speziell die ###_user Tabellen).</div>
+<br><br>
+  <div class="warning">Wichtig zu wissen:<br>
+  Standardmäßig ist <b>FluxBB</b> Fall <u>unempfindlich</u> für Benutzernamen. Das heißt, wenn ein Benutzer namens "test" ist bereits registriert, andere Einträge wie "Test" oder "TEST" oder "TEst" (etc. ..) werden abgelehnt.<br><br>
+  Standardmäßig ist <b>Piwigo</b> arbeitet in umgekehrter und ist daher bei Fall <u>empfindlich</u> für Logins ("test" wird ein anderer Benutzer von "TEST" oder "TEst", etc. ...) werden<br>
+  Um Probleme zu vermeiden (auch wenn Piwigo Verhalten leicht verändert werden kann - siehe Konfigurationsmöglichkeiten), wird Register_FluxBB Verknüpfung der beiden Anwendungen als FluxBB: Fall <u>unempfindlich</u> für Logins.<br><br></div>';
+// --------- End: New or revised $lang ---- from version 2.3.5
 ?>
