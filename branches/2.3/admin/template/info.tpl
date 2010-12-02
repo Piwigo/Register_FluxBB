@@ -4,4 +4,4 @@
   <h2>{'Title_Tab'|@translate} {$REGFLUXBB_VERSION}<br>{'Tab_Info'|@translate}</h2>
 </div>
 
-<div align="left" style="margin-left: 1em; margin-right: 1em;">{'Disclaimer'|@translate}</div>
+<div style="text-align: left; margin-left: 1em; margin-right: 1em;">{'Disclaimer'|@translate}</div>

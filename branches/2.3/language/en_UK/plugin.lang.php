@@ -5,14 +5,6 @@ $lang['Tab_Migration'] = 'Step 2 : Accounts migration';
 $lang['Tab_Synchro'] = 'Maintenance : Accounts re-synchronization';
 
 $lang['Title'] = 'Register FluxBB';
-$lang['Disclaimer'] = '
-  *** To begin, follow this 2 steps ***<br>
-  Step 1 : Set plugin with the parameters of FluxBB.<br>
-  Step 2 : Migrate user accounts from Piwigo to FluxBB.<br><br>
-  After these 2 main steps, the plugin is fully functional and you will not have to return to this pages.<br><br>
-  *** For the maintenance of already active connections ***<br>
-  Maintenance : Synchronize tables (in case an addition, an update or a user deletion mismatched) allows to update passwords and email addresses and see users intruder (But you should not need to use ).<br><br>
-  <div class="warning">WARNING !! For safety, consider making a backup of your database, especially ###_user tables before any action.</div>';
 
 $lang['Config_Title'] = 'Plugin setup';
 $lang['Config_Disclaimer'] = '
@@ -135,12 +127,12 @@ $lang['No_Reg_advise'] = '
   <div class="info">&lt;a href=&quot;../[PiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
   <br>';
 $lang['About_Reg'] = 'About the registration of users on the forum FluxBB';
-$lang['Bridge_UAM'] = 'Validation d\'accès au forum via le plugin UserAdvManager (UAM): Activez ici le pont entre les deux plugins qui vous permettra d\'interdir l\'accès à votre forum FluxBB tant que l\'utilisateur n\'a pas validé son inscription à la galerie (la fonction correspondante doit être active sur UAM). Access validation to the forum via UserAdvManager (UAM) plugin: Turn the bridge on between the two plugins that will allow you to prohibit the access to your FluxBB forum until the user has not validated its registration in the gallery (the function must be active on UAM).';
+$lang['Bridge_UAM'] = 'Access validation to the forum via UserAdvManager (UAM) plugin: Turn the bridge on between the two plugins that will allow you to prohibit the access to your FluxBB forum until the user has not validated its registration in the gallery (the function must be active on UAM).';
 $lang['Bridge_UAM_true'] = ' --> Enable bridge Register_FluxBB / UAM';
 $lang['Bridge_UAM_false'] = ' --> Disable bridge Register_FluxBB / UAM (default)';
-$lang['FluxBB_Group'] = 'Précisez ici l\'ID du <b>groupe FluxBB</b> dans lequel les utilisateurs non validé doivent se trouver (à créer au préalable dans FluxBB). Pour être efficace, ce groupe ne doit avoir aucune permission sur le forum (voir à la fin de cette page pour les détails d\'utilisation de cette option).Specify the ID of <b>FluxBB\' group</b> in which non validated users must be (to be created in advance in FluxBB). To be effective, this group should have no permission on the forum (see the end of this page for details on using this option).';
+$lang['FluxBB_Group'] = 'Specify the ID of <b>FluxBB\' group</b> in which non validated users must be (to be created in advance in FluxBB). To be effective, this group should have no permission on the forum (see the end of this page for details on using this option).';
 $lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
-$lang['UAM_Bridge_advice'] = 'The UserAdvManager plugin allows forcing new registrants to confirm their registration before allowing them to access the entire gallery. The joint use of this plugin with Register_FluxBB can do the same on the forum linked: Registrants can not post until they have validated their registration in the gallery. <br>
+$lang['UAM_Bridge_advice'] = 'The UserAdvManager plugin allows forcing new registrants to confirm their registration before allowing them to access the entire gallery. The joint use of this plugin with Register_FluxBB can do the same on the linked forum: Registrants can not post until they have validated their registration in the gallery. <br>
 Here is the general procedure to apply:
 <br>
 - In the administration of your FluxBB forum, set at least 2 groups of users (for example: "validated" and "no_validated").<br>
@@ -161,4 +153,20 @@ $lang['error_config_admin1'] = 'ERROR : Piwigo\'s admin username is wrong!';
 $lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
 $lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
 // --------- End: New or revised $lang ---- from version 2.3.3
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.5
+$lang['Disclaimer'] = '
+  *** To begin, follow this 2 steps ***<br>
+  Step 1 : Set plugin with the parameters of FluxBB.<br>
+  Step 2 : Migrate user accounts from Piwigo to FluxBB.<br><br>
+  After these 2 main steps, the plugin is fully functional and you will not have to return to this pages.<br><br>
+  *** For the maintenance of already active connections ***<br>
+  Maintenance : Synchronize tables (in case an addition, an update or a user deletion mismatched) allows to update passwords and email addresses and see users intruder (But you should not need to use ).<br><br>
+  <div class="warning">WARNING !! For safety, consider making a backup of your database, especially ###_user tables before any action.</div>
+<br><br>
+  <div class="warning">Important to know:<br>
+  By default, <b>FluxBB</b> is case <u>insensitive</u> on usernames. That is, if a user called "test" is already registered, other entries like "Test" or "TEST" or "TEst" (etc. ..) will be rejected.<br><br>
+  By default, <b>Piwigo</b> works in reverse and is therefore case <u>sensitive</u> on logins ("test" will be a different user of "Test" or "TEST", etc. ...).<br>
+  To avoid problems (even if Piwigo\'s behavior can be easily changed - See configuration options), Register_FluxBB will link the two applications as FluxBB: Being case <u>insensitive</u> for logins.<br><br></div>';
+// --------- End: New or revised $lang ---- from version 2.3.5
 ?>

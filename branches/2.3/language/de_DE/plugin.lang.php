@@ -5,14 +5,6 @@ $lang['Tab_Migration'] = 'Step 2 : Kontenmigration';
 $lang['Tab_Synchro'] = 'Wartung : Kontensynchronisierung';
 
 $lang['Title'] = 'Register FluxBB';
-$lang['Disclaimer'] = '
-  *** Befolgen Sie bitte die folgenden zwei Schritte, um zu beginnen ***<br>
-  Step 1 : Konfigurieren Sie den Plugin für den Zugriff auf FluxBB.<br>
-  Step 2 : Migrieren Sie die Benutzerkonten von Piwigo nach FluxBB.<br><br>
-  Wenn dies erfolgt ist arbeitet der Plugin voll funktionstüchtig und Sie müssen diese Seiten nicht mehr aufsuchen.<br><br>
-  *** Für die Wartung bereits bestehender Verbindungen ***<br>
-  Wartung: : Tabellensynchronisation (im Fall des Hinzufügens, Aktualisierens oder Löschens eines Users) erlaubt Ihnen, Passwörter und e-mail Adressen auf den neuesten Stand zu bringen und unerwünschte User zu erkennen (Dies sollten Sie jedoch im Normalfall nicht benötigen).<br><br>
-  <div class="warning">Warnung !! Aus Sicherheitsgründen sollten Sie ein Backup Ihrer Datenbank anfertigen (Speziell die ###_user Tabellen).</div>';
 
 $lang['Config_Title'] = 'Pluginkonfiguration';
 $lang['Config_Disclaimer'] = '
@@ -161,4 +153,20 @@ Similarly, if you\'ve never used Register_FluxBB, the Piwigo\'s accounts migrati
 /*TODO*/$lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
 /*TODO*/$lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
 // --------- End: New or revised $lang ---- from version 2.3.3
+
+// --------- Starting below: New or revised $lang ---- from version 2.3.5
+$lang['Disclaimer'] = '
+  *** Befolgen Sie bitte die folgenden zwei Schritte, um zu beginnen ***<br>
+  Step 1 : Konfigurieren Sie den Plugin für den Zugriff auf FluxBB.<br>
+  Step 2 : Migrieren Sie die Benutzerkonten von Piwigo nach FluxBB.<br><br>
+  Wenn dies erfolgt ist arbeitet der Plugin voll funktionstüchtig und Sie müssen diese Seiten nicht mehr aufsuchen.<br><br>
+  *** Für die Wartung bereits bestehender Verbindungen ***<br>
+  Wartung: : Tabellensynchronisation (im Fall des Hinzufügens, Aktualisierens oder Löschens eines Users) erlaubt Ihnen, Passwörter und e-mail Adressen auf den neuesten Stand zu bringen und unerwünschte User zu erkennen (Dies sollten Sie jedoch im Normalfall nicht benötigen).<br><br>
+  <div class="warning">Warnung !! Aus Sicherheitsgründen sollten Sie ein Backup Ihrer Datenbank anfertigen (Speziell die ###_user Tabellen).</div>
+<br><br>
+  <div class="warning">Wichtig zu wissen:<br>
+  Standardmäßig ist <b>FluxBB</b> Fall <u>unempfindlich</u> für Benutzernamen. Das heißt, wenn ein Benutzer namens "test" ist bereits registriert, andere Einträge wie "Test" oder "TEST" oder "TEst" (etc. ..) werden abgelehnt.<br><br>
+  Standardmäßig ist <b>Piwigo</b> arbeitet in umgekehrter und ist daher bei Fall <u>empfindlich</u> für Logins ("test" wird ein anderer Benutzer von "TEST" oder "TEst", etc. ...) werden<br>
+  Um Probleme zu vermeiden (auch wenn Piwigo Verhalten leicht verändert werden kann - siehe Konfigurationsmöglichkeiten), wird Register_FluxBB Verknüpfung der beiden Anwendungen als FluxBB: Fall <u>unempfindlich</u> für Logins.<br><br></div>';
+// --------- End: New or revised $lang ---- from version 2.3.5
 ?>
