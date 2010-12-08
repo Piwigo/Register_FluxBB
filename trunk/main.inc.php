@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.3.5
+Version: 2.3.6
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -68,6 +68,8 @@ Author URI: http://www.infernoweb.net
 
 2.3.5     - 02/12/10  - Bug 2047 fixed : Check case sensitivity for logins in FluxBB's user table
                       - Code refactory and optimization
+
+2.3.6     - 08/12/10  - Bug 2051 fixed : Compatibility with Captcha
 --------------------------------------------------------------------------------
 */
 
