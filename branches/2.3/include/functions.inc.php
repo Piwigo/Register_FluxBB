@@ -132,24 +132,25 @@ WHERE id = ".FluxBB_Searchuser($user['id'])."
 }
 
 
-function Register_FluxBB_RegistrationCheck($err, $register_user)
+function Register_FluxBB_RegistrationCheck($errors, $user)
 {
-  global $errors, $conf;
+  global $conf;
   
   //Because FluxBB is case insensitive on login name, we have to check if a similar login already exists in FluxBB's user table
   // If "test" user already exists, "TEST" or "Test" (and so on...) can't register
   $query = "
 SELECT username
   FROM ".FluxBB_USERS_TABLE."
-WHERE LOWER(".stripslashes('username').") = '".strtolower($register_user['username'])."'
+WHERE LOWER(".stripslashes('username').") = '".strtolower($user['username'])."'
 ;";
 
-    $count = pwg_db_num_rows(pwg_query($query));
+  $count = pwg_db_num_rows(pwg_query($query));
 
-    if ($count > 0)
-    {
-      return l10n('this login is already used');
-    }
+  if ($count > 0)
+  {
+    array_push($errors, l10n('this login is already used'));
+  }
+  return $errors; 
 }
 
 
