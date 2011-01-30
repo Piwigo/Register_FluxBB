@@ -12,6 +12,6 @@ if (isset($conf_Register_FluxBB[0]))
   define('FluxBB_USERS_TABLE', $conf_Register_FluxBB[0].'users');
   define('FluxBB_POSTS_TABLE', $conf_Register_FluxBB[0].'posts');
   define('FluxBB_TOPICS_TABLE', $conf_Register_FluxBB[0].'topics');
-  define('FluxBB_SUBSCRIPTIONS_TABLE', $conf_Register_FluxBB[0].'subscriptions');
+  define('FluxBB_SUBSCRIPTIONS_TABLE', $conf_Register_FluxBB[0].'topic_subscriptions');
 }
 ?>
