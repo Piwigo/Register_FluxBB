@@ -1,6 +1,5 @@
 <?php
 
-if(!defined("REGFLUXBB_DIR")) define('REGFLUXBB_DIR' , basename(dirname(__FILE__)));
 if(!defined("REGFLUXBB_PATH")) define('REGFLUXBB_PATH' , PHPWG_PLUGINS_PATH.REGFLUXBB_DIR.'/');
 //ini_set('error_reporting', E_ALL);
 //ini_set('display_errors', true);

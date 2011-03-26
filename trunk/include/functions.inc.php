@@ -8,7 +8,9 @@ function Register_FluxBB_admin_menu($menu)
 {
   array_push($menu, array(
     'NAME' => 'Register FluxBB',
-    'URL'  => get_admin_plugin_menu_link(REGFLUXBB_PATH.'admin/admin.php')));
+    'URL' => get_root_url().'admin.php?page=plugin-'.basename(REGFLUXBB_PATH)
+    )
+  );
   return $menu;
 }
 

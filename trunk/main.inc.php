@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.3.7
+Version: 2.4.0
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion) - Original Nicco's NBC_LinkUser2PunBB plugin upgraded to Piwigo / Liez l'inscription des utilisateurs de Piwigo avec votre forum FluxBB - Portage du plugin NBC_LinkUser2PunBB de Nicco vers Piwigo
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=252
 Author: Eric
@@ -72,6 +72,8 @@ Author URI: http://www.infernoweb.net
 2.3.6     - 08/12/10  - Bug 2051 fixed : Compatibility with Captcha
 
 2.3.7     - 31/01/11  - Bug 2154 fixed : Bad fluxbb table name
+
+2.4.0     - 26/03/11  - Compliance with Piwigo 2.2
 --------------------------------------------------------------------------------
 */
 
@@ -81,7 +83,6 @@ Author URI: http://www.infernoweb.net
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-if (!defined('REGFLUXBB_DIR')) define('REGFLUXBB_DIR' , basename(dirname(__FILE__)));
 if (!defined('REGFLUXBB_PATH')) define('REGFLUXBB_PATH' , PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
 
 include_once (REGFLUXBB_PATH.'include/constants.php');
