@@ -1,4 +1,4 @@
-{html_head}<link rel="stylesheet" type="text/css" href="{$REGFLUXBB_PATH}admin/template/register_fluxbb.css">{/html_head}
+{combine_css path= $REGFLUXBB_PATH|@cat:'admin/template/register_fluxbb.css'}
 
 <div class="titrePage">
   <h2>{'Title_Tab'|@translate} {$REGFLUXBB_VERSION}<br>{'Tab_Synchro'|@translate}</h2>

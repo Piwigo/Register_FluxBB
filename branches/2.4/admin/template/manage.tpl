@@ -1,4 +1,4 @@
-{html_head}<link rel="stylesheet" type="text/css" href="{$REGFLUXBB_PATH}admin/template/register_fluxbb.css">{/html_head}
+{combine_css path= $REGFLUXBB_PATH|@cat:'admin/template/register_fluxbb.css'}
 
 <script type="text/javascript">
 function blockToggleDisplay(headerId, contentId)
