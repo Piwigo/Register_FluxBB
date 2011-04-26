@@ -9,12 +9,12 @@
   background-position: 5px 5px;
   padding:15px 60px 0pt 60px;
   min-height: 54px;
+  width: auto;
 }
 
 .warning {
   color: #f22;
   background-color: #ffd5dc;
-  background-image: url(icon/warning.png);
 }
 
 .info{
