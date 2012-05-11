@@ -596,7 +596,7 @@ WHERE id = 1
     {
       if (!function_exists('FindAvailableConfirmMailID'))
       {
-      $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';false;0';
+      $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.pwg_db_real_escape_string($_POST['FluxBB_admin']).';'.pwg_db_real_escape_string($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';false;0';
       }
       elseif (function_exists('FindAvailableConfirmMailID'))
       {
@@ -604,22 +604,15 @@ WHERE id = 1
         
         if (isset($conf_UAM[1]) and ($conf_UAM[1] == 'true' or $conf_UAM[1] == 'local') and isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
         {
-          $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';'.$_POST['FluxBB_UAM'].';'.$_POST['FluxBB_group'];
+          $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.pwg_db_real_escape_string($_POST['FluxBB_admin']).';'.pwg_db_real_escape_string($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';'.$_POST['FluxBB_UAM'].';'.$_POST['FluxBB_group'];
         }
         else
         {
-          $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.addslashes($_POST['FluxBB_admin']).';'.addslashes($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';false;0';
+          $conf['Register_FluxBB'] = $_POST['FluxBB_prefix'].';'.pwg_db_real_escape_string($_POST['FluxBB_admin']).';'.pwg_db_real_escape_string($_POST['FluxBB_guest']).';'.$_POST['FluxBB_del_pt'].';'.$_POST['FluxBB_confirm'].';'.$_POST['FluxBB_details'].';false;0';
         }
       }
 
-      $query = '
-UPDATE '.CONFIG_TABLE.'
-SET value="'.$conf['Register_FluxBB'].'"
-WHERE param="Register_FluxBB"
-LIMIT 1
-;';
-
-      pwg_query($query);
+      conf_update_param('Register_FluxBB', $conf['Register_FluxBB']);
       
       array_push($page['infos'], l10n('save_config'));
     }

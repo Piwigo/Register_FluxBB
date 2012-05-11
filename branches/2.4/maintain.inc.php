@@ -47,14 +47,8 @@ function plugin_activate()
   if (!isset($conf_Register_FluxBB[6]) and !isset($conf_Register_FluxBB[7]))
   {
     $upgrade_RFBB = $conf_Register_FluxBB[0].';'.$conf_Register_FluxBB[1].';'.$conf_Register_FluxBB[2].';'.$conf_Register_FluxBB[3].';'.$conf_Register_FluxBB[4].';'.$conf_Register_FluxBB[5].';false;0';
-		
-    $query = '
-UPDATE '.CONFIG_TABLE.'
-SET value="'.$upgrade_RFBB.'"
-WHERE param="Register_FluxBB"
-LIMIT 1
-;';
-		pwg_query($query);
+
+    conf_update_param('Register_FluxBB', pwg_db_real_escape_string($upgrade_RFBB));
   }
 }
 
