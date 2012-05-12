@@ -120,11 +120,11 @@ FROM ".FluxBB_CONFIG_TABLE."
 WHERE conf_name = 'o_default_user_group'
 ;";
 
-        $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+        $o_user_group = pwg_db_fetch_assoc(pwg_query($query));
       
         $query = "
 UPDATE ".FluxBB_USERS_TABLE."
-SET group_id = ".$o_default_user_group['conf_value']." 
+SET group_id = ".$o_user_group['conf_value']." 
 WHERE id = ".FluxBB_Searchuser($user['id'])."
 ;";
         pwg_query($query);
@@ -310,7 +310,8 @@ VALUES(
 function FluxBB_Searchuser($id_user_pwg)
 {
   $query = "
-SELECT id_user_FluxBB, id_user_pwg FROM ".Register_FluxBB_ID_TABLE."
+SELECT id_user_FluxBB, id_user_pwg
+FROM ".Register_FluxBB_ID_TABLE."
 WHERE id_user_pwg = ".$id_user_pwg."
 LIMIT 1
 ;";
