@@ -620,6 +620,18 @@ WHERE id = 1
 
   $conf_Register_FluxBB = isset($conf['Register_FluxBB']) ? explode(";" , $conf['Register_FluxBB']) : array();
 
+// If UAM exists and if UAM ConfirmMail is set, we can set this feature
+  if (function_exists('FindAvailableConfirmMailID'))
+  {
+    $conf_UAM = unserialize($conf['UserAdvManager']);
+
+    if (isset($conf_UAM[1]) and ($conf_UAM[1] == 'true' or $conf_UAM[1] == 'local') and (isset($conf_UAM[2]) and $conf_UAM[2] <> '-1'))
+    {
+      $UAM_bridge = true;
+    }
+    else $UAM_bridge = false;
+  }
+
   $template->assign(
     array
     (
@@ -634,31 +646,13 @@ WHERE id = 1
       'FluxBB_CONFIRM_FALSE' => (isset($conf_Register_FluxBB[4]) and $conf_Register_FluxBB[4] == 'false') ? 'checked="checked"' : '',
       'FluxBB_DETAILS_TRUE'  => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'true') ? 'checked="checked"' : '',
       'FluxBB_DETAILS_FALSE' => (isset($conf_Register_FluxBB[5]) and $conf_Register_FluxBB[5] == 'false') ? 'checked="checked"' : '',
+      'UAM_BRIDGE'           => $UAM_bridge,
+      'FluxBB_UAM_LINK_TRUE' => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true') ? 'checked="checked"' : '',
+      'FluxBB_UAM_LINK_FALSE'=> (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'false') ? 'checked="checked"' : '',
+      'FluxBB_GROUP'         => $conf_Register_FluxBB[7],
     )
   );
 
-// If UAM exists and if UAM ConfirmMail is set, we can set this feature
-  if (function_exists('FindAvailableConfirmMailID'))
-  {  
-    $conf_UAM = unserialize($conf['UserAdvManager']);
-    $UAM_bridge = false;
-    
-    if (isset($conf_UAM[1]) and ($conf_UAM[1] == 'true' or $conf_UAM[1] == 'local') and isset($conf_UAM[2]) and $conf_UAM[2] != '-1')
-    {
-      $UAM_bridge = true;
-    }
-  
-    $template->assign(
-      array
-      (
-        'UAM_BRIDGE'            => $UAM_bridge,
-        'FluxBB_UAM_LINK_TRUE'  => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'true') ? 'checked="checked"' : '',
-        'FluxBB_UAM_LINK_FALSE' => (isset($conf_Register_FluxBB[6]) and $conf_Register_FluxBB[6] == 'false') ? 'checked="checked"' : '',
-        'FluxBB_GROUP'          => $conf_Register_FluxBB[7],
-      )
-    );
-  }
-    
   $template->set_filename('plugin_admin_content', dirname(__FILE__) . '/template/manage.tpl');
   $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
