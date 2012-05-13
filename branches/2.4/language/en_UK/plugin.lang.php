@@ -103,7 +103,6 @@ $lang['Mig_Add_User'] = '<b>Transfer of account:</b> ';
 $lang['Mig_End'] = '<b>Migration done !</b>';
 $lang['Title_Tab'] = 'Register_FluxBB - Version: ';
 
-// --------- Starting below: New or revised $lang ---- from version 2.3.0
 $lang['No_Reg_advise'] = '
   For better integration, it is advisable to make the following changes to your FluxBB forum (<b>Warning: These changes will disappear when updating the forum</b>):
 <br><br>
@@ -145,16 +144,12 @@ Here is the general procedure to apply:
 <br>
 If you already use an earlier version of Register_FluxBB, Piwigo\'s accounts linked between your gallery and your FluxBB forum will not be impacted by the effects of the bridge. Only new registers will be impacted after activation of the bridge.<b><u>Accounts resynchronization function will be void.</u></b><br>
 Similarly, if you\'ve never used Register_FluxBB, the Piwigo\'s accounts migration phase from your gallery to your FluxBB forum will disregard the state validated or not for the accounts at the launch of the migration phase.';
-// --------- End: New or revised $lang ---- from version 2.3.0
 
-// --------- Starting below: New or revised $lang ---- from version 2.3.3
 $lang['Admin'] = 'Piwigo\'s administrator username. <b style="color: red">The username of FluxBB\'s administrator account has to be the same!</b>';
 $lang['error_config_admin1'] = 'ERROR : Piwigo\'s admin username is wrong!';
 $lang['error_config_admin2'] = 'ERROR : The name of the FluxBB\'s administrator account is different from that of Piwigo ! Check the configuration of your FluxBB forum and rename the administrator account in the same name as that of Piwigo.';
 $lang['error_config_guest'] = 'ERROR : The name of the FluxBB\'s guest account is wrong!';
-// --------- End: New or revised $lang ---- from version 2.3.3
 
-// --------- Starting below: New or revised $lang ---- from version 2.3.5
 $lang['Disclaimer'] = '
   *** To begin, follow this 2 steps ***<br>
   Step 1 : Set plugin with the parameters of FluxBB.<br>
@@ -168,5 +163,4 @@ $lang['Disclaimer'] = '
   By default, <b>FluxBB</b> is case <u>insensitive</u> on usernames. That is, if a user called "test" is already registered, other entries like "Test" or "TEST" or "TEst" (etc. ..) will be rejected.<br><br>
   By default, <b>Piwigo</b> works in reverse and is therefore case <u>sensitive</u> on logins ("test" will be a different user of "Test" or "TEST", etc. ...).<br>
   To avoid problems (even if Piwigo\'s behavior can be easily changed - See configuration options), Register_FluxBB will link the two applications as FluxBB: Being case <u>insensitive</u> for logins.<br><br></div>';
-// --------- End: New or revised $lang ---- from version 2.3.5
 ?>
