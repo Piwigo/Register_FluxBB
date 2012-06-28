@@ -73,4 +73,15 @@ $lang['Tab_Migration'] = 'Fase 2: Migrazione degli accounts';
 $lang['Tab_Synchro'] = 'Manutenzione: Risincronizzazione accounts';
 $lang['Title'] = 'Registrazione FluxBB';
 $lang['save_config'] = 'Impostazioni salvate';
+$lang['About_Reg'] = 'Informazioni sulla registrazione degli utenti sul forum FluxBB';
+$lang['Admin'] = 'Nome utente amministratore Piwigo. <b style="color: red">Il nome utente dell\'amministratore di FluxBB deve essere uguale!</b>';
+$lang['Audit_FluxBB2PWG'] = '<b>Audit dei conti esistenti in FluxBB e mancanti in Piwigo</b>';
+$lang['Audit_OK'] = 'Audit OK<br><br>';
+$lang['Bridge_UAM'] = 'Convalida di accesso forum tramite plugin UserAdvManager (UAM): Seleziona qui il ponte tra i due plugin che ti permetterà di bloccare l\'accesso al tuo forum FluxBB finché l\'utente non ha convalidato la sua iscrizione nella galleria (la funzione deve essere attiva su UAM).';
+$lang['Del_User'] = 'Cancellazione dal conto FluxBB di:';
+$lang['Error_FluxBB2PWG'] = '<b>L\'account FluxBB non è in Piwigo:</b>';
+$lang['Error_Synchro_Mail'] = 'per l\'indirizzo e-mail';
+$lang['Error_Synchro_Pswd'] = 'per la password';
+$lang['Mig_Btn'] = 'Migrazione';
+$lang['Mig_Del_User'] = '<b>Cancellazione dell\'acount</b>';
 ?>
