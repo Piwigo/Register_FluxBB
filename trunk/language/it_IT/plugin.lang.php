@@ -113,4 +113,5 @@ $lang['Title_Tab'] = 'Register_FluxBB - Versione: ';
 $lang['error_config_admin1'] = 'ERRORE : Il nome utente dell\'admin di Piwigo è errato!';
 $lang['error_config_admin2'] = 'ERRORE : Il nome dell\'account di amministrazione di FluxBB è diverso da quello di Piwigo! Verificare la configurazione del tuo forum FluxBB e rinominare l\'account amministratore con lo stesso nome di quello di Piwigo.';
 $lang['error_config_guest'] = 'ERRORE : Il nome dell\'account guest in FluxBB è sbagliato!';
+$lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
 ?>
