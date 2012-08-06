@@ -1,0 +1,1 @@
+Link-Benutzer-Registrierung von Piwigo zu FluxBB Forum (Registrierung, Pa&szlig;wort &auml;ndern, L&ouml;schen) - Original Nicco die NBC_LinkUser2PunBB Plugin, um Piwigo aufger&uuml;stet

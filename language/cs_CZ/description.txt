@@ -1,0 +1,1 @@
+Propojuje uživatele mezi Piwigo a FluxBB forum (registrace, změna hesla, odstranění uživatele)
