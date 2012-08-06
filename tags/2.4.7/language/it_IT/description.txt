@@ -1,0 +1,1 @@
+Condivide i dati di registrazione tra Piwigo e FluxBB (iscrizione, modifica della password, cancellazione)

@@ -1,0 +1,1 @@
+Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion)
