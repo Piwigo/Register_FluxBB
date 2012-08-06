@@ -1,1 +1,0 @@
-Sasaista Piwigo lietotāju reģistrāciju ar FluxBB forumu (reģistrācija, paroļu maiņa, dzēšana)
