@@ -114,4 +114,13 @@ $lang['error_config_admin1'] = 'ERRORE : Il nome utente dell\'admin di Piwigo è
 $lang['error_config_admin2'] = 'ERRORE : Il nome dell\'account di amministrazione di FluxBB è diverso da quello di Piwigo! Verificare la configurazione del tuo forum FluxBB e rinominare l\'account amministratore con lo stesso nome di quello di Piwigo.';
 $lang['error_config_guest'] = 'ERRORE : Il nome dell\'account guest in FluxBB è sbagliato!';
 $lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
+$lang['Mig_Text'] = '<div class="warning"> UTILIZZARE SOLO SE non hai mai usato il plugin per collegare Piwigo a FluxBB <u>E SE</u> non ci sono utenti nel tuo forum !!!</b></div><br>
+  		--> In questo caso, la tua tabella [PrefixFluxBB]_user di FluxBB deve essere svuotata di tutti gli account tranne i 2 account guest e administrator.<br><br>
+  - La migrazione cancellerà dapprima i links tra gli account di Piwigo e FluxBB.<br>
+  - Quindi <b>CANCELLERA? TUTTI GLI ACCOUNTS FluxBB</b> tranne i 2  accounts guest e administrator.<br>
+  <br>
+  <div class="warning">ATTENZIONE: SE AVETE DEGLI ACCOUNT SPECIALI IN FluxBB == NON UTILIZZATE QUESTA FUNZIONE !!!</div><br>
+  - Infine, la migrazione creerà tutti gli account di Piwigo in FluxBB, tranne il guest.<br>
+  <br>
+  Se accadono degli errori durante l\'operazione, correggete la causadel problema e riprovate l\'operazione di migrazione (solo allora potrete rifare la migrazione).<br>';
 ?>
