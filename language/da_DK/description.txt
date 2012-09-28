@@ -1,0 +1,1 @@
+Link brugerregistreringer fra Piwigo til FluxBB-forummet (registrering, ændring af adgangskode, sletning).
