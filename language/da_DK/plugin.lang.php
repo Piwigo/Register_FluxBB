@@ -79,4 +79,88 @@ $lang['Confirm_false'] = ' --&gt; Bekræfelse krævet før handlinger i auditen'
 $lang['Confirm_true'] = ' --&gt; Sletbekræftelse';
 $lang['Del_Pt'] = 'Fjernelse af emner og indlæg, hvor brugeren er slettet.';
 $lang['Del_Pt_false'] = ' --&gt; Slet ikke emner og indlæg';
+$lang['UAM_Bridge_advice'] = 'Plugin\'en UserAdvManager gør det muligt at tvinge nyregistrerede brugere til at bekræfte deres registrering, før de får adgang til hele galleriet. Benyttes samtidig med denne plugin, Register_FluxBB kan det samme gøres i det linkede forum: Registranter kan ikke skrive indlæg indtil de har godkendt deres registrering i galleriet. <br>
+Her er den generelle procedure, som skal anvendes:
+<br>
+- I administration i det FluxBB-forum opsættes mindst to brugergrupper (for eksempel: "validated" og "no_validated").<br>
+- Giv den første gruppe ("validated") de adgangstilladelelser, som du ønsker i dit forum, og opsæt den som standardgruppen.<br>
+- Fra den anden gruppe ("no_validated") fjernes alle tilladelser i dit forum (medlemmer af gruppen kan kun læse offentlige indlæg).<br>
+- Find den anden gruppes, "no_validated", id.<br>
+- Skriv id\'en i Register_FluxBB-plugin\'en, aktiver forbindelsen og gem indstillingerne.
+<br>
+<b class="mod"><u>Vigtige bemærkninger:</u></b>
+<br>
+Hvis du allerede anvender en tidligere version af Register_FluxBB, og Piwigos konti er linket mellem dit galleri og dit FluxBB-forum, vil de ikke blive påvirket af forbindelsen. Kun nyregistreringen vil blive påvirket efter aktiveringen af forbindelsen.<b><u>Funktione til konto-gensynkronisering vil ikke fungere.</u></b><br>
+Tilsvarende, hvis du aldrig har benyttet Register_FluxBB, vil fasen med migreringn af Piwigos konti fra dit galleri til dit FluxBB-forum ignorere tilstanden, der fortæller om der er tale om en konto er godkendt eller ej, for at alle konti der findes på det tidspunkt, migreringen sættes i værk.';
+$lang['No_Reg_advise'] = '  For bedre integration anbefales det at foretage følgende ændringer i dit FluxBB-forum (<b>Advarsel: Ændringerne vil forsvinde når forummet opdateres</b>):
+<br><br>
+  <b>* I FluxBB\'s administrationspanel ændres "Allow new registrations" til NO (i: Options - Registration)</b>
+<br><br>
+  <b>* Ændring af filen</b>: [FluxBBRoot]/lang/English/register.php ved at erstatte følgende linje:
+  <div class="mod">\'No new regs\'				=>	\'This forum is not accepting new users.\'</div>
+  <b>med:</b>
+  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Go here to register &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+  <br>
+  Du skal selvfølgelig gøre det samme for alle andre sprog i dit FluxBB-forum.
+<br><br>
+  <b>* Ændring af filen</b> : [FluxBBRoot]/login.php ved er erstatte linje 69:
+  <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
+  <b>med:</b>
+  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[PiwigoRoot]/password.php&quot;&gt;</div>
+<br>
+  og linje 216:
+  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <b>med:</b>
+  <div class="info">&lt;a href=&quot;../[PiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;><?php echo $lang_login[\'Forgotten pass\']</a></p></div>
+  <br>';
+$lang['Sync_Text'] = '<div class="warning">Du har allerede benyttet plugin\'en til at linke din Piwigo (pluginopdatering) og/eller dit FluxBB-forum ikke er tomt for brugere!</div>
+  <br> -> Det betyder, at der er brugere i dit forum.<br><br>
+  - Synkroniseringen finder data ved at sammenligne brugernavne, adgangskoder (krypterede) og deres e-mail-adresser i begge tabeller [PrefixPWG]_user og [PrefixFluxBB]_user.<br>
+  - Dernæst opdateres den svarende tabel, foruden adgangskode og e-mail-adresse for hver konto fra Piwigo til FluxBB, bortset fra Piwigo Guest og FluxBB Anonymous.<br>
+  - Slutteligt indikeres misvisende forældreløse konti, som kun findes i en af de to ###_user-tabeller.<br>
+  <br>
+  Når handlingen er udført, startes en audit og kontroller for mulige duplikerede brugere i FluxBB. Hvis det er tilfældet, slettes den ældste (FluxBB-brugere sorteres jævnfør deres registreringsdato).<br>';
+$lang['Mig_Text'] = '  <div class="warning">BRUG KUN HVIS du aldrig før har benyttet plugin\'en til at linke Piwigo til FluxBB <u>OG HVIS</u> dit forum ikke har nogen brugere!!!</b></div><br>
+  		--> I det tilfælde, må tabellen [PrefixFluxBB]_user i FluxBB ikke indeholde nogen brugerkonto, bortset fra de to konti guest og administrator.<br><br>
+  - Migreringen fjerner først links mellem konti i Piwigo og FluxBB.<br>
+  - Dernæst <b>SLETTES ALLE FluxBB-KONTI</b> bortset fra de to konti guest og administrator.<br>
+  <br>
+  <div class="warning">ADVARSEL: HVIS DU HAR NOGEN SÆRLIGE KONTI I FluxBB == ANVENDT IKKE DENNE FUNKTION!!!</div><br>
+  - Slutteligt, migreringen opretter alle Piwigos konti i FluxBB, bortset fra guest.<br>
+  <br>
+  Hvis der opstår fejl undervejs, skal du rette årsagen til fejlen og starte migreringen igen (på det tidspunkt kan man kun fornye migreringen).<br>';
+$lang['Sync_Link_Bad'] = '<b>Analyse af dårlige forbindelser mellem konti i Piwigo og FluxBB</b>';
+$lang['Sync_Link_Break'] = '<b>Analyse af reparérbare links mellem konti i Piwigo og FluxBB</b>';
+$lang['Sync_OK'] = 'Synkronisering er ok<br><br>';
+$lang['Sync_PWG2FluxBB'] = '<b>Analyse af eksisterende konti i Piwigo, som mangler i FluxBB</b>';
+$lang['Sync_Title'] = 'Sykroniser konti fra Piwigo til FluxBB';
+$lang['Sync_User'] = 'Kontosynkronisering:';
+$lang['Tab_Info'] = 'Vejledning';
+$lang['Tab_Manage'] = 'Trin 1: Opsætning af plugin';
+$lang['Tab_Migration'] = 'Trin 2: Kontomigrering';
+$lang['Tab_Synchro'] = 'Vedligeholdelse: Gensynkronisering af konti';
+$lang['Title'] = 'Registrer FluxBB';
+$lang['Title_Tab'] = 'Registrer FluxBB - Version:';
+$lang['error_config_admin1'] = 'FEJL: Piwigos administratorbrugernavn er forkert!';
+$lang['error_config_admin2'] = 'FEJL: Navnet på FluxBB\'s administratorkonto er forskelligt fra det i Piwigo! Kontrollerer opsætningen af dit FluxBB-forum og omdøb admninistratorkontoen til det samme navn, som det i Piwigo.';
+$lang['error_config_guest'] = 'FEJL: Navnet på FluxBB\'s gæstekonto er forkert!';
+$lang['save_config'] = 'Indstillinger gemt';
+$lang['Link_Del'] = 'Fjernelse af link:';
+$lang['Link_Dup'] = 'Fjernelse af duplikater:';
+$lang['Mig_Add_AllUsers'] = '<b>Overfører Piwigo-konti</b>';
+$lang['Mig_Add_User'] = '<b>Overførsel af konto:</b> ';
+$lang['Mig_Btn'] = 'Migrering';
+$lang['Mig_Del_AllUsers'] = '<b>Sletter FluxBB-konti</b>';
+$lang['Mig_Del_Link'] = '<b>Sletter links mellem Piwigo- og FluxBB-konti</b>';
+$lang['Mig_Del_User'] = '<b>Sletter kontoen:</b> ';
+$lang['Mig_Disclaimer'] = '<div class="warning">UDFØR ALDRIG MIGRERING FOR OPDATERING!!!</div>';
+$lang['Mig_End'] = '<b>Migrering udført!</b>';
+$lang['Mig_Start'] = '<b>Mirgrering af konti fra Piwigo til FluxBB</b>';
+$lang['Mig_Title'] = 'Migrering af konti fra Piwigo til FluxBB';
+$lang['New_Link'] = 'Konti linket:';
+$lang['Prefix'] = 'FluxBB Prefix-tabeller:';
+$lang['Sync_Btn'] = 'Synkronisering';
+$lang['Sync_Check_Dup'] = '<b>Analyserer tabeller med brugerkonti i Piwigo og FluxBB, for at finde duplikater</b>';
+$lang['Sync_DataUser'] = '<b>Analyse af adgangskoder og e-mail-adresser mellem konti i Piwigo og FluxBB</b>';
+$lang['Sync_FluxBB2PWG'] = '<b>Analyse af eksisterende konti i FluxBB, som mangler i Piwigo</b>';
 ?>
