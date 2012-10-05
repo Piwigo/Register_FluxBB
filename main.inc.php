@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Register FluxBB
-Version: 2.4.7
+Version: auto
 Description: Link user registration from Piwigo to FluxBB forum (registration, password changing, deletion)
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=252
 Author: Eric
@@ -95,6 +95,11 @@ Author URI: http://www.infernoweb.net
                       - Add cs_CZ - Česky – Czech, Thanks to : webprostor
                       - Update uk_UA, thanks to : animan
                       - Update el_GR, thanks to : bas_alba
+
+2.4.8     - 05/10/12  - Update uk_UA, thanks to : animan
+                      - Update it_IT, thanks to : virgigiole
+                      - Add da_DK, thanks to : Kaare
+                      - Add es_ES, thanks to : petaqui
 --------------------------------------------------------------------------------
 */
 
