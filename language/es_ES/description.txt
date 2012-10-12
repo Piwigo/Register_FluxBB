@@ -1,0 +1,1 @@
+Enlace de registro de usuario de Piwigo hacia el foro FluxBB  (registro, cambio de contraseña, borrado)
