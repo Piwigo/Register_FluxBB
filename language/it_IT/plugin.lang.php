@@ -123,4 +123,11 @@ $lang['Mig_Text'] = '<div class="warning"> UTILIZZARE SOLO SE non hai mai usato 
   - Infine, la migrazione creerà tutti gli account di Piwigo in FluxBB, tranne il guest.<br>
   <br>
   Se accadono degli errori durante l\'operazione, correggete la causadel problema e riprovate l\'operazione di migrazione (solo allora potrete rifare la migrazione).<br>';
+$lang['Sync_Text'] = '  <div class="warning">Hai già utilizzato il plugin per collegare il tuo Piwigo (aggiornamento plugin) e/o sono ancora presenti utenti nel tuo forum FluxBB!</div>
+  <br> -> Questo significa che il tuo forum ha degli utenti.<br><br>
+  - La sincronizzazione rileva i dati confrontando i nomi utente, password (criptate) ed il loro indirizzo email in entrambe le tabelle [PrefixPWG]_user e [PrefixFluxBB]_user.<br>
+  - In seguito aggiorna la tabella delle corrispondenze cosi come le password e indirizzi email di ogni account da Piwigo a FluxBB ad eccezione di Piwigo Guest e FluxBB Anonymous.<br>
+  - Infine riporta account orfani che esistono in solo una delle due tabelle ###_user.<br>
+  <br>
+  Al termine dell\'operazione, eseguite un audit e verificate la presenza di utenti duplicati in FluxBB. Se presenti, cancellare il più vecchio (ordinando gli utenti FluxBB secondo la data di registrazione).<br>';
 ?>
