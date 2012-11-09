@@ -90,4 +90,10 @@ $lang['Audit_Link_Break'] = '<b>Piwigo ve FluxBB hesapları arasında düzeltile
 $lang['Advise_FluxBB_Dup'] = '<b>UYARI! Devam etmeden önce FluxBB \'de bu düzeltmeleri yapmalısınız<br>ikonları kullanarak FluxBB \'den kullanıcıları silerek sorunu giderin.</b>';
 $lang['Advise_Check_Dup'] = '<b>Piwigo veya FluxBB kullanıcı hesaplarında eşlenik hesabınız varsa senkronizasyona devam etmek imkansızdır.</b><br><br>';
 $lang['Admin'] = 'Piwigo yöneticisinin kullanıcı adı. <b style="color: red">FluxBB yönetici hesabı kullanıcı adı ile aynı olmalıdır!</b>';
+$lang['Config_Disclaimer'] = 'FluxBB kurulum ayarlarını kontrol edin ve gerekiyorsa düzeltin.<br>
+Eğer gerek olursa, kendi insiyatifinize göre dilediğiniz zaman değişiklik yapabilirsiniz.';
+$lang['Prefix'] = 'FluxBB Öntakı tabloları:';
+$lang['Mig_Del_Link'] = '<b>Piwigo ve FluxBB arasındaki bağlantıların silinmesi</b>';
+$lang['Mig_Disclaimer'] = '<div class="warning"> GÜNCELLEME AMACIYLA ASLA TAŞIMA/AKTARMA YAPMAYIN!!!</div>';
+$lang['Mig_Del_User'] = '<b>Hesabın silinmesi:</b> ';
 ?>
