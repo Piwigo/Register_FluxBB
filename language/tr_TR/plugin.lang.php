@@ -96,4 +96,9 @@ $lang['Prefix'] = 'FluxBB Öntakı tabloları:';
 $lang['Mig_Del_Link'] = '<b>Piwigo ve FluxBB arasındaki bağlantıların silinmesi</b>';
 $lang['Mig_Disclaimer'] = '<div class="warning"> GÜNCELLEME AMACIYLA ASLA TAŞIMA/AKTARMA YAPMAYIN!!!</div>';
 $lang['Mig_Del_User'] = '<b>Hesabın silinmesi:</b> ';
+$lang['Sync_Link_Break'] = '<b>Piwigo ve FluxBB hesapları arasındaki onarılabilir bağlantıların analizi</b>';
+$lang['Sync_Link_Bad'] = '<b>Piwigo ve FluxBB hesapları arasındaki kayıp ilişkilendirmelerin analizi</b>';
+$lang['Sync_FluxBB2PWG'] = '<b>FluxBB\'de olup Piwigo\'da olmayan hesapların analizi</b>';
+$lang['Sync_DataUser'] = '<b>Piwigo ve FluxBB hesapları arasındaki şifre ve eposta adreslerinin analizi</b>';
+$lang['Sync_Check_Dup'] = '<b>Mükerrer kayıtların kontolü için Piwigo ve FluxBB kullanıcı tablolarının analizi</b>';
 ?>
