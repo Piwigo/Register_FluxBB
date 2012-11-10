@@ -101,4 +101,5 @@ $lang['Sync_Link_Bad'] = '<b>Piwigo ve FluxBB hesapları arasındaki kayıp ili�
 $lang['Sync_FluxBB2PWG'] = '<b>FluxBB\'de olup Piwigo\'da olmayan hesapların analizi</b>';
 $lang['Sync_DataUser'] = '<b>Piwigo ve FluxBB hesapları arasındaki şifre ve eposta adreslerinin analizi</b>';
 $lang['Sync_Check_Dup'] = '<b>Mükerrer kayıtların kontolü için Piwigo ve FluxBB kullanıcı tablolarının analizi</b>';
+$lang['FluxBB_Group'] = 'Olması gereken (FluxBB \'de önceden oluşturulmuş) doğrulanmamış <b>FluxBB grubu</b> kimliği belirtin. Etkili olabilmesi için bu grubun forumda izni olmaması gerekir (bu seçeneğin kullanımı ile ilgili sayfa sonunda verilen detaya bakınız).';
 ?>
