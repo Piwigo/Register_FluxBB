@@ -102,4 +102,16 @@ $lang['Sync_FluxBB2PWG'] = '<b>FluxBB\'de olup Piwigo\'da olmayan hesapların an
 $lang['Sync_DataUser'] = '<b>Piwigo ve FluxBB hesapları arasındaki şifre ve eposta adreslerinin analizi</b>';
 $lang['Sync_Check_Dup'] = '<b>Mükerrer kayıtların kontolü için Piwigo ve FluxBB kullanıcı tablolarının analizi</b>';
 $lang['FluxBB_Group'] = 'Olması gereken (FluxBB \'de önceden oluşturulmuş) doğrulanmamış <b>FluxBB grubu</b> kimliği belirtin. Etkili olabilmesi için bu grubun forumda izni olmaması gerekir (bu seçeneğin kullanımı ile ilgili sayfa sonunda verilen detaya bakınız).';
+$lang['Disclaimer'] = ' *** Başlamak için bu iki adımı takip edin: ***<br>
+  1. Adım : FluxBB parametreleriyle eklentiyi ayarlayın.<br>
+  2. Adım : Piwigo\'dan FluxBB\'ye hesapları aktarın.<br><br>
+  Bu iki ana adımın sonrasında eklenti tamamen çalışır olacaktır ve bu sayfalara geri dönmenize gerek yoktur.<br><br>
+  *** Zaten aktif olan bağlantıların bakımı için ***<br>
+  Bakım : Tabloların eşleştirlmesi şifreleri, eposta adreslerini günceller (ama kullanmanız gerekmez).<br><br>
+  <div class="warning">UYARI !! Güvenlik için, herhangi bir işlem yapmadan önce özellikle özellikle ###_user tabloları olmak üzere veri tabanının yedeklenmesi gerekliliği dikkate alınmalıdır.</div>
+<br><br>
+  <div class="warning">Önemli bilgi:<br>
+  Varsayılan olarak, <b>FluxBB</b> kullanıcı isimlerinde büyük-küçük harf <u>duyarsızdır</u>. Yani, eğer "test" adında bir kullanıcı kayıtlı ise, "Test","TEST" yada "TEst" (vb...) isimleri red edilecektir.<br><br>
+<b>Piwigo</b> ise tam tersine çalışmaktadır yani oturumlarda büyük-küçük harfe <u>duyarlıdır</u> ("test","Test" yada "TEST" vb. farklı kullanıcı olabilir).<br>
+  Problemlerden kaçınmak için (Piwigo\'nun davranışı kolaylıkla değiştirilebilir olsa bile - Yapılandırma ayarlarına bakın), Register_FluxBB FluxBB olarak iki uygulamaya bağlanacaktır: Oturum açmalarda <u>duyarsız</u> olma durumu.<br><br></div>';
 ?>
