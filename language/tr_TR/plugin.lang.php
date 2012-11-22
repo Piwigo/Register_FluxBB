@@ -114,4 +114,13 @@ $lang['Disclaimer'] = ' *** Başlamak için bu iki adımı takip edin: ***<br>
   Varsayılan olarak, <b>FluxBB</b> kullanıcı isimlerinde büyük-küçük harf <u>duyarsızdır</u>. Yani, eğer "test" adında bir kullanıcı kayıtlı ise, "Test","TEST" yada "TEst" (vb...) isimleri red edilecektir.<br><br>
 <b>Piwigo</b> ise tam tersine çalışmaktadır yani oturumlarda büyük-küçük harfe <u>duyarlıdır</u> ("test","Test" yada "TEST" vb. farklı kullanıcı olabilir).<br>
   Problemlerden kaçınmak için (Piwigo\'nun davranışı kolaylıkla değiştirilebilir olsa bile - Yapılandırma ayarlarına bakın), Register_FluxBB FluxBB olarak iki uygulamaya bağlanacaktır: Oturum açmalarda <u>duyarsız</u> olma durumu.<br><br></div>';
+$lang['Mig_Text'] = '<div class="warning"> EĞER Piwigo\'yu FluxBB\'ye daha önce hiç bağlamadıysanız <u>VE EĞER</u> forumunuzda kullanıcı alanları boş ise KULLANIN !!!</b></div><br>
+  		--> Bu durumda, FluxBB\'deki tablonuz [PrefixFluxBB]_user ziyaretçi (guest) ve yönetici (administrator) olarak 2 kullanıcı haricinde boş olmalıdır.<br><br>
+  - Geçiş sırasında ilk önce Piwigo ve FluxBB hesapları arasındaki bağlantılar kaldırılacaktır.<br>
+  - Sonra ziyaretçi (guest) ve yönetici (administrator) adlı 2 hesap haricindeki <b>TÜM FluxBB HESAPLARI SİLİNECEKTİR</b>.<br>
+  <br>
+  <div class="warning">UYARI: FluxBB\'DE HERHANGİ BİR ÖZEL HESABINIZ VARSA == BU FONKSİYONU KULLANMAYIN !!!</div><br>
+  - Son olarak, geçiş işlemi ziyaretçi (guest) haricindeki tüm Piwigo hesaplarını FluxBB\'de yaratacaktır.<br>
+  <br>
+  Eğer işlem sırasında hata oluşursa, hata sebebini düzeltin ve geçiş sürecini tekrarlayın (herhangi bir zamanda sadece siz geçiş sürecini yenileyebilirsiniz).<br>';
 ?>
