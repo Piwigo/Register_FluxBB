@@ -100,6 +100,12 @@ Author URI: http://www.infernoweb.net
                       - Update it_IT, thanks to : virgigiole
                       - Add da_DK, thanks to : Kaare
                       - Add es_ES, thanks to : petaqui
+
+2.4.9     - 22/11/12  - Update es_ES, thanks to : jpr928
+                      - Update tr_TR, thanks to : LazBoy
+                      - Update it_IT, thanks to : virgigiole
+                      - Update pl_PL, thanks to : kuba
+                      - Bad explanation in inline tips fixed
 --------------------------------------------------------------------------------
 */
 
