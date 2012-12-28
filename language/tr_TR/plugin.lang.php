@@ -123,4 +123,20 @@ $lang['Mig_Text'] = '<div class="warning"> EĞER Piwigo\'yu FluxBB\'ye daha önc
   - Son olarak, geçiş işlemi ziyaretçi (guest) haricindeki tüm Piwigo hesaplarını FluxBB\'de yaratacaktır.<br>
   <br>
   Eğer işlem sırasında hata oluşursa, hata sebebini düzeltin ve geçiş sürecini tekrarlayın (herhangi bir zamanda sadece siz geçiş sürecini yenileyebilirsiniz).<br>';
+$lang['No_Reg_advise'] = 'Daha iyi bir entegrasyon için FluxVV forumunuzda aşağıdaki değişikliklerin yapılması tavsiye edilir (<b>Uyarı: Bu değişiklikler forum güncellemesinde kaybolur</b>):
+<br><br><b>* FluxBB yönetim panelinde, "Allow new registrations" seçeneğini (Options - Registration içindeki) NO olarak değiştirin.</b><br><br>
+<b>* Dosyayı düzenleyin</b> : [FluxBBRoot]/lang/English/register.php dosyasında şu satırı:
+  <div class="mod">\'No new regs\'				=>	\'This forum is not accepting new users.\'</div>
+  <b>bununla değiştirin:</b>
+  <div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Go here to register &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div> <br> Elbette benzer değişiklik FluxBB forum tüm dil dosyalarında yapılmalıdır.<br><br>
+<b>* Dosyayı düzenleyin</b> : [FluxBBRoot]/login.php dosyasında 69. satırı:
+  <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
+  <b>bununla değiştirin:</b>
+  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot;&gt;</div>
+<br> 
+ve 216. satırı:
+  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
+  <b>bununla değiştirin:</b>
+  <div class="info">&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\'] ?&gt;&lt;/a&gt;</div>
+ <br>';
 ?>
