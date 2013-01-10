@@ -139,4 +139,10 @@ ve 216. satırı:
   <b>bununla değiştirin:</b>
   <div class="info">&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\'] ?&gt;&lt;/a&gt;</div>
  <br>';
+$lang['Sync_Text'] = ' <div class="warning">Siz zaten bu eklentiyi kullanıcıları olan Piwigo (eklenti güncelleme) ve/veya FluxBB forumuna bağlantı için kullanıyorsunuz.</div>
+<br> -> Bu, forumunuzun kullanıcıları olduğu anlamına geliyor.<br>
+<br>- Eşitleme işlemi, kullanıcı isimleri, şifreler ve eposta adreslerini her iki [PrefixPWG]_user ve [PrefixFluxBB]_user tablolarıyla karşılaştırırken bilgi saptar.<br>
+- Sonra benzeşme tablosunun yanı sıra Piwigo Misafir ve FluxBB Anonim hariç her hesap için Piwigo\'dan FluxBB\'ye şifre ve e-posta adresinizi güncelleyin.<br>
+- Son olarak ###_User tablolarından birinde mevcut yanıltıcı artık hesapları belirleyin.<br><br>
+İşlem sonunda, denetimi çalıştırın ve FluxBB \'deki muhtemel eş kullanıcıları kontrol edin. Eğer varsa, FluxBB kullanıcılarını üye olunma tarihlerine göre sıralayıp en eski olanı silin.';
 ?>
