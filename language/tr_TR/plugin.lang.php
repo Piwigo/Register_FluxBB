@@ -29,7 +29,7 @@ $lang['About_Bridge'] = 'Register_FluxBB / UAM köprüsü hakkında';
 $lang['Guest'] = 'FluxBB Ziyaretçi Kullanıcı Adı.';
 $lang['Error_Synchro_Pswd'] = 'şifrelerde';
 $lang['Error_Synchro_Mail'] = 'eposta adreslerinde';
-$lang['Error_Synchro'] = '<b>Kötü eşlenen hesap:</b>';
+$lang['Error_Synchro'] = '<b>Eşitlemede sorunlu hesap:</b>';
 $lang['Error_PWG_Dup'] = '<b>Piwigo\'nun hesap tablolarında hata, mükerrer kayıtlar mevcut:</b>';
 $lang['Error_Link_Dup'] = '<b>Bağlantı tablosunda hata, mükerrer kayıtlar mevcut:</b>';
 $lang['Error_PWG2FluxBB'] = '<b>FluxBB\'de olmayan Piwigo hesapları:</b>';
@@ -45,13 +45,13 @@ $lang['Mig_End'] = '<b>Taşıma/Aktarma tamamlandı !</b>';
 $lang['Mig_Btn'] = 'Taşıma/Aktarma';
 $lang['Mig_Add_User'] = '<b>Hesabın aktarımı:</b> ';
 $lang['Mig_Add_AllUsers'] = '<b>Piwigo hesapları aktarılıyor</b>';
-$lang['Link_Dup'] = 'Çifte kayıtları kaldır';
+$lang['Link_Dup'] = 'Mükerrer kayıtları kaldır';
 $lang['Link_Dead'] = 'Ölü bağlantıların kaldırılması';
 $lang['Link_Del'] = 'Bağlantı kaldır:';
 $lang['Error_Link_Del'] = '<b>İki kullanıcı arasındaki bağlantı tablosunda hata:</b>';
 $lang['Error_Link_Dead'] = '<b>Bağlantı tablosunda hata, ölü bağlantılar:</b>';
 $lang['Error_Link_Break'] = '<b>Piwigo ve FluxBB hesapları arasındaki kırık bağlantılar:</b>';
-$lang['Error_FluxBB_Dup'] = '<b>FluxBB\'nin hesap tablosunda hata, çifte kayıtlar var:</b>';
+$lang['Error_FluxBB_Dup'] = '<b>FluxBB\'nin hesap tablosunda hata, mükerrer kayıtlar var:</b>';
 $lang['Error_FluxBB2PWG'] = '<b>FluxBB hesabı Piwigo\'da yok:</b> ';
 $lang['Del_User'] = 'FluxBB hesabından kaldırma: ';
 $lang['Del_Pt_true'] = ' --&gt; Tümünü sil';
@@ -88,7 +88,7 @@ $lang['Advise_PWG_Dup'] = '<b>UYARI! Devam etmeden önce Piwigo\'da bu düzeltme
 $lang['Audit_PWG2FluxBB'] = '<b>FluxBB\'de olmayıp Piwigo\'da var olan hesapları denetle</b>';
 $lang['Audit_Link_Break'] = '<b>Piwigo ve FluxBB hesapları arasında düzeltilebilir bağlantıları denetle</b>';
 $lang['Advise_FluxBB_Dup'] = '<b>UYARI! Devam etmeden önce FluxBB \'de bu düzeltmeleri yapmalısınız<br>ikonları kullanarak FluxBB \'den kullanıcıları silerek sorunu giderin.</b>';
-$lang['Advise_Check_Dup'] = '<b>Piwigo veya FluxBB kullanıcı hesaplarında eşlenik hesabınız varsa senkronizasyona devam etmek imkansızdır.</b><br><br>';
+$lang['Advise_Check_Dup'] = '<b>Piwigo veya FluxBB kullanıcı hesaplarında mükerrer hesabınız varsa eşitlemeye (senkronizasyona) devam etmek imkansızdır.</b><br><br>';
 $lang['Admin'] = 'Piwigo yöneticisinin kullanıcı adı. <b style="color: red">FluxBB yönetici hesabı kullanıcı adı ile aynı olmalıdır!</b>';
 $lang['Config_Disclaimer'] = 'FluxBB kurulum ayarlarını kontrol edin ve gerekiyorsa düzeltin.<br>
 Eğer gerek olursa, kendi insiyatifinize göre dilediğiniz zaman değişiklik yapabilirsiniz.';
@@ -107,7 +107,7 @@ $lang['Disclaimer'] = ' *** Başlamak için bu iki adımı takip edin: ***<br>
   2. Adım : Piwigo\'dan FluxBB\'ye hesapları aktarın.<br><br>
   Bu iki ana adımın sonrasında eklenti tamamen çalışır olacaktır ve bu sayfalara geri dönmenize gerek yoktur.<br><br>
   *** Zaten aktif olan bağlantıların bakımı için ***<br>
-  Bakım : Tabloların eşleştirlmesi şifreleri, eposta adreslerini günceller (ama kullanmanız gerekmez).<br><br>
+  Bakım : Tabloların eşleştirilmesi şifreleri, eposta adreslerini günceller (ama kullanmanız gerekmez).<br><br>
   <div class="warning">UYARI !! Güvenlik için, herhangi bir işlem yapmadan önce özellikle özellikle ###_user tabloları olmak üzere veri tabanının yedeklenmesi gerekliliği dikkate alınmalıdır.</div>
 <br><br>
   <div class="warning">Önemli bilgi:<br>
@@ -144,5 +144,5 @@ $lang['Sync_Text'] = ' <div class="warning">Siz zaten bu eklentiyi kullanıcıla
 <br>- Eşitleme işlemi, kullanıcı isimleri, şifreler ve eposta adreslerini her iki [PrefixPWG]_user ve [PrefixFluxBB]_user tablolarıyla karşılaştırırken bilgi saptar.<br>
 - Sonra benzeşme tablosunun yanı sıra Piwigo Misafir ve FluxBB Anonim hariç her hesap için Piwigo\'dan FluxBB\'ye şifre ve e-posta adresinizi güncelleyin.<br>
 - Son olarak ###_User tablolarından birinde mevcut yanıltıcı artık hesapları belirleyin.<br><br>
-İşlem sonunda, denetimi çalıştırın ve FluxBB \'deki muhtemel eş kullanıcıları kontrol edin. Eğer varsa, FluxBB kullanıcılarını üye olunma tarihlerine göre sıralayıp en eski olanı silin.';
+İşlem sonunda, denetimi çalıştırın ve FluxBB \'deki muhtemel mükerrer kullanıcıları kontrol edin. Eğer varsa, FluxBB kullanıcılarını üye olunma tarihlerine göre sıralayıp en eski olanı silin.';
 ?>
