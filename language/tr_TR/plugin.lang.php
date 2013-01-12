@@ -145,4 +145,13 @@ $lang['Sync_Text'] = ' <div class="warning">Siz zaten bu eklentiyi kullanıcıla
 - Sonra benzeşme tablosunun yanı sıra Piwigo Misafir ve FluxBB Anonim hariç her hesap için Piwigo\'dan FluxBB\'ye şifre ve e-posta adresinizi güncelleyin.<br>
 - Son olarak ###_User tablolarından birinde mevcut yanıltıcı artık hesapları belirleyin.<br><br>
 İşlem sonunda, denetimi çalıştırın ve FluxBB \'deki muhtemel mükerrer kullanıcıları kontrol edin. Eğer varsa, FluxBB kullanıcılarını üye olunma tarihlerine göre sıralayıp en eski olanı silin.';
+$lang['UAM_Bridge_advice'] = 'UserAdvManager eklentisi, yeni kaydolan üyelerin tüm galeriye erişimine izin verilmeden önce üyeliklerini doğrulamalarını zorunlu kılar. Bu eklentinin Register_FluxBB ile müşterek kullanımı bağlantılı forumda aynı şeyi yapar: Yeni kaydolan üyeler, üyeliklerini doğrulamadan galeride gönderim yapamazlar.<br>Uygulanacak genel prosedür şudur:<br>
+- FluxBB forumunuzun yönetim panelinde en azından 2 kullanıcı grubu belirleyin (mesela: "validated" ve "non_validated").<br>
+- İlk gruba ("validated") forumunuzda istediğiniz erişim izinlerini verin ve varsayılan grup olarak belirleyin.<br>
+- İkinci grup ("no_validated") için forumunuzda tüm yetkileri kaldırın (bu grup üyeleri herkese açık gönderileri okuyabilir).<br>
+- İkinci grubun "no_validated" ID\'sini bulun.<br>
+- Bu ID\'yi Register_FluxBB eklentisine girin, köprüyü etkinleştirin ve ayarları kaydedin.<br>
+<b class="mod"><u>Önemli Notlar:</u></b><br>
+Eğer Register_FluxBB\'nin önceki uyarlamalarını kullanıyorsanız, galerinizle FluxBB Forumu arasında bağlantılı Piwigo hesapları köprüden etkilenmeyecektir.Köprünün etkinleştirilmesinden sonra sadece yeni kayıtlar etkilenecektir.<b><u>Hesapların tekrar eşitlenmesi fonksiyonu geçersiz olacaktır.</u></b><br>
+Aynı şekilde, eğer Register_FluxBB\'yi hiç kullanmadıysanız, galerinizden FluxBB forumunuza Piwigo hesapları aktarma adımında hesapların doğrulanmış yada doğrulanmamış olması durumu aktarma fazı çalıştırıldığında görmezden gelinir.';
 ?>
