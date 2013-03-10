@@ -107,11 +107,15 @@ Author URI: http://www.infernoweb.net
                       - Update pl_PL, thanks to : kuba
                       - Bad explanation in inline tips fixed
 
-2.5.0     - ../../..  - Compliance with Piwigo 2.5 
+2.5.0     - 10/03/13  - Compliance with Piwigo 2.5
                       - Code refactory : Plugin's configuration vars are now serialized in database
                       - Admin panel refactory : No more tabs
+                      - Admin panel refactory : Clear and dark administration theme compatibility
                       - English language reference review
-                      - Compliance improved with FluxBB 1.5
+                      - Compliance improved with FluxBB 1.5 - Register_FluxBB is still compatible with 1.2 and 1.4 FluxBB forums
+                      - Update tr_TR, thanks to : LazBoy
+                      - Update it_IT, thanks to : Ericnet
+                      - Update pl_PL, thanks to : K.S.
 --------------------------------------------------------------------------------
 */
 
