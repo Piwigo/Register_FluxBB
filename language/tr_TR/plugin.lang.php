@@ -154,4 +154,15 @@ $lang['UAM_Bridge_advice'] = 'UserAdvManager eklentisi, yeni kaydolan üyelerin 
 <b class="mod"><u>Önemli Notlar:</u></b><br>
 Eğer Register_FluxBB\'nin önceki uyarlamalarını kullanıyorsanız, galerinizle FluxBB Forumu arasında bağlantılı Piwigo hesapları köprüden etkilenmeyecektir.Köprünün etkinleştirilmesinden sonra sadece yeni kayıtlar etkilenecektir.<b><u>Hesapların tekrar eşitlenmesi fonksiyonu geçersiz olacaktır.</u></b><br>
 Aynı şekilde, eğer Register_FluxBB\'yi hiç kullanmadıysanız, galerinizden FluxBB forumunuza Piwigo hesapları aktarma adımında hesapların doğrulanmış yada doğrulanmamış olması durumu aktarma fazı çalıştırıldığında görmezden gelinir.';
+$lang['About_Bridge_Title_d'] = 'Register_FluxBB ve UserAdvManager eklentileri arasındaki köprü hakkında bilgiler';
+$lang['Sync_Title_d'] = 'Hesapları yeniden eşitlemek için kullanın';
+$lang['Mig_Title_d'] = 'KULLANIN, EĞER daha önce hiç eklenti kullanmadıysanız';
+$lang['Instruction_Title_d'] = 'talimatlar ve önemli bilgiler';
+$lang['Instruction_Title'] = 'Talimatlarlar (ilk önce okunması önemlidir!)';
+$lang['Config_Title_d'] = 'Eklenti kurulumu';
+$lang['Config_Title2'] = 'Eklentinin Gelişmiş Ayarları';
+$lang['Config_Title1'] = 'FluxBB ve Piwigo arasındaki köprü ayarları';
+$lang['About_Reg_Title_d'] = 'Daha iyi entegrasyon için faydalı bilgiler';
+$lang['About_Reg_Title'] = 'FluxBB forumuna üyelik kaydı hakkında';
+$lang['About_Bridge_Title'] = 'Register_FluxBB / UAM köprüsü hakkında';
 ?>
