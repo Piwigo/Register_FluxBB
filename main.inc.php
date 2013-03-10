@@ -106,12 +106,14 @@ Author URI: http://www.infernoweb.net
                       - Update it_IT, thanks to : virgigiole
                       - Update pl_PL, thanks to : kuba
                       - Bad explanation in inline tips fixed
+
+2.5.0     - ../../..  - Compliance with Piwigo 2.5 
+                      - Code refactory : Plugin's configuration vars are now serialized in database
+                      - Admin panel refactory : No more tabs
+                      - English language reference review
+                      - Compliance improved with FluxBB 1.5
 --------------------------------------------------------------------------------
 */
-
-// pour faciliter le debug - make debug easier :o)
-//ini_set('error_reporting', E_ALL);
-//ini_set('display_errors', true);
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
