@@ -137,22 +137,24 @@ function rfbb_blockToggleDisplay( headerId, contentId )
       {/if}
     </ul>
     <br/>
+    </fieldset>
+    <fieldset>
+    <legend>{'Config_Title2'|@translate}</legend>
+    <ul>
+      <li><label>{'Details'|@translate}</label><br/>
+        <input type="radio" value="true" {$FluxBB_DETAILS_TRUE} name="FluxBB_details"/>{'Details_true'|@translate}<br/>
+        <input type="radio" value="false" {$FluxBB_DETAILS_FALSE} name="FluxBB_details"/>{'Details_false'|@translate}<br/>
+      <br/>
+      </li>
+      <li><label>{'Confirm'|@translate}</label><br/>
+        <input type="radio" value="true" {$FluxBB_CONFIRM_TRUE} name="FluxBB_confirm"/>{'Confirm_true'|@translate}<br/>
+        <input type="radio" value="false" {$FluxBB_CONFIRM_FALSE} name="FluxBB_confirm"/>{'Confirm_false'|@translate}<br/>
+      <br/>
+      </li>
+    </ul>
+    </fieldset>
   </fieldset>
-  <fieldset>
-  <legend>{'Config_Title2'|@translate}</legend>
-  <ul>
-    <li><label>{'Details'|@translate}</label><br/>
-      <input type="radio" value="true" {$FluxBB_DETAILS_TRUE} name="FluxBB_details"/>{'Details_true'|@translate}<br/>
-      <input type="radio" value="false" {$FluxBB_DETAILS_FALSE} name="FluxBB_details"/>{'Details_false'|@translate}<br/>
-    <br/>
-    </li>
-    <li><label>{'Confirm'|@translate}</label><br/>
-      <input type="radio" value="true" {$FluxBB_CONFIRM_TRUE} name="FluxBB_confirm"/>{'Confirm_true'|@translate}<br/>
-      <input type="radio" value="false" {$FluxBB_CONFIRM_FALSE} name="FluxBB_confirm"/>{'Confirm_false'|@translate}<br/>
-    <br/>
-    </li>
-  </ul>
-  </fieldset>
+
   <p>
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
   </p>

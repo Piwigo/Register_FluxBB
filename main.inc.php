@@ -116,6 +116,10 @@ Author URI: http://www.infernoweb.net
                       - Update tr_TR, thanks to : LazBoy
                       - Update it_IT, thanks to : Ericnet
                       - Update pl_PL, thanks to : K.S.
+
+2.5.1     - 10/03/13  - Fix Bad submit button align
+                      - Fix admin panel display issue
+                      - Update es_ES, thanks to : jpr928
 --------------------------------------------------------------------------------
 */
 
