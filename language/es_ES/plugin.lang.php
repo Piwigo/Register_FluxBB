@@ -166,4 +166,15 @@ $lang['Confirm_true'] = ' --&gt; Elimina las confirmaciones';
 $lang['Del_Pt'] = '
 Eliminación de mensajes y temas del usuario cuando se elimina.';
 $lang['Del_Pt_false'] = ' --&gt; No elimine los mensajes y temas';
+$lang['About_Bridge_Title'] = 'Acerca Register_FluxBB / puente UAM ';
+$lang['About_Bridge_Title_d'] = 'Instrucción sobre puente entre Register_FluxBB y el plugins UserAdvManager';
+$lang['About_Reg_Title'] = 'Acerca del registro de usuarios en Foro FluxBB';
+$lang['About_Reg_Title_d'] = 'Instrucciones útiles para una mejor integración';
+$lang['Config_Title1'] = 'Configuración de puente entre FluxBB y Piwigo';
+$lang['Config_Title2'] = 'Configuraciones avanzadas del plugin';
+$lang['Config_Title_d'] = 'Configuración del plugin';
+$lang['Instruction_Title'] = 'Instrucciones (importante leer primero!)';
+$lang['Instruction_Title_d'] = 'Instrucciones e información importante';
+$lang['Mig_Title_d'] = 'UTILIZAR SOLO si usted nunca ha utilizado el plugin antes';
+$lang['Sync_Title_d'] = 'Utilizar para sincronizar las cuentas';
 ?>
