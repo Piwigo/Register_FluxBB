@@ -133,4 +133,15 @@ $lang['Disclaimer'] = '    *** Lai sāktu, veiciet šos 2 soļus ***<br>
   Pēc noklusēšanas, <b>Piwigo</b> darbojas pretēji un tāpēc ir <u>reģistrjutīgs</u> uz ielogošanos ("test" ir atšķirīgs lietotājs no "Test" vai "TEST", utt. ...).<br>
   Lai izvairītos no problēmām (pat, ja Piwigo uzvedību viegli var izmanīt - Skatīt konfigurācijas iespējas), Register_FluxBB savienos divas aplikācijas FluxBB: kas ir<u>reģistrnejutīga</u> loginiem.<br><br>
   </div>';
+$lang['About_Bridge_Title_d'] = 'Instrukcija par tiltu starp Register_FluxBB and UserAdvManager spraudņiem ';
+$lang['About_Bridge_Title'] = 'Par Register_FluxBB / UAM bridge';
+$lang['About_Reg_Title'] = 'Par lietotāju reģistrāciju FluxBB forumā';
+$lang['Sync_Title_d'] = 'Lietot, lai resinhronizētu kontus';
+$lang['About_Reg_Title_d'] = 'Lietderīgas instrukcijas labākai integrācijai';
+$lang['Config_Title1'] = 'Tilta starp FluxBB un Piwigo ieststījumi';
+$lang['Config_Title2'] = 'Spraudņa izvērstie ieststījumi';
+$lang['Instruction_Title'] = 'Instrukcijas (svarīgi izlsīt vispirms!)';
+$lang['Instruction_Title_d'] = 'Instrukcijas un svarīga informācija';
+$lang['Mig_Title_d'] = 'LIETOT TIKAI TAD, JA neesat šo spraudni lietojuši iepriekš';
+$lang['Config_Title_d'] = 'Spraudņa iestatīšana';
 ?>
