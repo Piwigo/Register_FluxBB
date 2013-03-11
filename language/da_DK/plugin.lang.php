@@ -163,4 +163,15 @@ $lang['Sync_Btn'] = 'Synkronisering';
 $lang['Sync_Check_Dup'] = '<b>Analyserer tabeller med brugerkonti i Piwigo og FluxBB, for at finde duplikater</b>';
 $lang['Sync_DataUser'] = '<b>Analyse af adgangskoder og e-mail-adresser mellem konti i Piwigo og FluxBB</b>';
 $lang['Sync_FluxBB2PWG'] = '<b>Analyse af eksisterende konti i FluxBB, som mangler i Piwigo</b>';
+$lang['About_Bridge_Title'] = 'Om Register_FluxBB- / UAM-forbindelse';
+$lang['About_Bridge_Title_d'] = 'Vejledning til forbindelsen mellem plugin\'erne Register_FluxBB og UserAdvManager';
+$lang['About_Reg_Title'] = 'Om brugerregistrering i FluxBB-forum';
+$lang['About_Reg_Title_d'] = 'Nyttig vejledning til bedre integration';
+$lang['Config_Title1'] = 'Opsætning af forbindelsen mellem FluxBB og Piwigo';
+$lang['Config_Title2'] = 'Plugin\'ens avancerede indstillinger';
+$lang['Config_Title_d'] = 'Opsætning af plugin';
+$lang['Instruction_Title'] = 'Vejledning (vigtig at læse først!)';
+$lang['Instruction_Title_d'] = 'Vejledning og vigtige oplysninger';
+$lang['Mig_Title_d'] = 'BENYT KUN HVIS du aldrig før har benyttet plugin\'en';
+$lang['Sync_Title_d'] = 'Benyt for at gensynkronisere konti';
 ?>
