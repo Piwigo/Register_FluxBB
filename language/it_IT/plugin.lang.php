@@ -165,4 +165,15 @@ Ecco la procedura generale da applicare:
 <br>
 Se si utilizza già una versione precedente di Register_FluxBB, gli accounts Piwigo collegati tra la galleria e il tuo forum FluxBB non saranno influenzati dagli effetti del bridge. Solo le nuove registrazioni saranno interessate dopo l\'attivazione del bridge.<b><u>Risincronizzazione accounts funzioni saranno annullate.</u></b><br>
 Allo stesso modo, se non hai mai usato Register_FluxBB, la fase migrazione accounts Piwigo dalla galleria al tuo forum FluxBB non prenderà in considerazione lo stato convalidato o meno per gli accounts in occasione del lancio della fase di migrazione.';
+$lang['About_Bridge_Title'] = 'Relativo a Register_FluxBB/UAM Bridge';
+$lang['About_Bridge_Title_d'] = 'Istruzioni relative all\'integrazione tra i Plugin Register_FluxBB e UserAdvManager';
+$lang['About_Reg_Title'] = 'Relativo alla registrazione di utenti su FluxBB Forum';
+$lang['About_Reg_Title_d'] = 'Istruzioni utili per una migliore integrazione';
+$lang['Config_Title1'] = 'Configurazione dell\'integrazione tra FluxxBB e Pwingo';
+$lang['Config_Title2'] = 'Configurazioni avanzate del Plugin';
+$lang['Config_Title_d'] = 'Configurazione Plugin';
+$lang['Instruction_Title'] = 'Istruzioni (importante leggere prima dell\'utilizzo)';
+$lang['Instruction_Title_d'] = 'Istruzioni ed informazioni importanti';
+$lang['Mig_Title_d'] = 'DA UTILIZZARE SOLO SE non hai mai utilizzato prima il plugin';
+$lang['Sync_Title_d'] = 'Risincronizzazione account';
 ?>
