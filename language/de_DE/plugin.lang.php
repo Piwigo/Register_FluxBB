@@ -169,4 +169,15 @@ $lang['Disclaimer'] = '
   Standardmäßig ist <b>Piwigo</b> arbeitet in umgekehrter und ist daher bei Fall <u>empfindlich</u> für Logins ("test" wird ein anderer Benutzer von "TEST" oder "TEst", etc. ...) werden<br>
   Um Probleme zu vermeiden (auch wenn Piwigo Verhalten leicht verändert werden kann - siehe Konfigurationsmöglichkeiten), wird Register_FluxBB Verknüpfung der beiden Anwendungen als FluxBB: Fall <u>unempfindlich</u> für Logins.<br><br></div>';
 // --------- End: New or revised $lang ---- from version 2.3.5
+$lang['About_Bridge_Title'] = 'Über Register_FluxBB / UAM bridge';
+$lang['About_Bridge_Title_d'] = 'Anleitung über die bridge zwischen Register_FluxBB und UserAdvManager Plugin';
+$lang['About_Reg_Title'] = 'Über die Registrierung von Benutzern im FluxBB Forum';
+$lang['About_Reg_Title_d'] = 'Nützliche Hinweise zur besseren Integration';
+$lang['Config_Title1'] = 'Einstellungen von bridge zwischen FluxBB und Piwigo';
+$lang['Config_Title2'] = 'Erweiterte Einstellungen des Plugin ';
+$lang['Config_Title_d'] = 'Plugin Einstellungen';
+$lang['Instruction_Title'] = 'Anleitung (Wichtig bitte zuerst lesen!)';
+$lang['Instruction_Title_d'] = 'Anleitung und wichtige Informationen';
+$lang['Mig_Title_d'] = 'NUR BENUTZEN wenn dieses Plugin noch nicht benutzt wurde';
+$lang['Sync_Title_d'] = 'Benutze um die Konten zu re-synchronisieren';
 ?>
