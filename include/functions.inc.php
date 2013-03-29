@@ -936,7 +936,7 @@ function RegFluxBB_version_update()
 
   // Get current plugin version
   // --------------------------
-  $plugin =  PHInfos(REGFLUXBB_PATH);
+  $plugin =  RegFluxBB_Infos(REGFLUXBB_PATH);
   $version = $plugin['version'];
 
   // Upgrading options

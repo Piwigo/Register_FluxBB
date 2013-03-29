@@ -120,6 +120,15 @@ Author URI: http://www.infernoweb.net
 2.5.1     - 10/03/13  - Fix Bad submit button align
                       - Fix admin panel display issue
                       - Update es_ES, thanks to : jpr928
+
+2.5.2     - 29/03/13  - Missing PHInfos() error
+                      - Update tr_TR, thanks to : LazBoy
+                      - Update lv_LV, thanks to : agrisans
+                      - Update ru_RU, thanks to : marchelly
+                      - Update el_GR, thanks to : bas_alba
+                      - Update it_IT, thanks to : lucser
+                      - Update da_DK, thanks to : Kaare
+                      - Update de_DE, thanks to : Yogie
 --------------------------------------------------------------------------------
 */
 
