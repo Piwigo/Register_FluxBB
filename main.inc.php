@@ -121,7 +121,7 @@ Author URI: http://www.infernoweb.net
                       - Fix admin panel display issue
                       - Update es_ES, thanks to : jpr928
 
-2.5.2     - 29/03/13  - Missing PHInfos() error
+2.5.2     - 29/03/13  - Bug fixed : Missing PHInfos() error
                       - Update tr_TR, thanks to : LazBoy
                       - Update lv_LV, thanks to : agrisans
                       - Update ru_RU, thanks to : marchelly
@@ -129,6 +129,8 @@ Author URI: http://www.infernoweb.net
                       - Update it_IT, thanks to : lucser
                       - Update da_DK, thanks to : Kaare
                       - Update de_DE, thanks to : Yogie
+
+2.5.3     - 30/03/13  - Bug fixed : MySql error after installation from scratch
 --------------------------------------------------------------------------------
 */
 

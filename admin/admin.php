@@ -641,6 +641,7 @@ if (function_exists('FindAvailableConfirmMailID'))
   }
   else $UAM_bridge = false;
 }
+else $UAM_bridge = false;
 
 // Save last opened paragraph in configuration tab
 // -----------------------------------------------
