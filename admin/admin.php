@@ -125,10 +125,12 @@ WHERE id = '.$conf['webmaster_id'].'
 
   $pwgadmin = pwg_db_fetch_assoc(pwg_query($query));
 
+if (isset($_POST['FluxBB_prefix']) and $_POST['FluxBB_prefix'] <>'')
+{
 // FluxBB's admin username control
   $query = '
 SELECT username, id
-FROM '.FluxBB_USERS_TABLE.'
+FROM '.$_POST['FluxBB_prefix'].'users'.'
 WHERE id = 2
 ;';
 
@@ -137,9 +139,11 @@ WHERE id = 2
 // FluxBB's Guest username control
   $query = '
 SELECT username, id
-FROM '.FluxBB_USERS_TABLE.'
+FROM '.$_POST['FluxBB_prefix'].'users'.'
 WHERE id = 1
 ;';
+}
+
 
   $fbbguest = pwg_db_fetch_assoc(pwg_query($query));
 
