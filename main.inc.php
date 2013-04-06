@@ -131,6 +131,11 @@ Author URI: http://www.infernoweb.net
                       - Update de_DE, thanks to : Yogie
 
 2.5.3     - 30/03/13  - Bug fixed : MySql error after installation from scratch
+
+2.5.4     - ../../..  - Bug fixed : Admins passwords synchronization between FluxBB and Piwigo when changed
+                      - Bug fixed : Password synchronization between FluxBB and Piwigo if a user uses Piwigo's password recovery system
+                      - Bug fixed : Exclude password comparison from audit
+                      - Todo : Recode synch, migration and audit actions for existing users before plugin activation - Have to take care on passwords !
 --------------------------------------------------------------------------------
 */
 
@@ -164,6 +169,8 @@ if (script_basename() == 'profile')
   add_event_handler('loc_begin_profile', 'Register_FluxBB_InitPage', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
 }
 
+/* Password forget */
+add_event_handler('loc_begin_password', 'Register_FluxBB_PasswReset');
 
 /* Access validation in FluxBB when validated in Piwigo through UAM plugin */
 add_event_handler('login_success', 'UAM_Bridge', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
