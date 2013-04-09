@@ -174,4 +174,9 @@ $lang['Instruction_Title'] = 'Vejledning (vigtig at læse først!)';
 $lang['Instruction_Title_d'] = 'Vejledning og vigtige oplysninger';
 $lang['Mig_Title_d'] = 'BENYT KUN HVIS du aldrig før har benyttet plugin\'en';
 $lang['Sync_Title_d'] = 'Benyt for at gensynkronisere konti';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'For at synkronisere dit forumadgang med galleriet, er du blevet registeret i %s!';
+$lang['Add_User2pwg'] = 'Tilføjelse af konti i Piwigo:';
+$lang['Please change your password at your first connexion on the gallery'] = 'Vær venlig at ændre din adgangskode, første gang du logger på galleriet, for at afslutte datasynkroniseringen';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synkronisering fra FluxBB til Piwigo er stoppet: Mål-mailadresse eller -brugernavn findes allerede i Piwigos users-tabel.';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Vær venlig at opdatere adgangskoden til synkronisering med forummet. Dernæst vil du kunne logge på forummet med den samme konto, som til galleriet.';
 ?>
