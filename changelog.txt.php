@@ -124,5 +124,10 @@
 2.5.5 - Bug fixed : Missing database upgrade
 
 2.5.6 - Bug fixed : Message for password change request not displayed on profile page
+
+2.5.7 - Rebuild of previous version due to file corruption
+
+2.5.8 - Add accounts synchronization from FluxBB to Piwigo
+      - Bug fixed : Missing function in audit
 */
 ?>

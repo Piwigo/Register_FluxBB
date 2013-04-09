@@ -156,4 +156,8 @@ $lang['Audit_OK'] = 'Audit OK<br/><br/>';
 
 $lang['RegFluxBB_Password_Reset_Msg'] = 'Veuillez modifier votre mot de passe pour synchronisation avec l\'accès au forum. Vous pourrez alors vous connecter au forum avec le même compte que pour la galerie.';
 
+$lang['Add_User2pwg'] = 'Ajout dans Piwigo du compte : ';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synchronisation de FluxBB vers Piwigo suspendue : L\'email ou le nom d\'utilisateur cible existe déjà dans la table des utilisateurs de Piwigo.';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Afin de synchroniser votre compte d\'accès au forum avec la galerie, vous avez été inscrit sur %s!';
+$lang['Please change your password at your first connexion on the gallery'] = 'Merci de bien vouloir modifier votre mot de passe lors de votre première connexion à la galerie pour terminer la synchronisation des données.';
 ?>

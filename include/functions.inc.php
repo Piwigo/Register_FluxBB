@@ -639,6 +639,156 @@ VALUES(
 
 
 /**
+ * Add new registered user in Piwigo users table from audit/synch action
+ * To solve password synch problem, passwords are reset to NULL to force users to get a new password on their profile page
+ * 
+ * @return : $error
+ */
+function Synch_Piwigo_Adduser($fluxbb_id, $username, $email)
+{
+  global $conf;
+  load_language('plugin.lang', REGFLUXBB_PATH);
+
+  if (!get_userid_by_email($email) and !get_userid($username))
+  {
+    // find a password
+    $password = generate_key(8);
+
+    $error = register_user($username, $password, $email, false);
+
+    if (empty($error))
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+      $keyargs_content = array(
+        get_l10n_args('Hello %s,', $login),
+        get_l10n_args('To synchronize your forum access with the gallery you have been registered at %s!', $conf['gallery_title']),
+        get_l10n_args('', ''),
+        get_l10n_args('Here are your connection settings', ''),
+        get_l10n_args('Username: %s', $login),
+        get_l10n_args('Password: %s', $password),
+        get_l10n_args('Email: %s', $mail_address),
+        get_l10n_args('', ''),
+        get_l10n_args('Please change your password at your first connexion on the gallery', ''),
+        get_l10n_args('', ''),
+        get_l10n_args('If you think you\'ve received this email in error, please contact us at %s', get_webmaster_mail_address()),
+      );
+
+      pwg_mail(
+        $mail_address,
+        array(
+          'subject' => '['.$conf['gallery_title'].'] '.l10n('Registration'),
+          'content' => l10n_args($keyargs_content),
+          'content_format' => 'text/plain',
+          )
+      );
+
+      $pwg_id = get_userid($username);
+
+      FluxBB_Linkuser($pwg_id, $fluxbb_id, "NOK");
+      
+      $error = false;
+    }
+  }
+  else $error = true;
+
+  return $error;
+}
+
+
+/**
+ * Update user information in FluxBB users table from audit/synch action
+ * Standard FluxBB_Updateuser() function is not used because of existing password mismatch
+ * To solve password synch problem, passwords are reset to NULL to force users to get a new password by using "forgotten password" function
+ */
+function Synch_FluxBB_Updateuser($pwg_id, $username, $adresse_mail)
+{
+  global $conf;
+  
+  include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+  $conf_Register_FluxBB = unserialize($conf['Register_FluxBB']);
+  $password = NULL;
+
+// Select users to update in ID link table
+  $query = '
+SELECT id_user_FluxBB as FluxBB_id
+FROM '.Register_FluxBB_ID_TABLE.'
+WHERE id_user_pwg = '.$pwg_id.'
+;';
+
+  $row = pwg_db_fetch_assoc(pwg_query($query));
+
+  if (!empty($row))
+  {
+    $query = '
+UPDATE '.FluxBB_USERS_TABLE.'
+SET username = "'.pwg_db_real_escape_string($username).'", email = "'.$adresse_mail.'", password = "'.$password.'" 
+WHERE id = '.$row['FluxBB_id'].'
+AND "'.pwg_db_real_escape_string($username).'" NOT IN ("18","16")
+AND "'.pwg_db_real_escape_string($username).'" <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+;';
+
+    pwg_query($query);
+
+    FluxBB_Linkuser($pwg_id, $row['FluxBB_id'], "NOK");
+  }
+  else
+  {
+    $query = '
+SELECT id as FluxBB_id
+FROM '.FluxBB_USERS_TABLE.'
+WHERE BINARY username = BINARY "'.pwg_db_real_escape_string($username).'"
+AND "'.pwg_db_real_escape_string($username).'" <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+;';
+
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+
+    if (!empty($row))
+    {
+      $query = '
+UPDATE '.FluxBB_USERS_TABLE.'
+SET username = "'.pwg_db_real_escape_string($username).'", email = "'.$adresse_mail.'", password = "'.$password.'" 
+WHERE id = '.$row['FluxBB_id'].'
+AND "'.pwg_db_real_escape_string($username).'" NOT IN ("18","16")
+AND "'.pwg_db_real_escape_string($username).'" <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+;';
+
+      pwg_query($query);
+
+      FluxBB_Linkuser($pwg_id, $row['FluxBB_id'], "NOK");
+    }
+  }
+}
+
+
+/**
+ * Reg_FluxBB_PwdSynch
+ * Checks if a password needs to be resynch between Piwigo and FluxBB 
+ * 
+ * @uid        : the user id
+ * 
+ * @returns    : true if the password is NOT synchronized (NOK) else false
+ * 
+ */
+function Reg_FluxBB_PwdSynch($uid)
+{
+  $query = '
+SELECT PwdSynch
+FROM '.Register_FluxBB_ID_TABLE.'
+WHERE id_user_pwg='.$uid.'
+;';
+
+  $result = pwg_db_fetch_assoc(pwg_query($query));
+
+  if($result['PwdSynch'] == "NOK" or is_null($result['PwdSynch']))
+  {
+    return true;
+  }
+  else return false; 
+}
+
+
+/**
  * Search linked users
  */
 function FluxBB_Searchuser($id_user_pwg)

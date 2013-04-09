@@ -155,4 +155,9 @@ $lang['Del_User'] = 'Removal from FluxBB of account : ';
 $lang['Audit_OK'] = 'Audit OK<br/><br/>';
 
 $lang['RegFluxBB_Password_Reset_Msg'] = 'Please, update your password for synchronization with the forum. Then you will be able to connect to the forum with the same account as the gallery.';
+
+$lang['Add_User2pwg'] = 'Adding in Piwigo of account: ';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synchronization from FluxBB to Piwigo stopped : Target email or username already exists in Piwigo users table.';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'To synchronize your forum access with the gallery you have been registered at %s!';
+$lang['Please change your password at your first connexion on the gallery'] = 'Please change your password at your first connexion on the gallery to end the data synchronization';
 ?>

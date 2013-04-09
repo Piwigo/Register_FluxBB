@@ -875,6 +875,21 @@ ORDER BY LOWER(username)
     $msg_error_FluxBB2PWG .= $conf_Register_FluxBB['FLUXBB_CONFIRM']=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
     $msg_error_FluxBB2PWG .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_delete.png" alt="'.l10n('Del_User').stripslashes($row['username']).'" /></a>';
+
+    $msg_error_FluxBB2PWG .= ' <a href="';
+
+    $msg_error_FluxBB2PWG .= add_url_params($page_Register_FluxBB_admin, array(
+      'action' => 'add2pwg',
+      'id' => $row['id'],
+      'username' => $row['username'],
+      'email' => $row['email'],
+    ));
+
+    $msg_error_FluxBB2PWG .= '" title="'.l10n('Add_User2pwg').stripslashes($row['username']).'"';
+
+    $msg_error_FluxBB2PWG .= $conf_Register_FluxBB['FLUXBB_CONFIRM']=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
+
+    $msg_error_FluxBB2PWG .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_add.png" alt="'.l10n('Add_User2pwg').stripslashes($row['username']).'" /></a>';
   }
 
   if ($msg_error_FluxBB2PWG == '')
@@ -994,6 +1009,15 @@ else if (isset($_GET['action']) and ($_GET['action']=='del_user') and isset($_GE
   FluxBB_Deluser($_GET['id'], true);
 
   Audit_PWG_FluxBB();
+}
+else if (isset($_GET['action']) and ($_GET['action']=='add2pwg') and isset($_GET['id']) and isset($_GET['username']) and isset($_GET['email']))
+{
+  $error = Synch_Piwigo_Adduser($_GET['id'], $_GET['username'], $_GET['email']);
+  
+  if (!$error)
+    Audit_PWG_FluxBB();
+  else
+    $template->append('errors', l10n('RegFluxBB_Email_or_Username_already_exist'));
 }
 
 
