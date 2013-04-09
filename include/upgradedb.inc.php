@@ -62,4 +62,16 @@ VALUES ("Register_FluxBB","'.pwg_db_real_escape_string($update_conf).'","Registe
 
   pwg_query($q);
 }
+
+
+/* upgrade from 2.5.x to 2.5.5 */
+/* *************************** */
+function upgrade_250_255()
+{
+  global $conf;
+
+  // Add new field in Register_FluxBB ID links table
+  $query ='ALTER TABLE '.Register_FluxBB_ID_TABLE.' ADD PwdSynch VARCHAR(3) NULL DEFAULT NULL;';
+  pwg_query($query);
+}
 ?>

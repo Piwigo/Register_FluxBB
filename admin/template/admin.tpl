@@ -165,31 +165,6 @@ function rfbb_blockToggleDisplay( headerId, contentId )
 
 
 <form method="post" action="" class="general">
-<div id="instructionMigrate" class="instructionBlock" >
-
-  <div id="migrate_header" class="instructionBlockHeaderCollapsed" onclick="rfbb_blockToggleDisplay('migrate_header', 'Migrate')">
-    <span class="cluetip" title="{'Mig_Title'|translate}|{'Mig_Title_d'|translate}">
-      {'Mig_Title'|@translate}
-    </span>
-  </div>
-
-  <div id="Migrate" class="instructionBlockContent" style="display:none">
-  <fieldset>
-  	{'Mig_Text'|@translate}
-    <br/>
-  	<p>
-      <input class="submit" type="submit" value="{'Audit_Btn'|@translate}" name="Audit"/>&nbsp;
-      <input onclick="return confirm('{'Are you sure?'|@translate}');" class="submit" type="submit" value="{'Mig_Btn'|@translate}" name="Migration" {$TAG_INPUT_ENABLED}/>
-      <input name="nb_para" id="nb_para" type="text" value="{$nb_para}" style="display:none"/>
-      <input name="nb_para2" id="nb_para2" type="text" value="{$nb_para2}" style="display:none"/>
-    </p>
-  </fieldset>
-  </div>
-</div>
-</form>
-
-
-<form method="post" action="" class="general">
 <div id="instructionSynch" class="instructionBlock" >
   <div id="synch_header" class="instructionBlockHeaderCollapsed" onclick="rfbb_blockToggleDisplay('synch_header', 'Synch')">
     <span class="cluetip" title="{'Sync_Title'|translate}|{'Sync_Title_d'|translate}">

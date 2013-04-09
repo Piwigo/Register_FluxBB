@@ -5,14 +5,19 @@ $lang['save_config'] ='Configuration enregistrée.';
 $lang['Instruction_Title'] = 'Instructions (important à lire en premier !)';
 $lang['Instruction_Title_d'] = 'Notice d\'utilisation et informations importantes';
 $lang['Disclaimer'] = '
+  <div class="warning">Important : FluxBB et Piwigo doivent être installés sur la même base de données ! Pensez faire une sauvegarde de votre base et spécialement de vos tables ###_USERS avant toute action par mesure de sécurité.</div><br/><br/>
   *** Pour débuter, 2 étapes à suivre ***<br/>
-  1ère étape : Configurez les paramètres du plugin en relation avec les paramètres de FluxBB<br/>
-  2ème étape : Migrez les comptes utilisateurs de Piwigo vers FluxBB<br/><br/>
-  A l\'issue des 2 étapes principales, le plugin sera pleinement fonctionnel.<br/><br/>
-  *** Pour maintenir les liaisons déjà actives ***<br/>
-  Maintenance : Synchronisez les tables (dans le cas où un ajout, une mise à jour ou une suppression d\'utilisateur se serait mal déroulée). Cela permet aussi de remettre à jour mots de passe et adresses email et voir intrus (Mais vous ne devriez pas avoir à l\'utiliser régulièrement).<br/><br/>
-  <div class="warning">Pensez faire une sauvegarde de votre base et spécialement de vos tables ###_USERS avant toute action par mesure de sécurité.</div>
+  1ère étape - Section Configuration : Configurez les paramètres du plugin en relation avec les paramètres de FluxBB<br/>
+  2ème étape - Section Synchronisation :<br/>
+  - Si votre forum FluxBB <b>est vide d\'utilisateurs</b>, synchronisez en masse les comptes utilisateurs de Piwigo vers FluxBB<br/>
+  - Si votre forum FluxBB <b>contient des utilisateurs</b>, lancez un audit. L\'audit effectue des tests de cohérences entre les données d\'utilisateurs de Piwigo et de FluxBB. En fonction des résultats, des actions de corrections au cas par cas seront proposées<br/><br/>
+
+  <div class="warning">A ce jour, il n\'est pas encore possible de synchroniser des utilisateurs existants sur un forum FluxBB vers une galerie Piwigo. C\'est pourquoi l\'action proposée par l\'audit est la suppression des comptes FluxBB. Vous pouvez laisser ces comptes non synchronisés en l\'état (il ne pourront se connecter que sur le forum) dans l\'attente d\'une évolution prochaine du plugin qui permettra des les synchroniser.</div>
 <br/><br/>
+
+  A noter : Les mots de passe de comptes synchronisés manuellement (par l\'audit ou par la synchro globale) de Piwigo vers FluxBB ne sont pas récupérés. Chaque utilisateur concerné devra modifier son mot de passe lors de sa prochaine connexion à la galerie (automatiquement redirigé vers sa page de profil) pour que la synchro soit effective et qu\'il puisse se connecter au forum.
+<br/><br/>
+
   <div class="warning">A savoir :<br/>
   Par défaut, <b>FluxBB</b> est <u>insensible</u> à la casse sur les noms d\'utilisateurs. C\'est à dire que si un utilisateur "test" est déjà inscrit, d\'autres inscriptions avec "Test" ou "TEST" ou "TEst" (etc...) seront refusées.<br/><br/>
   Par défaut, <b>Piwigo</b> fonctionne de manière inverse et est donc <u>sensible</u> à la casse sur les logins ("test" sera un utilisateur différent de "Test" etc...).<br/><br/>
@@ -99,40 +104,14 @@ $lang['Bridge_UAM_false'] = ' --> Pont Register_FluxBB / UAM désactivé (par d�
 $lang['FluxBB_Group'] = 'Précisez ici l\'ID (format : nombre entier) du <b>groupe d\'utilisateurs FluxBB</b> dans lequel les utilisateurs non validés doivent se trouver lorsqu\'ils n\'ont pas validé leur inscription à la galerie. Ce groupe d\'utilisateurs est à créer au préalable dans FluxBB. Pour être efficace, ce groupe ne doit avoir aucune permission sur le forum (voir dans la section "Instructions" pour les informations détaillées)';
 
 
-$lang['Mig_Title'] = 'Migration des comptes de Piwigo vers FluxBB';
-$lang['Mig_Title_d'] = 'A N\'UTILISER QUE SI vous n\'avez jamais utilisé le plugin auparavent';
-$lang['Mig_Text'] = '
-  <div class="warning"> A N\'EXECUTER QUE SI vous n\'avez jamais utilisé le plugin pour lier Piwigo à FluxBB <u>ET SI</u> votre forum ne contient aucun utilisateurs !!!</div><br/>
-  		--> Dans ce cas, votre table [PrefixFluxBB]_users de FluxBB doit être vide de tout compte sauf les 2 comptes d\'invité et administrateur.<br/><br/>
-  - La procédure de migration supprimera d\'abord les liens des comptes entre Piwigo et FluxBB si existants<br/>
-  - Puis <b>SUPPRIMERA TOUS LES COMPTES de votre forum FluxBB</b> sauf les 2 comptes d\'invité et d\'administrateur.<br/>
-  <br/>
-  <div class="warning">ATTENTION - SI VOUS AVEZ DES COMPTES D\'UTILISATEURS PARTICULIERS DANS FluxBB == NE SURTOUT PAS UTILISER CETTE FONCTION !!!</div><br/>
-  - Enfin la migration créera tout les comptes de Piwigo dans FluxBB sauf l\'invité.<br/>
-  <br/>
-  Si des erreurs se produisent pendant l\'opération, une information s\'affichera. Corrigez la cause du problème et recommencez l\'opération de migration (à ce moment là seulement vous pouvez renouveller une procédure de migration).<br/>
-  Vous pouvez aussi lancer un audit pour vérifier l\'état d\'une migration.<br/>
-  <div class="warning">NE JAMAIS EFFECTUER DE MIGRATION POUR METTRE A JOUR !!!</div><br/>';
-$lang['Mig_Start'] = '<b>Migration des comptes de Piwigo vers FluxBB</b>';
-$lang['Mig_Del_Link'] = '<b>Suppression des liens entre les comptes Piwigo et FluxBB</b>';
-$lang['Mig_Del_AllUsers'] = '<b>Suppression des comptes FluxBB</b>';
-$lang['Mig_Del_User'] = '<b>Suppression du compte :</b> ';
-$lang['Mig_Add_AllUsers'] = '<b>Transfert des comptes Piwigo</b>';
-$lang['Mig_Add_User'] = '<b>Transfert du compte :</b> ';
-$lang['Mig_End'] = '<b>Migration finie !</b>';
-$lang['Mig_Btn'] = 'Migration';
-
-
 $lang['Sync_Title'] = 'Synchronisation des comptes Piwigo vers FluxBB';
 $lang['Sync_Title_d'] = 'A utiliser pour resynchroniser les comptes';
 $lang['Sync_Text'] = '
-  <div class="warning">A exécuter si vous êtes déjà utilisateur de ce plugin, que vous l\'avez temporairement désactivé et que de nouveaux utilisateurs se sont inscrits sur la galerie entre temps</div><br/>
-  <br/> -> Ceci signifie que votre forum posséde des utilisateurs.<br/><br/>
-  - La synchronisation comparera les noms des utilisateurs, leur mot de passe (crypté) et leur adresse email dans les deux tables [PrefixPWG]_users et [PrefixFluxBB]_users<br/>
-  - Puis mettra à jour une table de correspondances ainsi que le mot de passe et l\'adresse email de chaque compte depuis Piwigo vers FluxBB sauf les utilisateurs "Guest" de Piwigo et "Anonymous" de FluxBB.<br/>
-  - Enfin indiquera en erreur les comptes orphelins (qui n\'existent que dans l\'une des 2 tables ###_USERS) et proposera une résolution des erreurs.<br/>
-  <br/>
-  A l\'issue de l\'opération lancez un AUDIT et vérifiez la présence de doublons éventuels dans les utilisateurs de FluxBB, si c\'est le cas, il faut supprimer les plus anciens (triez des utilisateurs FluxBB selon leur date d\'inscription).<br/>';
+  <div class="warning">La synchronisation est une action de masse qui videra votre forum de ses utilisateurs s\'il y en a ! Lancez un audit pour gérer au cas par cas.</div><br/><br/>
+  
+  Rappels :<br/>
+  Les mots de passe de comptes synchronisés manuellement (par l\'audit ou par la synchro globale) de Piwigo vers FluxBB ne sont pas récupérés. Chaque utilisateur concerné devra modifier son mot de passe lors de sa prochaine connexion à la galerie (automatiquement redirigé vers sa page de profil) pour que la synchro soit effective et qu\'il puisse se connecter au forum.<br/><br/>
+  A ce jour, il n\'est pas encore possible de synchroniser des utilisateurs existants sur un forum FluxBB vers une galerie Piwigo. C\'est pourquoi l\'action proposée par l\'audit est la suppression des comptes FluxBB. Vous pouvez laisser ces comptes non synchronisés en l\'état (il ne pourront se connecter que sur le forum) dans l\'attente d\'une évolution prochaine du plugin qui permettra des les synchroniser.<br/><br/>';
 $lang['Sync_Check_Dup'] = '<b>Analyse des tables d\'utilisateurs pour contrôle les doublons</b>';
 $lang['Advise_Check_Dup'] = '<b>IMPOSSIBLE de continuer la synchronisation si vous avez des doublons dans les comptes utilisateurs de Piwigo ou FluxBB. Veuillez corriger puis réessayez.</b><br/><br/>';
 $lang['Sync_Link_Break'] = '<b>Analyse des liens réparables entre les comptes Piwigo et FluxBB</b>';
@@ -163,7 +142,7 @@ $lang['Error_Link_Dup'] = '<b>Erreur dans la table de liens, il y a des doublons
 $lang['Link_Dup'] = 'Suppression des liens dupliqués ';
 $lang['Audit_Synchro'] = '<b>Audit de la synchronisation des mots de passe et des adresses emails entre les comptes Piwigo et FluxBB</b>';
 $lang['Error_Synchro'] = '<b>Mauvaise synchronisation du compte :</b> ';
-$lang['Error_Synchro_Pswd'] = 'pour le mot de passe';
+$lang['Error_Synchro_Pswd'] = 'Cet utilisateur devra modifier son mot de passe lors de sa prochaine connexion à la galerie';
 $lang['Error_Synchro_Mail'] = 'pour l\'adresse email';
 $lang['Audit_Synchro_OK'] = ' <b>: Synchro des données OK</b>';
 $lang['Sync_User'] = 'Synchronisation du compte : ';
@@ -174,5 +153,7 @@ $lang['Audit_FluxBB2PWG'] = '<b>Audit des comptes existants dans FluxBB et manqu
 $lang['Error_FluxBB2PWG'] = '<b>Le compte FluxBB n\'existe pas dans Piwigo :</b> ';
 $lang['Del_User'] = 'Suppression de FluxBB du compte : ';
 $lang['Audit_OK'] = 'Audit OK<br/><br/>';
+
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Veuillez modifier votre mot de passe pour synchronisation avec l\'accès au forum. Vous pourrez alors vous connecter au forum avec le même compte que pour la galerie.';
 
 ?>

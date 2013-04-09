@@ -14,35 +14,19 @@ function Register_FluxBB_admin_menu($menu)
   return $menu;
 }
 
-/**
- * Add new registered user in FluxBB user table
- */
-function Register_FluxBB_Adduser($register_user)
-{
-  global $errors, $conf;
-	
-  // Exclusion of Adult_Content users
-  if ($register_user['username'] != "16" and $register_user['username'] != "18")
-  {
-    // Warning : FluxBB uses Sha1 hash instead of a salted md5 for Piwigo! // TODO: Reset password
-    FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
-  }
-}
-
-/**
- * Delete registered user in FluxBB user table
- */
-function Register_FluxBB_Deluser($user_id)
-{
-  FluxBB_Deluser(FluxBB_Searchuser($user_id), true);
-}
 
 /**
  * Change user's password in FluxBB user table if a new password is set in Piwigo
+ * or an account synchronization was set
  */
-function Register_FluxBB_InitPage()
+function Register_FluxBB_InitProfile()
 {
-  global $conf, $user;
+  global $template, $conf, $user;
+
+  if (Reg_FluxBB_PwdSynch($user['id']))
+  {
+    $template->append('errors', l10n('RegFluxBB_Password_Reset_Msg'));
+  }
 
   if (isset($_POST['validate']))
   {
@@ -56,10 +40,49 @@ AND '.$conf['user_fields']['username'].' NOT IN ("18","16")
 ;';
 
       list($username) = pwg_db_fetch_row(pwg_query($query));
-      // Warning : FluxBB uses Sha1 hash instead of a salted md5 for Piwigo! // TODO: Reset password
       FluxBB_Updateuser($user['id'], stripslashes($username), sha1($_POST['use_new_pwd']), $_POST['mail_address']);
     }
   }
+}
+
+
+/**
+ * Triggered on login_success
+ * 
+ * Redirect user to profile page and displays a message to make him change his password for synch with FluxBB
+ * 
+ */
+function Register_FluxBB_Login()
+{
+  global $conf, $user;
+
+    if (Reg_FluxBB_PwdSynch($user['id']))
+    {
+      redirect(PHPWG_ROOT_PATH.'profile.php');
+    }
+}
+
+
+/**
+ * Checks special users exclusion befaore add new registered user in FluxBB user table
+ */
+function Register_FluxBB_Adduser($register_user)
+{
+  global $errors, $conf;
+	
+  // Exclusion of Adult_Content users
+  if ($register_user['username'] != "16" and $register_user['username'] != "18")
+  {
+    FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
+  }
+}
+
+/**
+ * Delete registered user in FluxBB user table
+ */
+function Register_FluxBB_Deluser($user_id)
+{
+  FluxBB_Deluser(FluxBB_Searchuser($user_id), true);
 }
 
 
@@ -84,7 +107,6 @@ AND '.$conf['user_fields']['username'].' NOT IN ("18","16")
 ;';
 
       list($username,$mail_address) = pwg_db_fetch_row(pwg_query($query));
-      // Warning : FluxBB uses Sha1 hash instead of a salted md5 for Piwigo! // TODO: Reset password
       FluxBB_Updateuser($user_id, stripslashes($username), sha1($_POST['use_new_pwd']), $mail_address);
     }
   }
@@ -198,8 +220,12 @@ WHERE LOWER('.stripslashes('username').') = "'.strtolower($user['username']).'"
 /**
  * Users linking in a dedicated links table
  */
-function FluxBB_Linkuser($pwg_id, $bb_id)
+function FluxBB_Linkuser($pwg_id, $bb_id, $PwdSync)
 {
+  global $conf;
+
+  $conf_Register_FluxBB = unserialize($conf['Register_FluxBB']);
+
   $query = '
 SELECT pwg.id as pwg_id, bb.id as bb_id
 FROM '.USERS_TABLE.' pwg, '.FluxBB_USERS_TABLE.' bb
@@ -208,10 +234,10 @@ WHERE pwg.id = '.$pwg_id.'
   AND pwg.username = bb.username
   AND pwg.username NOT IN ("18","16")
 ;';
-  
+
   $data = pwg_db_fetch_row(pwg_query($query));
-  
-  if (!empty($data))
+
+  if (!empty($data) and !is_null($PwdSync))
   {
     $subquery = '
 DELETE FROM '.Register_FluxBB_ID_TABLE.'
@@ -219,15 +245,34 @@ WHERE id_user_pwg = "'.$pwg_id.'"
 OR id_user_FluxBB = "'.$bb_id.'"
 ;';
 
-    $subresult = pwg_query($subquery);
+    pwg_query($subquery);
 
     $subquery = '
 INSERT INTO '.Register_FluxBB_ID_TABLE.'
-  (id_user_pwg, id_user_FluxBB)
-VALUES ('.$pwg_id.', '.$bb_id.')
+  (id_user_pwg, id_user_FluxBB, PwdSynch)
+VALUES ('.$pwg_id.', '.$bb_id.', "'.$PwdSync.'")
 ;';
 
-    $subresult = pwg_query($subquery);
+    pwg_query($subquery);
+  }
+  else
+  {
+    $PwdSync = NULL;
+    $subquery = '
+DELETE FROM '.Register_FluxBB_ID_TABLE.'
+WHERE id_user_pwg = "'.$pwg_id.'"
+OR id_user_FluxBB = "'.$bb_id.'"
+;';
+
+    pwg_query($subquery);
+
+    $subquery = '
+INSERT INTO '.Register_FluxBB_ID_TABLE.'
+  (id_user_pwg, id_user_FluxBB, PwdSynch)
+VALUES ('.$pwg_id.', '.$bb_id.', "'.$PwdSync.'")
+;';
+
+    pwg_query($subquery);
   }
 }
 
@@ -242,7 +287,7 @@ DELETE FROM '.Register_FluxBB_ID_TABLE.'
 WHERE id_user_FluxBB = '.$bb_id.'
 ;';
 
-  $result = pwg_query($query);
+  pwg_query($query);
 }
 
 
@@ -258,8 +303,8 @@ function FluxBB_Adduser($pwg_id, $login, $password, $adresse_mail)
 
   $registred = time();
   $registred_ip = $_SERVER['REMOTE_ADDR'];
-  
-  // Check if UAM is installed and if bridge is set - Exception for admins and webmasters
+
+  // Set default FluxBB group - Check if UAM is installed and if bridge is set
   if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB['FLUXBB_UAM_LINK']) and $conf_Register_FluxBB['FLUXBB_UAM_LINK'] == 'true')
   {
     $o_default_user_group1 = $conf_Register_FluxBB['FLUXBB_GROUP'];
@@ -275,7 +320,7 @@ WHERE conf_name = "o_default_user_group"
     $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
   }
 
-// Check for FluxBB version 1.4.x or higher and get the correct value
+// Check for timezone settings in FluxBB version 1.4.x or higher
   $query1 = '
 SELECT conf_value
 FROM '.FluxBB_CONFIG_TABLE.'
@@ -284,7 +329,7 @@ WHERE conf_name = "o_default_timezone"
 
   $count1 = pwg_db_num_rows(pwg_query($query1));
 
-// Check for FluxBB version 1.2.x and get the correct value
+// Check for timezone settings in FluxBB version 1.2.x
   $query2 = '
 SELECT conf_value
 FROM '.FluxBB_CONFIG_TABLE.'
@@ -292,7 +337,8 @@ WHERE conf_name = "o_server_timezone"
 ;';
 
   $count2 = pwg_db_num_rows(pwg_query($query2));
-  
+
+// Set timezone var according of FluxBB version
   if ($count1 == 1 and $count2 == 0)
   {
     $o_default_timezone = pwg_db_fetch_assoc(pwg_query($query1));
@@ -301,8 +347,8 @@ WHERE conf_name = "o_server_timezone"
   {
     $o_default_timezone = pwg_db_fetch_assoc(pwg_query($query2));
   }
-  
-  
+
+// Get FluxBB default language
   $query = '
 SELECT conf_value
 FROM '.FluxBB_CONFIG_TABLE.'
@@ -310,7 +356,8 @@ WHERE conf_name = "o_default_lang"
 ;';
 
   $o_default_lang = pwg_db_fetch_assoc(pwg_query($query));
-  
+
+// Get FluxBB default style
   $query = '
 SELECT conf_value
 FROM '.FluxBB_CONFIG_TABLE.'
@@ -319,7 +366,7 @@ WHERE conf_name = "o_default_style"
 
   $o_default_style = pwg_db_fetch_assoc(pwg_query($query));
 
-  // Check if UAM is installed and if bridge is set - Exception for admins and webmasters
+  // Add user - Check if UAM is installed and if bridge is set
   if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB['FLUXBB_UAM_LINK']) and $conf_Register_FluxBB['FLUXBB_UAM_LINK'] == 'true')
   {
     $query = "
@@ -348,7 +395,7 @@ VALUES(
   '".$registred."'
   );";
   
-    $result = pwg_query($query);
+    pwg_query($query);
   }
   else
   {
@@ -378,12 +425,216 @@ VALUES(
   '".$registred."'
   )
 ;";
-    $result = pwg_query($query);
+    pwg_query($query);
   }
 
   $bb_id = pwg_db_insert_id();
+
+  FluxBB_Linkuser($pwg_id, $bb_id, "OK");
+}
+
+
+/**
+ * Update user information in FluxBB users table
+ */
+function FluxBB_Updateuser($pwg_id, $username, $password, $adresse_mail)
+{
+  global $conf;
   
-  FluxBB_Linkuser($pwg_id, $bb_id);
+  include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+  $conf_Register_FluxBB = unserialize($conf['Register_FluxBB']);
+
+// Select users to update in ID link table
+  $query = '
+SELECT id_user_FluxBB as FluxBB_id
+FROM '.Register_FluxBB_ID_TABLE.'
+WHERE id_user_pwg = '.$pwg_id.'
+;';
+
+  $row = pwg_db_fetch_assoc(pwg_query($query));
+
+  if (!empty($row))
+  {
+    $query = '
+UPDATE '.FluxBB_USERS_TABLE.'
+SET username = "'.pwg_db_real_escape_string($username).'", email = "'.$adresse_mail.'", password = "'.$password.'" 
+WHERE id = '.$row['FluxBB_id'].'
+AND "'.pwg_db_real_escape_string($username).'" NOT IN ("18","16")
+;';
+
+    pwg_query($query);
+
+    FluxBB_Linkuser($pwg_id, $row['FluxBB_id'], "OK");
+  }
+  else
+  {
+    $query = '
+SELECT id as FluxBB_id
+FROM '.FluxBB_USERS_TABLE.'
+WHERE BINARY username = BINARY "'.pwg_db_real_escape_string($username).'"
+;';
+
+    $row = pwg_db_fetch_assoc(pwg_query($query));
+
+    if (!empty($row))
+    {
+      $query = '
+UPDATE '.FluxBB_USERS_TABLE.'
+SET username = "'.pwg_db_real_escape_string($username).'", email = "'.$adresse_mail.'", password = "'.$password.'" 
+WHERE id = '.$row['FluxBB_id'].'
+AND "'.pwg_db_real_escape_string($username).'" NOT IN ("18","16")
+;';
+
+      pwg_query($query);
+
+      FluxBB_Linkuser($pwg_id, $row['FluxBB_id'], "OK");
+    }
+  }
+}
+
+
+/**
+ * Add new registered user in fluxBB users table from audit/synch action
+ * Standard FluxBB_Adduser() function is not used because of existing password mismatch
+ * To solve password synch problem, passwords are reset to NULL to force users to get a new password on their profile page
+ */
+function Synch_FluxBB_Adduser($pwg_id, $login, $adresse_mail)
+{
+  global $errors, $conf;
+
+  $conf_Register_FluxBB = unserialize($conf['Register_FluxBB']);
+
+  $registred = time();
+  $registred_ip = $_SERVER['REMOTE_ADDR'];
+  $password = NULL;
+
+  // Set default FluxBB group - Check if UAM is installed and if bridge is set
+  if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB['FLUXBB_UAM_LINK']) and $conf_Register_FluxBB['FLUXBB_UAM_LINK'] == 'true')
+  {
+    $o_default_user_group1 = $conf_Register_FluxBB['FLUXBB_GROUP'];
+  }
+  else
+  {
+    $query = '
+SELECT conf_value
+FROM '.FluxBB_CONFIG_TABLE.'
+WHERE conf_name = "o_default_user_group"
+;';
+
+    $o_default_user_group = pwg_db_fetch_assoc(pwg_query($query));
+  }
+
+// Check for timezone settings in FluxBB version 1.4.x or higher
+  $query1 = '
+SELECT conf_value
+FROM '.FluxBB_CONFIG_TABLE.'
+WHERE conf_name = "o_default_timezone"
+;';
+
+  $count1 = pwg_db_num_rows(pwg_query($query1));
+
+// Check for timezone settings in FluxBB version 1.2.x
+  $query2 = '
+SELECT conf_value
+FROM '.FluxBB_CONFIG_TABLE.'
+WHERE conf_name = "o_server_timezone"
+;';
+
+  $count2 = pwg_db_num_rows(pwg_query($query2));
+
+// Set timezone var according of FluxBB version
+  if ($count1 == 1 and $count2 == 0)
+  {
+    $o_default_timezone = pwg_db_fetch_assoc(pwg_query($query1));
+  }
+  else if ($count1 == 0 and $count2 == 1)
+  {
+    $o_default_timezone = pwg_db_fetch_assoc(pwg_query($query2));
+  }
+
+// Get FluxBB default language
+  $query = '
+SELECT conf_value
+FROM '.FluxBB_CONFIG_TABLE.'
+WHERE conf_name = "o_default_lang"
+;';
+
+  $o_default_lang = pwg_db_fetch_assoc(pwg_query($query));
+
+// Get FluxBB default style
+  $query = '
+SELECT conf_value
+FROM '.FluxBB_CONFIG_TABLE.'
+WHERE conf_name = "o_default_style"
+;';
+
+  $o_default_style = pwg_db_fetch_assoc(pwg_query($query));
+
+  // Add user - Check if UAM is installed and if bridge is set
+  if (function_exists('FindAvailableConfirmMailID') and isset($conf_Register_FluxBB['FLUXBB_UAM_LINK']) and $conf_Register_FluxBB['FLUXBB_UAM_LINK'] == 'true')
+  {
+    $query = "
+INSERT INTO ".FluxBB_USERS_TABLE." (
+  username,
+  ". ( isset($o_default_user_group1) ? 'group_id' : '' ) .",
+  password,
+  email,
+  ". ( isset($o_default_timezone['conf_value']) ? 'timezone' : '' ) .",
+  ". ( isset($o_default_lang['conf_value']) ? 'language' : '' ) .",
+  ". ( isset($o_default_style['conf_value']) ? 'style' : '' ) .",
+  registered,
+  registration_ip,
+  last_visit
+  )
+VALUES(
+  '".pwg_db_real_escape_string($login)."',
+  ". ( isset($o_default_user_group1) ? "'".$o_default_user_group1."'" : '' ) .",
+  '".$password."', 
+	'".$adresse_mail."',
+  ". ( isset($o_default_timezone['conf_value']) ? "'".$o_default_timezone['conf_value']."'" : '' ) .",
+  ". ( isset($o_default_lang['conf_value']) ? "'".$o_default_lang['conf_value']."'" : '' ) .",
+  ". ( isset($o_default_style['conf_value']) ? "'".$o_default_style['conf_value']."'" : '' ) .",
+  '".$registred."',
+  '".$registred_ip."',
+  '".$registred."'
+  );";
+  
+    pwg_query($query);
+  }
+  else
+  {
+    $query = "
+INSERT INTO ".FluxBB_USERS_TABLE." (
+  username,
+  ". ( isset($o_default_user_group['conf_value']) ? 'group_id' : '' ) .",
+  password,
+  email,
+  ". ( isset($o_default_timezone['conf_value']) ? 'timezone' : '' ) .",
+  ". ( isset($o_default_lang['conf_value']) ? 'language' : '' ) .",
+  ". ( isset($o_default_style['conf_value']) ? 'style' : '' ) .",
+  registered,
+  registration_ip,
+  last_visit
+  )
+VALUES(
+  '".pwg_db_real_escape_string($login)."',
+  ". ( isset($o_default_user_group['conf_value']) ? "'".$o_default_user_group['conf_value']."'" : '' ) .",
+  '".$password."', 
+	'".$adresse_mail."',
+  ". ( isset($o_default_timezone['conf_value']) ? "'".$o_default_timezone['conf_value']."'" : '' ) .",
+  ". ( isset($o_default_lang['conf_value']) ? "'".$o_default_lang['conf_value']."'" : '' ) .",
+  ". ( isset($o_default_style['conf_value']) ? "'".$o_default_style['conf_value']."'" : '' ) .",
+  '".$registred."',
+  '".$registred_ip."',
+  '".$registred."'
+  )
+;";
+    pwg_query($query);
+  }
+
+  $bb_id = pwg_db_insert_id();
+
+  FluxBB_Linkuser($pwg_id, $bb_id, "NOK");
 }
 
 
@@ -466,60 +717,6 @@ WHERE id = '.$id_user_FluxBB.'
   FluxBB_Unlinkuser($id_user_FluxBB);
 }
 
-
-/**
- * Update user information in FluxBB users table
- */
-function FluxBB_Updateuser($pwg_id, $username, $password, $adresse_mail)
-{
-  include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-
-  $query = '
-SELECT id_user_FluxBB as FluxBB_id
-FROM '.Register_FluxBB_ID_TABLE.'
-WHERE id_user_pwg = '.$pwg_id.'
-;';
-
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-
-  if (!empty($row))
-  {
-    $query = '
-UPDATE '.FluxBB_USERS_TABLE.'
-SET username = "'.pwg_db_real_escape_string($username).'", email = "'.$adresse_mail.'", password = "'.$password.'" 
-WHERE id = '.$row['FluxBB_id'].'
-AND "'.pwg_db_real_escape_string($username).'" NOT IN ("18","16")
-;';
-   
-    $result = pwg_query($query);
-      
-    FluxBB_Linkuser($pwg_id, $row['FluxBB_id']);
-  }
-  else
-  {
-    $query = '
-SELECT id as FluxBB_id
-FROM '.FluxBB_USERS_TABLE.'
-WHERE BINARY username = BINARY "'.pwg_db_real_escape_string($username).'"
-;';
-
-    $row = pwg_db_fetch_assoc(pwg_query($query));
-  
-    if (!empty($row))
-    {
-      $query = '
-UPDATE '.FluxBB_USERS_TABLE.'
-SET username = "'.pwg_db_real_escape_string($username).'", email = "'.$adresse_mail.'", password = "'.$password.'" 
-WHERE id = '.$row['FluxBB_id'].'
-AND "'.pwg_db_real_escape_string($username).'" NOT IN ("18","16")
-;';
-     
-      $result = pwg_query($query);
-      
-      FluxBB_Linkuser($pwg_id, $row['FluxBB_id']);
-    }
-  }
-}
 
 /**
  * Get plugin information

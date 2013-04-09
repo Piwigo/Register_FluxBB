@@ -53,8 +53,9 @@ VALUES ("Register_FluxBB","'.pwg_db_real_escape_string(serialize($defaultRegFlux
 CREATE TABLE IF NOT EXISTS '.Register_FluxBB_ID_TABLE.' (
   id_user_pwg smallint(5) NOT NULL default "0",
   id_user_FluxBB int(10) NOT NULL default "0",
+  PwdSynch varchar(3) default NULL,
 PRIMARY KEY  (id_user_pwg),
-  KEY id_user_pwg (id_user_pwg, id_user_FluxBB)
+  KEY id_user_pwg (id_user_pwg, id_user_FluxBB, PwdSynch)
 )
 ;';
 
@@ -70,7 +71,7 @@ function plugin_activate()
 /* *********************** */
   regfluxbb_obsolete_files();
 
-include_once (REGFLUXBB_PATH.'include/upgradedb.inc.php');
+  include_once (REGFLUXBB_PATH.'include/upgradedb.inc.php');
 
 /* Database upgrade */
 /* **************** */
@@ -79,6 +80,20 @@ include_once (REGFLUXBB_PATH.'include/upgradedb.inc.php');
   if (isset($conf_RegFluxBB[0]) and strpos($conf_RegFluxBB[0],"{") === false) /* Version < 2.5.0 */
   {
     upgrade_240_250();
+  }
+
+/* Check database upgrade for version > 2.5.0 */
+/* ****************************************** */
+  $conf_Register_FluxBB = unserialize($conf['Register_FluxBB']);
+
+  if (isset($conf_Register_FluxBB['REGFLUXBB_VERSION']))
+  {
+    if (version_compare($conf_Register_FluxBB['REGFLUXBB_VERSION'], '2.5.5') < 0)
+    {
+    /* upgrade from 2.5.x to 2.5.5 */
+    /* *************************** */
+      upgrade_250_255();
+    }
   }
 
 /* Update plugin version number in #_config table */

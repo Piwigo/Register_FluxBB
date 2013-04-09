@@ -136,88 +136,6 @@ WHERE id = 1
 }
 
 
-// +------------------------------------------------------------+
-// |                    Migration and Audit                     |
-// +------------------------------------------------------------+
-//if (isset($_POST['Migration']))
-//{
-//  array_push($page['infos'], l10n('Mig_Start').'<br><br>');
-//
-//  array_push($page['infos'], l10n('Mig_Del_Link').'<br><br>');
-//
-//  $query = 'TRUNCATE '.Register_FluxBB_ID_TABLE.';';
-//  $result = pwg_query($query);
-//
-//  $msg_Mig_Del_AllUsers = '';
-//
-//  $query = '
-//SELECT username, id
-//FROM '.FluxBB_USERS_TABLE.'
-//;';
-//
-//  $result = pwg_query($query);
-//
-//  while ($row = pwg_db_fetch_assoc($result))
-//  {
-//    if((stripslashes($row['username']) != stripslashes($conf_Register_FluxBB['FLUXBB_GUEST'])) and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN'])))
-//    {
-//      $msg_Mig_Del_AllUsers .= '<br> - '.l10n('Mig_Del_User').stripslashes($row['username']);
-//
-//      FluxBB_Deluser($row['id'], false);
-//    }
-//  }
-//
-//  array_push($page['infos'], l10n('Mig_Del_AllUsers').$msg_Mig_Del_AllUsers.'<br><br>');
-//
-//  $query = '
-//SELECT id, username, password, mail_address
-//FROM '.USERS_TABLE.'
-//WHERE username NOT IN ("18","16")
-//;';
-//
-//  $result = pwg_query($query);
-//
-//  $registred = time();
-//  $registred_ip = $_SERVER['REMOTE_ADDR'];
-//
-//  $msg_Mig_Add_AllUsers = '';
-//
-//  while ($row = pwg_db_fetch_assoc($result))
-//  {
-//    if((stripslashes($row['username']) != 'guest') and (stripslashes($row['username']) != stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN'])))
-//    {
-//      $msg_Mig_Add_AllUsers .= '<br> - '.l10n('Mig_Add_User').stripslashes($row['username']);
-//
-//      FluxBB_Adduser($row['id'], stripslashes($row['username']), $row['password'], $row['mail_address']);
-//    }
-//  }
-//
-//  array_push($page['infos'], l10n('Mig_Add_AllUsers').$msg_Mig_Add_AllUsers.'<br><br>');
-//
-//  $query = '
-//SELECT id, username, password, mail_address
-//FROM '.USERS_TABLE.'
-//WHERE username = "'.$conf_Register_FluxBB['FLUXBB_ADMIN'].'"
-//AND username NOT IN ("18","16")
-//;';
-//
-//  $row = pwg_db_fetch_assoc(pwg_query($query));
-//
-//  if (!empty($row))
-//  {
-//    array_push($page['infos'], l10n('Sync_User').stripslashes($row['username']).'<br><br>');
-//
-//    FluxBB_Updateuser($row['id'], stripslashes($row['username']), $row['password'], $row['mail_address']);
-//  }
-//
-//  array_push($page['infos'], l10n('Mig_End'));
-//}
-//else if (isset($_POST['Audit']))
-//{
-//  Audit_PWG_FluxBB();
-//}
-
-
 // +--------------------------------------------------------+
 // |                    Synch and Audit                     |
 // +--------------------------------------------------------+
@@ -239,6 +157,7 @@ if ( isset($_POST['Synchro']))
 SELECT COUNT(*) AS nbr_dup, id, username
 FROM '.USERS_TABLE.'
 WHERE username NOT IN ("18","16")
+AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 GROUP BY BINARY username
 HAVING COUNT(*) > 1
 ;';
@@ -268,6 +187,7 @@ HAVING COUNT(*) > 1
 SELECT id, username, email
 FROM '.FluxBB_USERS_TABLE.' 
 WHERE BINARY username = BINARY "'.$row['username'].'"
+AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 ;';
 
     $subresult = pwg_query($subquery);
@@ -309,6 +229,7 @@ AND pwg.id NOT in (
   )
 AND pwg.username = bb.username
 AND pwg.username NOT IN ("18","16")
+AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 AND pwg.mail_address = bb.email
 ;';
 
@@ -317,7 +238,7 @@ AND pwg.mail_address = bb.email
     while($row = pwg_db_fetch_assoc($result))
     {
       $msg_error_Link_Break .= '<br>'.l10n('New_Link').stripslashes($row['pwg_user']).' ('.$row['pwg_mail'].')';
-      FluxBB_Linkuser($row['pwg_id'], $row['bb_id']);
+      FluxBB_Linkuser($row['pwg_id'], $row['bb_id'], "NOK");
     }
 
     if ($msg_error_Link_Break == '')
@@ -332,6 +253,7 @@ INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = bb.id
 INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
 WHERE BINARY pwg.username <> BINARY bb.username
 AND pwg.username NOT IN ("18","16")
+AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 ;';
 
     $result = pwg_query($query);
@@ -389,6 +311,7 @@ FROM '.FluxBB_USERS_TABLE.' AS bb
 INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = bb.id
 INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
 WHERE pwg.username NOT IN ("18","16")
+AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 GROUP BY link.id_user_pwg, link.id_user_FluxBB
 HAVING COUNT(*) > 1
 ;';
@@ -399,7 +322,7 @@ HAVING COUNT(*) > 1
     {
       $msg_error_Link_Bad .= '<br>'.l10n('Link_Dup').$row['nbr_dup'].' = '.stripslashes($row['pwg_user']).' -- '.stripslashes($row['bb_user']).')';
   
-      FluxBB_Linkuser($row['pwg_id'], $row['bb_id']);
+      FluxBB_Linkuser($row['pwg_id'], $row['bb_id'], "NOK");
     }
 
     if ($msg_error_Link_Bad == '')
@@ -407,74 +330,78 @@ HAVING COUNT(*) > 1
     else
       $msg_error_Link_Bad = l10n('Sync_Link_Bad').$msg_error_Link_Bad;
 
-//    $query = '
-//SELECT pwg.id as pwg_id, pwg.username as username, pwg.password as pwg_pwd, pwg.mail_address as pwg_eml, FluxBB.id as bb_id, FluxBB.password as bb_pwd, FluxBB.email as bb_eml
-//FROM '.FluxBB_USERS_TABLE.' AS FluxBB 
-//INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = FluxBB.id
-//INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
-//AND BINARY pwg.username = BINARY FluxBB.username
-//ORDER BY LOWER(pwg.username)
-//;';
-//
-//    $result = pwg_query($query);
-//
-//    while($row = pwg_db_fetch_assoc($result))
-//    {
-//      if ( ($row['pwg_pwd'] != $row['bb_pwd']) or ($row['pwg_eml'] != $row['bb_eml']) )
-//      {
-//        $msg_error_Synchro .= '<br>'.l10n('Sync_User').stripslashes($row['username']);
-//
-//        $query = '
-//SELECT id, username, password, mail_address 
-//FROM '.USERS_TABLE.'
-//WHERE BINARY id = "'.$row['pwg_id'].'"
-//AND "'.$row['username'].'" NOT IN ("18","16")
-//;';
-//
-//        $data = pwg_db_fetch_assoc(pwg_query($query));
-//
-//        if (!empty($data))
-//          FluxBB_Updateuser($data['id'], stripslashes($data['username']), $data['password'], $data['mail_address']);
-//      }
-//    }
+    $query = '
+SELECT pwg.id as pwg_id, pwg.username as username, pwg.mail_address as pwg_eml, FluxBB.id as bb_id, FluxBB.email as bb_eml
+FROM '.FluxBB_USERS_TABLE.' AS FluxBB 
+INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = FluxBB.id
+INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
+AND BINARY pwg.username = BINARY FluxBB.username
+AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+ORDER BY LOWER(pwg.username)
+;';
+
+    $result = pwg_query($query);
+
+    while($row = pwg_db_fetch_assoc($result))
+    {
+      if ($row['pwg_eml'] != $row['bb_eml'])
+      {
+        $msg_error_Synchro .= '<br>'.l10n('Sync_User').stripslashes($row['username']);
+
+        $query = '
+SELECT id, username, mail_address 
+FROM '.USERS_TABLE.'
+WHERE BINARY id = "'.$row['pwg_id'].'"
+AND "'.$row['username'].'" NOT IN ("18","16")
+AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+;';
+
+        $data = pwg_db_fetch_assoc(pwg_query($query));
+
+        if (!empty($data))
+          Synch_FluxBB_Updateuser($data['id'], stripslashes($data['username']), $data['mail_address']);
+      }
+    }
 
     if ($msg_error_Synchro == '')
       array_push($page['infos'], l10n('Sync_DataUser').'<br>'.l10n('Sync_OK'));
     else
       $msg_error_Synchro = l10n('Sync_DataUser').$msg_error_Synchro;
 
-//    $query = '
-//SELECT username, mail_address FROM '.USERS_TABLE.'
-//WHERE BINARY username <> BINARY "guest"
-//AND username NOT IN ("18","16")
-//AND id not in (
-//  SELECT id_user_pwg FROM '.Register_FluxBB_ID_TABLE.'
-//  )
-//AND BINARY username not in (
-//  SELECT username FROM '.FluxBB_USERS_TABLE.'
-//  )
-//ORDER BY LOWER(username)
-//;';
-//
-//    $result = pwg_query($query);
-//
-//    while($row = pwg_db_fetch_assoc($result))
-//    {
-//      $msg_error_PWG2FluxBB .= '<br>'.l10n('Add_User').stripslashes($row['username']).' ('.$row['mail_address'].')';
-//
-//      $query = '
-//SELECT id, username, password, mail_address 
-//FROM '.USERS_TABLE.'
-//WHERE BINARY username = BINARY "'.$row['username'].'"
-//AND username NOT IN ("18","16")
-//LIMIT 1
-//;';
-//
-//      $data = pwg_db_fetch_assoc(pwg_query($query));
-//
-//      if (!empty($data))
-//        FluxBB_Adduser($data['id'], stripslashes($data['username']), $data['password'], $data['mail_address']);  
-//    }
+    $query = '
+SELECT username, mail_address FROM '.USERS_TABLE.'
+WHERE BINARY username <> BINARY "guest"
+AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+AND username NOT IN ("18","16")
+AND id not in (
+  SELECT id_user_pwg FROM '.Register_FluxBB_ID_TABLE.'
+  )
+AND BINARY username not in (
+  SELECT username FROM '.FluxBB_USERS_TABLE.'
+  )
+ORDER BY LOWER(username)
+;';
+
+    $result = pwg_query($query);
+
+   while($row = pwg_db_fetch_assoc($result))
+    {
+      $msg_error_PWG2FluxBB .= '<br>'.l10n('Add_User').stripslashes($row['username']).' ('.$row['mail_address'].')';
+
+      $query = '
+SELECT id, username, mail_address 
+FROM '.USERS_TABLE.'
+WHERE BINARY username = BINARY "'.$row['username'].'"
+AND username NOT IN ("18","16")
+AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
+LIMIT 1
+;';
+
+      $data = pwg_db_fetch_assoc(pwg_query($query));
+
+      if (!empty($data))
+        Synch_FluxBB_Adduser($data['id'], stripslashes($data['username']), $data['mail_address']);  
+    }
 
     if ($msg_error_PWG2FluxBB == '')
       array_push($page['infos'], l10n('Sync_PWG2FluxBB').'<br>'.l10n('Sync_OK'));
@@ -484,6 +411,7 @@ HAVING COUNT(*) > 1
     $query = '
 SELECT id, username, email FROM '.FluxBB_USERS_TABLE.'
 WHERE BINARY username <> BINARY "'.$conf_Register_FluxBB['FLUXBB_GUEST'].'"
+AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 AND id not in (
   SELECT id_user_FluxBB FROM '.Register_FluxBB_ID_TABLE.'
   )
@@ -572,7 +500,6 @@ function Audit_PWG_FluxBB()
 SELECT COUNT(*) AS nbr_dup, id, username
 FROM '.USERS_TABLE.'
 WHERE username NOT IN ("18","16")
-AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 GROUP BY BINARY username
 HAVING COUNT(*) > 1
 ;';
@@ -605,7 +532,6 @@ HAVING COUNT(*) > 1
 SELECT id, username, email
 FROM '.FluxBB_USERS_TABLE.' 
 WHERE BINARY username = BINARY "'.$row['username'].'"
-AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 ;';
     $subresult = pwg_query($subquery);
   
@@ -650,7 +576,6 @@ AND pwg.id NOT in (
   FROM '.Register_FluxBB_ID_TABLE.'
   )
 AND pwg.username = bb.username
-AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 AND pwg.username NOT IN ("18","16")
 AND pwg.mail_address = bb.email
 ;';
@@ -690,7 +615,6 @@ FROM '.FluxBB_USERS_TABLE.' AS bb
 INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = bb.id
 INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
 WHERE pwg.username <> bb.username
-AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 AND pwg.username NOT IN ("18","16")
 ;';
 
@@ -772,7 +696,6 @@ FROM '.FluxBB_USERS_TABLE.' AS bb
 INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = bb.id
 INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
 WHERE pwg.username NOT IN ("18","16")
-AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 GROUP BY link.id_user_pwg, link.id_user_FluxBB
 HAVING COUNT(*) > 1
 ;';
@@ -807,12 +730,11 @@ HAVING COUNT(*) > 1
 // Check synch between Piwigo and FluxBB users
 // -------------------------------------------
   $query = '
-SELECT pwg.username as username, pwg.password as pwg_pwd, pwg.mail_address as pwg_eml, FluxBB.password as bb_pwd, FluxBB.email as bb_eml
+SELECT pwg.id as pwg_id, pwg.username as username, pwg.mail_address as pwg_eml, FluxBB.email as bb_eml
 FROM '.FluxBB_USERS_TABLE.' AS FluxBB 
 INNER JOIN '.Register_FluxBB_ID_TABLE.' AS link ON link.id_user_FluxBB = FluxBB.id
 INNER JOIN '.USERS_TABLE.' as pwg ON link.id_user_pwg = pwg.id
 WHERE BINARY pwg.username = BINARY FluxBB.username
-AND pwg.username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 AND pwg.username NOT IN ("18","16")
 ORDER BY LOWER(pwg.username)
 ;';
@@ -821,28 +743,54 @@ ORDER BY LOWER(pwg.username)
   
   while($row = pwg_db_fetch_assoc($result))
   {
-    if (($row['pwg_pwd'] != $row['bb_pwd']) or ($row['pwg_eml'] != $row['bb_eml']))
+    if (($row['pwg_eml'] != $row['bb_eml']) or Reg_FluxBB_PwdSynch($row['pwg_id']))
     {
-      $msg_error_Synchro .= '<br>'.l10n('Error_Synchro').stripslashes($row['username']);
+      if ($row['pwg_eml'] != $row['bb_eml'] and Reg_FluxBB_PwdSynch($row['pwg_id']))
+      {
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro').stripslashes($row['username']);
 
-      $msg_error_Synchro .= ' <a href="';
+        $msg_error_Synchro .= ' <a href="';
 
-      $msg_error_Synchro .= add_url_params($page_Register_FluxBB_admin, array(
-        'action' => 'sync_user',
-        'username' => stripslashes($row['username']),
-      ));
+        $msg_error_Synchro .= add_url_params($page_Register_FluxBB_admin, array(
+          'action' => 'sync_user',
+          'username' => stripslashes($row['username']),
+        ));
 
-      $msg_error_Synchro .= '" title="'.l10n('Sync_User').stripslashes($row['username']).'"';
+        $msg_error_Synchro .= '" title="'.l10n('Sync_User').stripslashes($row['username']).'"';
 
-      $msg_error_Synchro .= $conf_Register_FluxBB['FLUXBB_CONFIRM']=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
+        $msg_error_Synchro .= $conf_Register_FluxBB['FLUXBB_CONFIRM']=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
 
-      $msg_error_Synchro .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_refresh.png" alt="'.l10n('Sync_User').stripslashes($row['username']).'" /></a>';
+        $msg_error_Synchro .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_refresh.png" alt="'.l10n('Sync_User').stripslashes($row['username']).'" /></a>';
 
-      if ($row['pwg_pwd'] != $row['bb_pwd'])
-        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Pswd');
-
-      if ($row['pwg_eml'] != $row['bb_eml'])
         $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Mail').'<br>-- PWG = '.$row['pwg_eml'].'<br>-- FluxBB = '.$row['bb_eml'];
+
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Pswd');
+      }
+      elseif ($row['pwg_eml'] != $row['bb_eml'] and !Reg_FluxBB_PwdSynch($row['pwg_id']))
+      {
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro').stripslashes($row['username']);
+
+        $msg_error_Synchro .= ' <a href="';
+
+        $msg_error_Synchro .= add_url_params($page_Register_FluxBB_admin, array(
+          'action' => 'sync_user',
+          'username' => stripslashes($row['username']),
+        ));
+
+        $msg_error_Synchro .= '" title="'.l10n('Sync_User').stripslashes($row['username']).'"';
+
+        $msg_error_Synchro .= $conf_Register_FluxBB['FLUXBB_CONFIRM']=='false' ?  ' onclick="return confirm(\''.l10n('Are you sure?').'\');" ' : ' ';
+
+        $msg_error_Synchro .= '><img src="'.REGFLUXBB_PATH.'/admin/template/icon/user_refresh.png" alt="'.l10n('Sync_User').stripslashes($row['username']).'" /></a>';
+
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Mail').'<br>-- PWG = '.$row['pwg_eml'].'<br>-- FluxBB = '.$row['bb_eml'];
+      }
+      elseif ($row['pwg_eml'] = $row['bb_eml'] and Reg_FluxBB_PwdSynch($row['pwg_id']))
+      {
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro').stripslashes($row['username']);
+
+        $msg_error_Synchro .= '<br>'.l10n('Error_Synchro_Pswd');
+      }
     }
     else if ($conf_Register_FluxBB['FLUXBB_DETAIL'] == 'true')
       $msg_ok_Synchro .= '<br> - '.stripslashes($row['username']).' ('.$row['pwg_eml'].')'.l10n('Audit_Synchro_OK');
@@ -850,7 +798,7 @@ ORDER BY LOWER(pwg.username)
 
   if ($msg_error_Synchro <> '')
     $msg_error_Synchro = l10n('Audit_Synchro').$msg_error_Synchro;
-    
+
   if ($msg_ok_Synchro <> '')
     if ($msg_error_Synchro <> '')
       array_push($page['infos'], l10n('Audit_Synchro').$msg_ok_Synchro.'<br><br>');
@@ -862,7 +810,6 @@ ORDER BY LOWER(pwg.username)
 SELECT username, mail_address FROM '.USERS_TABLE.'
 WHERE BINARY username <> BINARY "guest"
 AND username NOT IN ("18","16")
-AND username <> "'.stripslashes($conf_Register_FluxBB['FLUXBB_ADMIN']).'"
 AND id not in (
   SELECT id_user_pwg FROM '.Register_FluxBB_ID_TABLE.'
   )
@@ -901,7 +848,6 @@ ORDER BY LOWER(username)
   $query = '
 SELECT id, username, email FROM '.FluxBB_USERS_TABLE.'
 WHERE BINARY username <> BINARY "'.$conf_Register_FluxBB['FLUXBB_GUEST'].'"
-AND BINARY username <> BINARY "'.$conf_Register_FluxBB['FLUXBB_ADMIN'].'"
 AND id not in (
   SELECT id_user_FluxBB FROM '.Register_FluxBB_ID_TABLE.'
   )
@@ -1003,33 +949,33 @@ AND id_user_FluxBB = '.$_GET['bb_id'].'
 }
 else if (isset($_GET['action']) and ($_GET['action']=='new_link') and isset($_GET['pwg_id']) and isset($_GET['bb_id']))
 {
-  FluxBB_Linkuser($_GET['pwg_id'], $_GET['bb_id']);
+  FluxBB_Linkuser($_GET['pwg_id'], $_GET['bb_id'], "NOK");
   
   Audit_PWG_FluxBB();
 }
-//else if (isset($_GET['action']) and ($_GET['action']=='sync_user') and isset($_GET['username']))
-//{
-//  $query = '
-//SELECT id AS id_pwg, username, password, mail_address 
-//FROM '.USERS_TABLE.'
-//WHERE BINARY username = BINARY "'.pwg_db_real_escape_string($_GET['username']).'"
-//AND username NOT IN ("18","16")
-//LIMIT 1
-//;';
-//
-//  $data = pwg_db_fetch_assoc(pwg_query($query));
-//  
-//  if (!empty($data))
-//  {
-//    FluxBB_Updateuser($data['id_pwg'], stripslashes($data['username']), $data['password'], $data['mail_address']);
-//  }
-//  
-//  Audit_PWG_FluxBB();
-//}
+else if (isset($_GET['action']) and ($_GET['action']=='sync_user') and isset($_GET['username']))
+{
+  $query = '
+SELECT id AS id_pwg, username, mail_address 
+FROM '.USERS_TABLE.'
+WHERE BINARY username = BINARY "'.pwg_db_real_escape_string($_GET['username']).'"
+AND username NOT IN ("18","16")
+LIMIT 1
+;';
+
+  $data = pwg_db_fetch_assoc(pwg_query($query));
+  
+  if (!empty($data))
+  {
+    Synch_FluxBB_Updateuser($data['id_pwg'], stripslashes($data['username']), $data['mail_address']);
+  }
+  
+  Audit_PWG_FluxBB();
+}
 else if (isset($_GET['action']) and ($_GET['action']=='add_user') and isset($_GET['username']))
 {
   $query = '
-SELECT id, username, password, mail_address 
+SELECT id, username, mail_address 
 FROM '.USERS_TABLE.'
 WHERE BINARY username = BINARY "'.pwg_db_real_escape_string($_GET['username']).'"
 AND username NOT IN ("18","16")
@@ -1039,13 +985,13 @@ LIMIT 1
   $data = pwg_db_fetch_assoc(pwg_query($query));
 
   if (!empty($data))
-    FluxBB_Adduser($data['id'], stripslashes($data['username']), $data['password'], $data['mail_address']);  
+    Synch_FluxBB_Adduser($data['id'], stripslashes($data['username']), $data['mail_address']);
 
    Audit_PWG_FluxBB();
 }
 else if (isset($_GET['action']) and ($_GET['action']=='del_user') and isset($_GET['id']))
 {
-  FluxBB_Deluser( $_GET['id'], true );
+  FluxBB_Deluser($_GET['id'], true);
 
   Audit_PWG_FluxBB();
 }
