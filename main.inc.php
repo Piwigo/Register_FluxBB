@@ -10,23 +10,51 @@ Author URI: http://www.infernoweb.net
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-if (!defined('REGFLUXBB_PATH')) define('REGFLUXBB_PATH' , PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
+// +-----------------------------------------------------------------------+
+// | Define plugin constants                                               |
+// +-----------------------------------------------------------------------+
+
+defined('REGFLUXBB_ID') or define('REGFLUXBB_ID', basename(dirname(__FILE__)));
+define('REGFLUXBB_PATH' ,   PHPWG_PLUGINS_PATH . REGFLUXBB_ID . '/');
+define('REGFLUXBB_ADMIN',   get_root_url() . 'admin.php?page=plugin-' . REGFLUXBB_ID);
 
 include_once (REGFLUXBB_PATH.'include/constants.php');
 include_once (REGFLUXBB_PATH.'include/functions.inc.php');
 
 load_language('plugin.lang', REGFLUXBB_PATH);
 
-/* plugin administration */
+// admin plugins menu link
 add_event_handler('get_admin_plugin_menu_links', 'Register_FluxBB_admin_menu');
 
+/**
+ * admin plugins menu link
+ */
+function Register_FluxBB_admin_menu($menu) 
+{
+  array_push(
+    $menu,
+    array(
+      'NAME' => 'Register FluxBB',
+      'URL' => REGFLUXBB_ADMIN,
+      )
+    );
 
-/* user creation*/
-add_event_handler('register_user', 'Register_FluxBB_Adduser');
+  return $menu;
+}
+
+
+/* user creation */
+if (strpos(@$_GET['page'],'Register_FluxBB') === false) // Exclude user creation from plugin panel to make FluxBB2Piwigo synch available
+{
+  add_event_handler('register_user', 'Register_FluxBB_Adduser', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+}
 
 
 // Check users registration
-add_event_handler('register_user_check', 'Register_FluxBB_RegistrationCheck', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+if (strpos(@$_GET['page'],'Register_FluxBB') === false) // Exclude user creation from plugin panel to make FluxBB2Piwigo synch available
+{
+  add_event_handler('register_user_check', 'Register_FluxBB_RegistrationCheck', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+}
 
 
 /* user deletion */

@@ -4,17 +4,6 @@ include_once (PHPWG_ROOT_PATH.'/include/constants.php');
 include_once (REGFLUXBB_PATH.'include/constants.php');
 
 
-function Register_FluxBB_admin_menu($menu)
-{
-  array_push($menu, array(
-    'NAME' => 'Register FluxBB',
-    'URL' => get_root_url().'admin.php?page=plugin-'.basename(REGFLUXBB_PATH)
-    )
-  );
-  return $menu;
-}
-
-
 /**
  * Change user's password in FluxBB user table if a new password is set in Piwigo
  * or an account synchronization was set
@@ -64,17 +53,22 @@ function Register_FluxBB_Login()
 
 
 /**
- * Checks special users exclusion befaore add new registered user in FluxBB user table
+ * Checks special users exclusion before add new registered user in FluxBB user table
  */
 function Register_FluxBB_Adduser($register_user)
 {
   global $errors, $conf;
-	
-  // Exclusion of Adult_Content users
-  if ($register_user['username'] != "16" and $register_user['username'] != "18")
+
+  // Exclusion of Adult_Content users - //Todo: Compatibility with user_mass_register plugin
+  if ($register_user['username'] != "16" and $register_user['username'] != "18" /*and strpos(@$_GET['page'],'user_mass_register') === false*/)
   {
     FluxBB_Adduser($register_user['id'], $register_user['username'], sha1($_POST['password']), $register_user['email']);
   }
+  /*elseif ($register_user['username'] != "16" and $register_user['username'] != "18" and strpos(@$_GET['page'],'user_mass_register') !== false)
+  {
+    //include_once(PHPWG_ROOT_PATH.'plugins/user_mass_register/admin.php');
+    //FluxBB_Adduser($register_user['id'],$login, $password, $email);
+  }*/
 }
 
 /**
@@ -642,32 +636,29 @@ VALUES(
  * Add new registered user in Piwigo users table from audit/synch action
  * To solve password synch problem, passwords are reset to NULL to force users to get a new password on their profile page
  * 
- * @return : $error
+ * Based on user_mass_register plugin (thx to plg!)
+ * 
+ * @return : $errors
  */
-function Synch_Piwigo_Adduser($fluxbb_id, $username, $email)
+function Synch_Piwigo_Adduser($fluxbb_id, $username, $password, $email)
 {
   global $conf;
   load_language('plugin.lang', REGFLUXBB_PATH);
 
-  if (!get_userid_by_email($email) and !get_userid($username))
-  {
-    // find a password
-    $password = generate_key(8);
+    $errors = register_user($username, $password, $email, false);
 
-    $error = register_user($username, $password, $email, false);
-
-    if (empty($error))
+    if (empty($errors))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
       $keyargs_content = array(
-        get_l10n_args('Hello %s,', $login),
+        get_l10n_args('Hello %s,', $username),
         get_l10n_args('To synchronize your forum access with the gallery you have been registered at %s!', $conf['gallery_title']),
         get_l10n_args('', ''),
         get_l10n_args('Here are your connection settings', ''),
-        get_l10n_args('Username: %s', $login),
+        get_l10n_args('Username: %s', $username),
         get_l10n_args('Password: %s', $password),
-        get_l10n_args('Email: %s', $mail_address),
+        get_l10n_args('Email: %s', $email),
         get_l10n_args('', ''),
         get_l10n_args('Please change your password at your first connexion on the gallery', ''),
         get_l10n_args('', ''),
@@ -675,7 +666,7 @@ function Synch_Piwigo_Adduser($fluxbb_id, $username, $email)
       );
 
       pwg_mail(
-        $mail_address,
+        $email,
         array(
           'subject' => '['.$conf['gallery_title'].'] '.l10n('Registration'),
           'content' => l10n_args($keyargs_content),
@@ -686,13 +677,9 @@ function Synch_Piwigo_Adduser($fluxbb_id, $username, $email)
       $pwg_id = get_userid($username);
 
       FluxBB_Linkuser($pwg_id, $fluxbb_id, "NOK");
-      
-      $error = false;
     }
-  }
-  else $error = true;
 
-  return $error;
+  return $errors;
 }
 
 

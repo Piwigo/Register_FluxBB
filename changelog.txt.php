@@ -129,5 +129,8 @@
 
 2.5.8 - Add accounts synchronization from FluxBB to Piwigo
       - Bug fixed : Missing function in audit
+
+2.5.9 - Bug fixed : Adding accounts from FluxBB to Piwigo was not working
+        // TODO: Compatibility with user_mass_register
 */
 ?>
