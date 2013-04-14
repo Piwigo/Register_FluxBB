@@ -23,7 +23,7 @@ include_once (REGFLUXBB_PATH.'include/functions.inc.php');
 
 load_language('plugin.lang', REGFLUXBB_PATH);
 
-// admin plugins menu link
+/* plugin administration */
 add_event_handler('get_admin_plugin_menu_links', 'Register_FluxBB_admin_menu');
 
 /**
@@ -46,7 +46,7 @@ function Register_FluxBB_admin_menu($menu)
 /* user creation */
 if (strpos(@$_GET['page'],'Register_FluxBB') === false) // Exclude user creation from plugin panel to make FluxBB2Piwigo synch available
 {
-  add_event_handler('register_user', 'Register_FluxBB_Adduser', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+  add_event_handler('register_user', 'Register_FluxBB_Adduser');
 }
 
 

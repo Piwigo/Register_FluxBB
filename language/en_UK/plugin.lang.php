@@ -72,8 +72,6 @@ $lang['Config_Title2'] = 'Plugin\'s advanced settings';
 
 $lang['Config_Disclaimer'] = '  Check the settings of your FluxBB installation and fix them if necessary.<br/>
   Change, if necessary, the behavior of the plugin as you want.';
-  Check the settings of your FluxBB installation and fix them if necessary.<br/>
-  Change, if necessary, the behavior of the plugin as you want.';
 
 $lang['Details'] = 'Level of detail to display in the reports of operations (synchronization and migration)';
 $lang['Details_true'] = ' --&gt; Maximum level - Displays all details of the results of synchronization and migration operations';
