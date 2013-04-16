@@ -165,4 +165,9 @@ $lang['Config_Title1'] = 'FluxBB ve Piwigo arasındaki köprü ayarları';
 $lang['About_Reg_Title_d'] = 'Daha iyi entegrasyon için faydalı bilgiler';
 $lang['About_Reg_Title'] = 'FluxBB forumuna üyelik kaydı hakkında';
 $lang['About_Bridge_Title'] = 'Register_FluxBB / UAM köprüsü hakkında';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Galeri ve forum hesabınızı eşitlemeniz için %s tarihinde kayıt yapılmıştır!';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Forum ile eşitleme sırasında lütfen şifrenizi güncelleyin. Ancak bu şekilde aynı şifre ile hem galeride hem de forumda oturum açabilirsiniz.';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'FluxBB \'den Piwigo\'ya yapılan eşitleme durdu. Hedef e-posta adresi veya kulanıcı adı zaten Piwigo kullanıcılar tablosunda bulunuyor.';
+$lang['Please change your password at your first connexion on the gallery'] = 'Veri eşitlemesi sonrası galerideki ilk oturumunuzda lütfen şifrenizi değiştirin';
+$lang['Add_User2pwg'] = 'Piwigo\'ya hesap ekleme:';
 ?>
