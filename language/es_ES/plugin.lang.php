@@ -177,4 +177,9 @@ $lang['Instruction_Title'] = 'Instrucciones (importante leer primero!)';
 $lang['Instruction_Title_d'] = 'Instrucciones e información importante';
 $lang['Mig_Title_d'] = 'UTILIZAR SOLO si usted nunca ha utilizado el plugin antes';
 $lang['Sync_Title_d'] = 'Utilizar para sincronizar las cuentas';
+$lang['Add_User2pwg'] = 'Agregar una cuenta en Piwigo:';
+$lang['Please change your password at your first connexion on the gallery'] = 'Por favor, cambie su contraseña en su primera conexión a la galería para terminar la sincronización de datos';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Sincronización de FluxBB a Piwigo detenido: Email de destino o nombre de usuario ya existe en la tabla de usuarios Piwigo.';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Por favor, actualice la contraseña para la sincronización con el foro. Entonces usted será capaz de iniciar sesión en el foro con la misma cuenta que la galería.';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Para sincronizar el acceso del foro con la galería, que ha sido registrado en %s!';
 ?>
