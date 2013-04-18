@@ -144,4 +144,9 @@ $lang['Instruction_Title'] = 'Instrukcijas (svarīgi izlsīt vispirms!)';
 $lang['Instruction_Title_d'] = 'Instrukcijas un svarīga informācija';
 $lang['Mig_Title_d'] = 'LIETOT TIKAI TAD, JA neesat šo spraudni lietojuši iepriekš';
 $lang['Config_Title_d'] = 'Spraudņa iestatīšana';
+$lang['Please change your password at your first connexion on the gallery'] = 'Lai pabeigtu datu sinhronizāciju, lūdzu izmainiet savu paroli pie pirmā savienojuma ar galeriju.';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Lūdzu atjaunojiet savu paroli sinhronizācijai ar forumu. Tad jums būs iespēja ieiet forumā ar to pašu kontu, kas ir jūsu galerijai. ';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Lai sihronizētu sava foruma piekļuvi galerijai, jums bepieciešams būt reģistrētam %s!';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'FluxBB sihronizacija ar Piwigo apturēta: gala e-pasta adrese vai lietotājvārds jau eksistē Piwigo lietotāju tabulā.';
+$lang['Add_User2pwg'] = 'Konta pievienošana Piwigo:';
 ?>
