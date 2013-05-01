@@ -132,5 +132,11 @@
 
 2.5.9 - Bug fixed : Adding accounts from FluxBB to Piwigo was not working
         // TODO: Compatibility with user_mass_register
+
+2.5.10 - Update tr_TR, thanks to : LazBoy
+         Update es_ES, thanks to : jpr928
+         Update lv_LV, thanks to : agrisans
+         Update el_GR, thanks to : bas_alba
+         Update de_DE, thanks to : Yogie
 */
 ?>
