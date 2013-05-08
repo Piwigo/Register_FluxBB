@@ -176,4 +176,9 @@ $lang['Instruction_Title'] = 'Istruzioni (importante leggere prima dell\'utilizz
 $lang['Instruction_Title_d'] = 'Istruzioni ed informazioni importanti';
 $lang['Mig_Title_d'] = 'DA UTILIZZARE SOLO SE non hai mai utilizzato prima il plugin';
 $lang['Sync_Title_d'] = 'Risincronizzazione account';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Per sincronizzare il vostro accesso al forum con la galleria, sei stato registrato su %s!';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Sincronizzazione da FluxBB a Piwigo fermato: Email di destinazione o nome utente già esistenti nella tabella utenti.';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Si prega di aggiornare la password per la sincronizzazione con il forum. Si sarà quindi in grado di accedere al forum con lo stesso account della gallery.';
+$lang['Please change your password at your first connexion on the gallery'] = 'Si prega di cambiare la password al vostro primo collegamento alla galleria per terminare la sincronizzazione dei dati';
+$lang['Add_User2pwg'] = 'Aggiunta di un account in Piwigo:';
 ?>
