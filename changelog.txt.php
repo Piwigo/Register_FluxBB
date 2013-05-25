@@ -138,5 +138,8 @@
          Update lv_LV, thanks to : agrisans
          Update el_GR, thanks to : bas_alba
          Update de_DE, thanks to : Yogie
+
+2.5.11 - Update ru_RU, thanks to : Konve
+         Update it_IT, thanks to : Ericnet
 */
 ?>
