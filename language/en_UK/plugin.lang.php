@@ -1,5 +1,5 @@
 <?php
-$lang['Title'] = 'Register_FluxBB - Version: ';
+$lang['FluxBB_Title'] = 'Register_FluxBB - Version: ';
 $lang['save_config'] ='Settings saved';
 
 $lang['Instruction_Title'] = 'Instructions (important to read first!)';
@@ -83,7 +83,7 @@ $lang['Confirm_false'] = ' --&gt; Confirmation required before any action in aud
 
 $lang['Prefix'] = 'FluxBB prefix tables:';
 
-$lang['Admin'] = 'Piwigo\'s "Webmaster" account\'s username. <b style="color: red">The FluxBB\'s "Administrator" username account must match!</b>';
+$lang['FluxBB_Admin'] = 'Piwigo\'s "Webmaster" account\'s username. <b style="color: red">The FluxBB\'s "Administrator" username account must match!</b>';
 $lang['error_config_admin1'] = 'ERROR: Piwigo\'s "Webmaster" username is wrong!';
 $lang['error_config_admin2'] = 'ERROR: The username of the FluxBB\'s "Administrator" account is different of Piwigo\'s! Check the configuration of your FluxBB forum and rename the "Administrator" account username in the same way as Piwigo\'s';
 
@@ -156,4 +156,9 @@ $lang['Add_User2pwg'] = 'Adding an account in Piwigo: ';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synchronization from FluxBB to Piwigo stopped: Target email or username already exists in Piwigo users table.';
 $lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'To synchronize your forum access with the gallery, you have been registered at %s!';
 $lang['Please change your password at your first connexion on the gallery'] = 'Please change your password at your first connection to the gallery to end the data synchronization';
+
+$lang['%d email addresses already exist: %s'] = '%d email addresses already exist: %s';
+$lang['%d email addresses rejected: %s'] = '%d email addresses rejected: %s';
+$lang['%d registrations on error: %s'] = '%d registrations on error: %s';
+$lang['%d users registered'] = '%d users registered';
 ?>

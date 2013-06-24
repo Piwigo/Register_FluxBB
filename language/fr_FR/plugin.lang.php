@@ -1,5 +1,5 @@
 <?php
-$lang['Title'] = 'Register_FluxBB - Version: ';
+$lang['FluxBB_Title'] = 'Register_FluxBB - Version: ';
 $lang['save_config'] ='Configuration enregistrée.';
 
 $lang['Instruction_Title'] = 'Instructions (important à lire en premier !)';
@@ -86,7 +86,7 @@ $lang['Confirm_false'] = ' --&gt; Confirmation obligatoire avant toute action da
 
 $lang['Prefix'] = 'Préfixe des tables de FluxBB :';
 
-$lang['Admin'] = 'Nom d\'utilisateur du compte "Webmaster" de Piwigo. <b style="color: red">Le nom du compte "Administrateur" de FluxBB doit être identique !</b>';
+$lang['FluxBB_Admin'] = 'Nom d\'utilisateur du compte "Webmaster" de Piwigo. <b style="color: red">Le nom du compte "Administrateur" de FluxBB doit être identique !</b>';
 $lang['error_config_admin1'] = 'ERREUR : Le nom du compte "Webmaster" de Piwigo est incorrect !';
 $lang['error_config_admin2'] = 'ERREUR : Le nom du compte "Administrateur" de FluxBB est différent du compte "Webmaster" de Piwigo ! Vérifiez la configuration de votre forum FluxBB et nommez le compte "Administrateur" de la même manière que celui de Piwigo';
 
@@ -160,4 +160,9 @@ $lang['Add_User2pwg'] = 'Ajout dans Piwigo du compte : ';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synchronisation de FluxBB vers Piwigo suspendue : L\'email ou le nom d\'utilisateur cible existe déjà dans la table des utilisateurs de Piwigo.';
 $lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Afin de synchroniser votre compte d\'accès au forum avec la galerie, vous avez été inscrit sur %s!';
 $lang['Please change your password at your first connexion on the gallery'] = 'Merci de bien vouloir modifier votre mot de passe lors de votre première connexion à la galerie pour terminer la synchronisation des données.';
+
+$lang['%d email addresses already exist: %s'] = '%d adresses email déjà existantes: %s';
+$lang['%d email addresses rejected: %s'] = '%d adresses email rejetées: %s';
+$lang['%d registrations on error: %s'] = '%d inscriptions en erreur: %s';
+$lang['%d users registered'] = '%d utilisateurs inscrits';
 ?>

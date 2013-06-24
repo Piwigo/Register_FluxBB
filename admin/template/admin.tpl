@@ -46,7 +46,7 @@ function rfbb_blockToggleDisplay( headerId, contentId )
 {/literal}{/footer_script}
 
 <div class="titrePage">
-  <h2>{'Title'|@translate} {$REGFLUXBB_VERSION}</h2>
+  <h2>{'FluxBB_Title'|@translate} {$REGFLUXBB_VERSION}</h2>
 </div>
 
 <div id="instructionTips" class="instructionBlock" >
@@ -112,7 +112,7 @@ function rfbb_blockToggleDisplay( headerId, contentId )
     		<input type="text" name="FluxBB_prefix" value="{$FluxBB_PREFIX}" size="20" style="text-align: center;"/><br/>
       <br/>
     	</li>
-    	<li><label>{'Admin'|@translate}</label><br/>
+    	<li><label>{'FluxBB_Admin'|@translate}</label><br/>
     		<input type="text" name="FluxBB_admin" value="{$FluxBB_ADMIN}" size="20" style="text-align: center;"/><br/>
       <br/>
     	</li>
