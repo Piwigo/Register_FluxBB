@@ -180,4 +180,10 @@ $lang['To synchronize your forum access with the gallery you have been registere
 $lang['Add_User2pwg'] = 'Добавление аккаунта в Piwigo:';
 $lang['Please change your password at your first connexion on the gallery'] = 'Пожалуйста, смените свой пароль во время своего первого входа в галерею после завершения синхронизации данных';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Синхронизация из FluxBB в Piwigo остановлена: указанный e-mail или имя пользователя ужЕ существуют в таблице пользователей Piwigo. ';
+$lang['%d email addresses already exist: %s'] = '%d электронные адреса ужЕ существуют: %s';
+$lang['%d email addresses rejected: %s'] = '%d электронные адреса отклонены: %s';
+$lang['%d registrations on error: %s'] = '%d ошибки при регистрации: %s';
+$lang['%d users registered'] = '%d пользователи зарегистрированы';
+$lang['FluxBB_Admin'] = 'Имя пользователя аккаунта "Вебмастер Piwigo". <b style="color: red">Имя пользователя аккаунта "Администратор The FluxBB" должно совпадать!</b>';
+$lang['FluxBB_Title'] = 'Register_FluxBB - Версия: ';
 ?>
