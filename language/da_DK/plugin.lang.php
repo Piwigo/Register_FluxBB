@@ -179,4 +179,10 @@ $lang['Add_User2pwg'] = 'Tilføjelse af konti i Piwigo:';
 $lang['Please change your password at your first connexion on the gallery'] = 'Vær venlig at ændre din adgangskode, første gang du logger på galleriet, for at afslutte datasynkroniseringen';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synkronisering fra FluxBB til Piwigo er stoppet: Mål-mailadresse eller -brugernavn findes allerede i Piwigos users-tabel.';
 $lang['RegFluxBB_Password_Reset_Msg'] = 'Vær venlig at opdatere adgangskoden til synkronisering med forummet. Dernæst vil du kunne logge på forummet med den samme konto, som til galleriet.';
+$lang['%d email addresses already exist: %s'] = '%d e-mail-adresser findes allerede: %s';
+$lang['%d email addresses rejected: %s'] = '%d e-mail-adresser afvist: %s';
+$lang['%d registrations on error: %s'] = '%d registreringer af fejl: %s';
+$lang['%d users registered'] = '%d brugere registreret';
+$lang['FluxBB_Admin'] = 'Piwigos "Webmaster"-kontos brugernavn. <b style="color: red">FluxBB\'s "Administrator"-brugernavnkonto skal være tilsvarende!</b>';
+$lang['FluxBB_Title'] = 'Register_FluxBB - Version:';
 ?>
