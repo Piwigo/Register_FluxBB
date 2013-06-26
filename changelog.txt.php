@@ -141,5 +141,10 @@
 
 2.5.11 - Update ru_RU, thanks to : Konve
          Update it_IT, thanks to : Ericnet
+
+2.5.12 - Add pt_BR, thanks to : flaviove
+         Update ru_RU, thanks to : Konve
+         Translation keys fixed
+
 */
 ?>
