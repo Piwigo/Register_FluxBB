@@ -182,4 +182,10 @@ $lang['Please change your password at your first connexion on the gallery'] = 'P
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Sincronización de FluxBB a Piwigo detenido: Email de destino o nombre de usuario ya existe en la tabla de usuarios Piwigo.';
 $lang['RegFluxBB_Password_Reset_Msg'] = 'Por favor, actualice la contraseña para la sincronización con el foro. Entonces usted será capaz de iniciar sesión en el foro con la misma cuenta que la galería.';
 $lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Para sincronizar el acceso del foro con la galería, que ha sido registrado en %s!';
+$lang['%d email addresses already exist: %s'] = '%d direcciones de correo electrónico que ya existe:%s';
+$lang['%d email addresses rejected: %s'] = '%d direcciones de correo electrónico rechazadas:%s';
+$lang['%d registrations on error: %s'] = '%d registros de errores:%s';
+$lang['%d users registered'] = '%d usuarios registrados';
+$lang['FluxBB_Admin'] = 'Nombre de usuario de la cuenta de "Webmaster" de Piwigo. <b style="color: red">Usuario de la cuenta del FluxBB "Administrador" debe coincidir!</b>';
+$lang['FluxBB_Title'] = 'Versión de Register_FluxBB';
 ?>
