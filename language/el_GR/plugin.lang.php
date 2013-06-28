@@ -178,4 +178,10 @@ $lang['RegFluxBB_Password_Reset_Msg'] = 'Παρακαλούμε να ενημε�
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Συγχρονισμός από FluxBB to Piwigo σταμάτησε: Το email στόχου  ή το όνομα χρήστη υπάρχει ήδη στον πίνακα με τους χρήστες του Piwigo.';
 $lang['Please change your password at your first connexion on the gallery'] = 'Παρακαλούμε να αλλάξετε τον κωδικό πρόσβασης κατά την πρώτη σύνδεσή σας με την γκαλερί για να τερματίσετε το συγχρονισμό δεδομένων';
 $lang['Add_User2pwg'] = 'Προσθέτει μια εγγραφή στο Piwigo: ';
+$lang['FluxBB_Title'] = 'Register_FluxBB - Έκδοση: ';
+$lang['FluxBB_Admin'] = 'Όνομα χρήστη "Webmaster" του Piwigo. <b style="color: red">Το όνομα του "Διαχειρηστή" του FluxBB\'s  πρεπει να συμπίπτει!</b>';
+$lang['%d users registered'] = '%d χρήστες έχουν καταχωρηθεί';
+$lang['%d registrations on error: %s'] = '%d εγγραφές για σφάλματα: %s';
+$lang['%d email addresses already exist: %s'] = '%d διευθύνσεις email υπάρχουν ήδη: %s';
+$lang['%d email addresses rejected: %s'] = '%d διευθύνσεις ηλεκτρονικού ταχυδρομείου που απορρίπτονται: %s';
 ?>
