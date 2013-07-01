@@ -149,4 +149,10 @@ $lang['RegFluxBB_Password_Reset_Msg'] = 'Lūdzu atjaunojiet savu paroli sinhroni
 $lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Lai sihronizētu sava foruma piekļuvi galerijai, jums bepieciešams būt reģistrētam %s!';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'FluxBB sihronizacija ar Piwigo apturēta: gala e-pasta adrese vai lietotājvārds jau eksistē Piwigo lietotāju tabulā.';
 $lang['Add_User2pwg'] = 'Konta pievienošana Piwigo:';
+$lang['FluxBB_Admin'] = 'Piwigo "Webmaster" konta lietotājvārds. <b style="color: red"> FluxBB "Administrator" lietotājvārda kontam jāsakrīt!</b>';
+$lang['%d registrations on error: %s'] = '%d kļūdainas reģistrēšanās: %s';
+$lang['%d email addresses rejected: %s'] = '%d e-pasta adreses noraidītas: %s';
+$lang['%d email addresses already exist: %s'] = '%d e-pasta adreses jau eksistē: %s';
+$lang['FluxBB_Title'] = 'Register_FluxBB - Versija: ';
+$lang['%d users registered'] = '%d reģistrēti lietotāji';
 ?>
