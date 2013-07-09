@@ -180,4 +180,16 @@ $lang['%d registrations on error: %s'] = 'Registrierungsfehler';
 $lang['%d users registered'] = 'registrierte Benutzer';
 $lang['FluxBB_Admin'] = 'Piwigo\'s "Webmaster" Konto Benutzername. <b style="color: red">The FluxBB\'s "Administrator" Konto Benutzername müssen übereinstimmen!</b>';
 $lang['FluxBB_Title'] = 'Registriere FluxBB - Version';
+$lang['UAM_Bridge_advice'] = 'Die UserAdvManager Erweiterung erlaubt es neue Benutzer ihre Anmeldung bestätigen zu müssen bevor sie Zugriff auf die gesamte Galerie erhalten. Der gemeinsame Gebrauch mit der Erweiterung  Register_FluxBB ermöglicht das gleiche bei einem verlinkten Forum, so dass neue Benutzer erst dann posten können wenn sie die Registration in der Galerie abgeschlossen haben.<br/>
+Hier wie die generelle Prozedur abläuft:
+<br/>
+- Im Administration des FluxBB Forum müssen zumindest zwei Benutzergruppen existieren (Bsp.: "Bestätigt" und "Unbestätigt"<br/>
+- Erteile der ersten Gruppe ("Bestätigt") Zugriff auf das Forum so wie gewünscht und setze die Gruppe als Standard.<br/>
+- Entziehe der zweiten Gruppe ("Unbestätigt") alle Zugriffe auf das Forum (Die Benutzer dieser Gruppe können nur öffentliche Nachrichten lesen).<br/>
+- Ermittle die ID der zweiten Gruppe "Unbestätigt".<br/>
+- Übertrage diese ID in die Register_FluxBB Erweiterung und aktiviere die Brücke und speichere die Einstellungen.<br/>
+<b class="mod"><u>Wichtig:</u></b>
+<br/>
+Solltest Du bereits eine Vorgängerversion von Register_FluxBB einsetzen; Piwigo verknüpfte Benutzerkonten mit Deinem FluxBB Forum werden nicht beeinträchtigt durch die Aktivierung der Brücke. Lediglich neue Benutzerregistrierungen werden nach der Aktivierung betroffen sein.<b><u>Die Konten Re-Synchronisation\'s Funktion wird inaktiv.</u></b><br/>
+Solltest Du Register_FluxBB noch nicht eingesetzt haben wird die Piwigo Benutzermigration von der Galerie zum FluxBB Forum den Status "Bestätigt" oder "Unbestätigt" für Konten die beim Start der Migration existieren nicht berücksichtigen.';
 ?>
