@@ -152,4 +152,10 @@ $lang['Audit_PWG2FluxBB'] = '<b> Auditoria das contas existentes no Piwigo e fal
 $lang['Audit_PWG_Dup'] = '<b> Auditoria da tabela de contas do Piwigo </b>';
 $lang['Audit_Synchro'] = '<b> Auditoria da sincronização de senhas e endereços de e-mail entre Piwigo e contas FluxBB </b>';
 $lang['Audit_Synchro_OK'] = ' <b>: Sincronização de dados OK </b';
+$lang['%d email addresses already exist: %s'] = '%d endereços de email já existem: %d';
+$lang['%d email addresses rejected: %s'] = '% endereços de email rejeitados: %d';
+$lang['%d registrations on error: %s'] = '%d registros com erro: %d';
+$lang['%d users registered'] = '%d usuários registrados';
+$lang['FluxBB_Admin'] = 'Nome da conta "Webmaster" do Piwigo.  <b style="color:red">A conta do usuário "Administrador" do FluxBB deve combinar!</b> ';
+$lang['FluxBB_Title'] = 'Register_FluxBB - versão:';
 ?>
