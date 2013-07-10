@@ -146,5 +146,16 @@
          Update ru_RU, thanks to : Konve
          Translation keys fixed
 
+2.5.13 - Compatibility fixed with other plugins (UAM and Prune_History)
+         Update da_DK, thanks to : Kaare
+         Update de_DE, thanks to : stephy and Yogie
+         Update el_GR, thanks to : bas_alba
+         Update es_ES, thanks to : jpr928
+         Update tr_TR, thanks to : LazBoy
+         Update lv_LV, thanks to : agrisans
+         Update it_IT, thanks to : Ericnet
+         Update uk_UA, thanks to : tb0hdan
+         Update pt_BR, thanks to : flaviove
+         
 */
 ?>

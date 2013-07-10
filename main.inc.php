@@ -62,7 +62,7 @@ add_event_handler('delete_user', 'Register_FluxBB_Deluser');
 
 // Redirection to profile page
 // ---------------------------
-add_event_handler('login_success', 'Register_FluxBB_Login');
+add_event_handler('login_success', 'Register_FluxBB_Login', EVENT_HANDLER_PRIORITY_NEUTRAL, 10);
 
 /* Profile management */
 if (script_basename() == 'profile')
@@ -74,6 +74,6 @@ if (script_basename() == 'profile')
 add_event_handler('loc_begin_password', 'Register_FluxBB_PasswReset');
 
 /* Access validation in FluxBB when validated in Piwigo through UAM plugin */
-add_event_handler('login_success', 'UAM_Bridge', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+add_event_handler('login_success', 'UAM_Bridge', EVENT_HANDLER_PRIORITY_NEUTRAL, 20);
 
 ?>
