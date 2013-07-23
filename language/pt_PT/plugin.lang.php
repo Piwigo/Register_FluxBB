@@ -86,4 +86,37 @@ $lang['Advise_PWG_Dup'] = 'Deverá efectuar estas correções no PIWIGO antes de
 $lang['Audit_Btn'] = 'Auditar';
 $lang['Audit_FluxBB2PWG'] = '<b>Auditar contas existentes no FluxBB e omitidas no Piwigo</b>';
 $lang['Audit_FluxBB_Dup'] = 'Auditar a tabela contas do FluxBB\'s ';
+$lang['Sync_Link_Break'] = '<b>Analise de contas de ligações reparadas entre as contas no  Piwigo e FluxBB</b>';
+$lang['Sync_FluxBB2PWG'] = '<b>Analise de contas no FluxBB mas omitidas no Piwigo</b>';
+$lang['Please change your password at your first connexion on the gallery'] = 'Por favor, altere a sua senha na primeira entrada na galeria para finalizar a sincronização de dados';
+$lang['FluxBB_Admin'] = 'Nome de utilizador "Webmaster" da conta  Piwigo. <b style="color: red"> "Administrador" conta de utilizador do FluxBB deve corresponder! </ b>';
+$lang['FluxBB_Group'] = 'Aqui especifica o ID (formato: integro) de <b> um grupo de utilizadores do FluxBB </b> no qual os utilizadores invalidados devem ser localizados se não tenham validaram a sua inscrição na galeria. Este grupo de utilizadores tem que ser criado primeiro no FluxBB. Para ser eficaz, este grupo não deve ter quaisquer permissões no fórum (consulte a seção "Instruções" para obter informações detalhadas)';
+$lang['Error_Synchro_Pswd'] = 'O utilizador deverá alterar a senha na próxima entrada na galeria';
+$lang['Disclaimer'] = '
+<div class="warning"> Importante: FluxBB e Piwigo devem ser instalados na mesma base de dados! Por segurança, assegure-se de fazer um backup da sua base de dados e, especialmente, das suas tabelas  # # #_user antes de qualquer ação. </Div><br/>
+  *** Para começar, siga estas duas etapas *** <br/>
+  Passo 1 - Configuração: configurar os parâmetros da extensão relacionados com parâmetros FluxBB <br/>
+  Passo 2 - Sincronização:
+  - Se o seu fórum FluxBB <b>não tem </b> qualquer utilizador, sincronizar todas as contas de Piwigo para FluxBB <br/>
+  - Se o seu fórum FluxBB <b> tem </ b> utilizadores, lançar uma auditoria. A auditoria realiza testes de consistência entre Piwigo e FluxBB . Com base nos resultados, serão propostas ações de correções em cada caso <br/>
+
+  <div class="warning"> Até o momento ainda não é possível sincronizar os utilizadores existentes no fórum FluxBB a uma galeria Piwigo. Esta é a razão pela qual a proposta auditoria exclui as contas FluxBB. Pode deixar estas contas não sincronizadas são contas (que eles serão capazes apenas de se conectar ao forum) espera para a próxima evolução da extensão faça isto. </ Div>
+
+<Sincronização<br/>
+Nota: As senhas de contas sincronizadas manualmente (por auditoria ou a sincronização global) de Piwigo para FluxBB não são recuperados. Cada utilizador em causa deve alterar sua senha na próxima entrada na galeria (ele será automaticamente redirecionado para sua página do perfil) para que a sincronização seja eficaz e que ele possa entrar no fórum.
+<br/>
+
+  <div class="warning"> Importante saber: <br/>
+  Por padrão, <b> FluxBB </b> é letra <u>minúscula </u> em nomes de utilizadores. Ou seja, se um utilizador chamado "teste" já está registado, outras entradas como "Test" ou "TEST" ou "teste" (etc. ..) serão rejeitados. <br/>
+  Por padrão, <b> Piwigo </b> funciona em sentido inverso e, portanto, letra <u> minúscula </u> em nomes de utilizadores ("teste" será um utilizador diferente de "Teste" ou "TESTE", etc .. .). <br/>
+  . Para evitar problemas (mesmo que o comportamento do Piwigo possa ser facilmente alterado - Veja as opções de configuração), Register_FluxBB ligará as duas aplicações usando o comportamento FluxBB: Sendo letra <u> minúscula </u> para nomes de utilizadores.<br/><br/></div> 
+
+
+';
+$lang['Audit_Synchro'] = '<b>Auditoria da sincronização de senhas e endereços de e-mail entre Piwigo e contas FluxBB</b>';
+$lang['Bridge_UAM'] = 'Validação de acesso ao fórum usando a extensão UserAdvManager(UAM): Aqui ativa a ponte entre as duas extensões, o que permite  restringir o acesso ao fórum FluxBB, como o utilizador não validou o seu registo na galeria (s função UAM deve ser ativada)';
+$lang['Config_Disclaimer'] = 'Verifique as configurações da instalação FluxBB e corrija-as se necessário. <br/>
+   Alterar, se necessário, a execução da extensão como desejar';
+$lang['Details_false'] = '--&gt; Nivel Minimo - Mostra apenas os resultados principais das operações de sincronização e migração.';
+$lang['Details_true'] = ' --&gt; Nivel máximo- Mostra todos os detalhes dos resultados da operações sincronização e migração.';
 ?>
