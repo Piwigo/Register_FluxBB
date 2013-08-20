@@ -47,7 +47,22 @@ $lang['No_Reg_advise'] = '
   <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
   <b>par :</b>
   <div class="info">&lt;a href=&quot;../[VotreRacineDePiwigo]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\'] ?&gt;&lt;/a&gt;</div>
-  <br/>';
+<br/><br/>
+  <b>* Modifiez le fichier</b> : [RacineDeFluxBB]/index.php <b>après</b> la ligne 18 :
+  <div class="mod">
+// Load the index.php language file<br/>
+require PUN_ROOT.\'lang/\'.$pun_user[\'language\'].\'/index.php\';
+  </div>
+  <b>Insérez :</b>
+  <div class="info">
+// Modif régénération du cache à chaque visite<br/>
+&nbsp;if (!defined(\'FORUM_CACHE_FUNCTIONS_LOADED\'))<br/>
+&nbsp;&nbsp;&nbsp;require PUN_ROOT.\'include/cache.php\';
+<br/><br/>
+&nbsp;&nbsp;&nbsp;generate_users_info_cache();<br/>
+// ------------------------------------------<br/>
+  </div>
+<br/>';
 
 
 $lang['About_Bridge_Title'] = 'A propos du pont Register_FluxBB / UAM';

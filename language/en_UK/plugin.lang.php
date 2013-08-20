@@ -45,7 +45,22 @@ $lang['No_Reg_advise'] = '  For better integration, it is advisable to make the 
   <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
   <b>with :</b>
   <div class="info">&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\'] ?&gt;&lt;/a&gt;</div>
-  <br/>';
+<br/><br/>
+  <b>* Modify the file</b> : [FluxBBRoot]/index.php <b>after</b> ligne 18 :
+  <div class="mod">
+// Load the index.php language file<br/>
+require PUN_ROOT.\'lang/\'.$pun_user[\'language\'].\'/index.php\';
+  </div>
+  <b>Insert :</b>
+  <div class="info">
+// Mod to regenerate user cache on each load<br/>
+&nbsp;if (!defined(\'FORUM_CACHE_FUNCTIONS_LOADED\'))<br/>
+&nbsp;&nbsp;&nbsp;require PUN_ROOT.\'include/cache.php\';
+<br/><br/>
+&nbsp;&nbsp;&nbsp;generate_users_info_cache();<br/>
+// ------------------------------------------<br/>
+  </div>
+<br/>';
 
 
 $lang['About_Bridge_Title'] = 'About Register_FluxBB / UAM bridge';

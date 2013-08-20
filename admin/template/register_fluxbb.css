@@ -18,6 +18,9 @@
 }
 
 .info{
+  color: #0a0;
+  background-color:#c2f5c2;
+  text-align: left;
   margin: 5px;
   padding: 50px 50px 10px 10px;
   font-weight:bold;
@@ -25,14 +28,12 @@
   background-position: 5px 5px;
   padding: 5px 60px 0pt 60px;
   min-height: 20px;
-}
-
-.info {
-  color: #0a0;
-  background-color:#c2f5c2;
 }
 
 .mod{
+  color: #f22;
+  background-color: #ffd5dc;
+  text-align: left;
   margin: 5px;
   padding: 50px 50px 10px 10px;
   font-weight:bold;
@@ -40,11 +41,6 @@
   background-position: 5px 5px;
   padding: 5px 60px 0pt 60px;
   min-height: 20px;
-}
-
-.mod {
-  color: #f22;
-  background-color: #ffd5dc;
 }
 
 /* Bloc expand-collapse instructions */
