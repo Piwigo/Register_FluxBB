@@ -156,6 +156,10 @@
          Update it_IT, thanks to : Ericnet
          Update uk_UA, thanks to : tb0hdan
          Update pt_BR, thanks to : flaviove
+
+2.5.14 - Fix a FluxBB issue (FluxBB mod) : When a new user registers, "Newest registered user" does not show him. See instruction in "About user registration in the FluxBB forum" section
+       - Update pl_PL, thanks to : T00kie
+       - Add pt_PT, thanks to : ANO
          
 */
 ?>
