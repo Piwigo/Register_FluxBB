@@ -1,0 +1,1 @@
+Ligar o utilizador Piwigo ao forum FluxBB (registo, alteração de senha, apagar)

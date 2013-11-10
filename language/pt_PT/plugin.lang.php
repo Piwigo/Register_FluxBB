@@ -170,4 +170,17 @@ $lang['RegFluxBB_Password_Reset_Msg'] = 'Por favor, atualize sua senha para sinc
 $lang['Sync_Link_Bad'] = '<b>Análise de incompatibilidades entre Piwigo e contas FluxBB</b>';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Sincronização, de FluxBB para Piwigo, parada: e-mail ou nome de utilizador já existente na tabela de utilizadores.';
 $lang['error_config_admin2'] = 'ERRO: O nome de utilizador da conta "Administrador" do FluxBB é diferente da do Piwigo! Verifique a configuração do seu fórum FluxBB e renomeie o utilizador da conta "Administrador"  da mesma forma como utilizador do Piwigo.';
+$lang['UAM_Bridge_advice'] = 'A extenção UserAdvManager permite que novos inscritos sejam forçados a confirmar a sua inscrição antes de permitir que eles acessem a galeria inteira. A utilização conjunta desta extenção com Register_FluxBB pode fazer o mesmo no fórum vinculado : registados não podem colocar questões antes que hajam validado a sua inscrição na galeria. <br/>
+Este é o procedimento geral aplicado:
+<br/>
+- No painel administrativo do fórum FluxBB, definir pelo menos dois grupos de utilizadores (por exemplo: "Validados" e "Não validados") <br/> .
+- Dê o primeiro grupo ("validados") as permissões de acesso que deseja no seu fórum e defina-o como o grupo padrão<br/>.
+- Remover, para o segundo grupo ("Não validados"), todas as permissões do fórum (os membros deste grupo apenas podem ler colocados públicos)<br/>.
+- Localizar o ID do segundo grupo "Não validados"<br/>.
+- Digite este ID em Register_FluxBB , ative a ponte e salve as configurações.
+<br/>
+<B class="mod"> <u> Notas importantes:</u></b>
+<br/>
+Se utiliza uma versão anterior do Register_FluxBB , as contas da galeria Piwigo ligadas ao seu FluxBB não serão afetadas pelos efeitos da ponte. Apenas os novos registados serão afetados com a ativação da ponte.<b><u>A função de Resincronização das Contas função de ressincronização será anulada.</U></b><br/>
+Da mesma forma, se você nunca usou Register_FluxBB , o processo de migração das contas da galeria Piwigo para o seu fórum FluxBB vai ignorar o estado de validado ou não para as contas no lançamento da migração.';
 ?>
