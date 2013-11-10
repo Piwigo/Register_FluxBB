@@ -119,4 +119,55 @@ $lang['Config_Disclaimer'] = 'Verifique as configurações da instalação FluxB
    Alterar, se necessário, a execução da extensão como desejar';
 $lang['Details_false'] = '--&gt; Nivel Minimo - Mostra apenas os resultados principais das operações de sincronização e migração.';
 $lang['Details_true'] = ' --&gt; Nivel máximo- Mostra todos os detalhes dos resultados da operações sincronização e migração.';
+$lang['Sync_Text'] = '<div class="AVISO"> sincronização é uma ação de massa que irá drenar seus utilizadores do fórum, se os houver! Executar uma auditoria para gerenciar cada caso.</div><br/>
+  
+Lembretes:<br/>
+As senhas de contas sincronizadas manualmente (por auditoria ou sincronização global) do Piwigo para FluxBB não são recuperadas. Cada utilizador deve alterar a sua senha na próxima entrada na galeria (ele será automaticamente redirecionado para a página do perfil) para que a sincronização seja efetiva e ele possa entrar no fórum. <br/>
+   Até ao momento ainda não é possível sincronizar os utilizadores  existentes no fórum FluxBB a uma galeria Piwigo. É por isso a auditoria proposta é apagar contas do FluxBB. Pode deixar estas no estado de não sincronizadas (apenas serão capazes de se ligar ao forum). Esperamos que numa próxima evolução da extenção seja feita essa sincronização.<br/>';
+$lang['Sync_DataUser'] = '<b>Análise de senhas e endereços de e-mail entre contas Piwigo e FluxBB</b>';
+$lang['No_Reg_advise'] = 'Para uma melhor integração , é aconselhável fazer as seguintes alterações no fórum FluxBB (<b> Aviso: Estas mudanças irão desaparecer quando atualizar o script do forum</b>):
+<br/><br/>
+  <b>* No painel de administração do FluxBB, altere" Permitir novos registos "para NÃO (ver: Opções - Registo)</b>
+<br/><br/>
+  <b>* Modifique o arquivo</b>:[FluxBBRoot]/lang/Inglish/ register.php substituindo a seguinte linha:
+  <divclass="mod">\'No new regs\'=> \'Este fórum, de momento, não aceita novos utilizadores."</div>
+  <b> com: </b>
+  <div class="info">\'No new regs\'=>\'<a href="http://[YourPiwigoRoot]/register.php">Registar-se</a>< br/><br/> \'</div>
+  <br/>
+  Claro que deverá fazer a mesma alteração nos restantes idiomas do fórum FluxBB.
+<br/><br/>
+ <b>* Modificar o arquivo</b>: [FluxBBRoot]/login.php substituindo cerca da linha 64:
+  <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
+  <b>Com :</b>
+  <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot;&gt;</div>
+<br/>
+  cerca da linha 295:
+  <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
+  <b>Com:</b>
+  <div class="info">&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Esqueceu a senha\'] ?&gt;&lt;/a&gt;</div>
+<br/><br/>
+  <b>* Modificar o arquivo</b>:[FluxBBRoot]/index.php <b>depois</b> da linha 18:
+  <div class="mod">
+// Carregar o arquivo do idioma index.php<br/>
+requere PUN_ROOT.\'lang/\'.$pun_user[\'language\'].\'/index.php\';
+  </div>
+  <b>Inserir:</b>
+  <div class="info">
+// Modo para regenerar a cache do utilizador em cada carregamento<br/>
+&nbsp;if(!defined(\'FORUM_CACHE_FUNCTIONS_LOADED\'))<br/>
+&nbsp;&nbsp;&nbsp;require PUN_ROOT.\'include/cache.php\';
+<br/><br/>
+&nbsp;&nbsp;&nbsp;generate_users_info_cache();<br/>
+// ------------------------------------------<br/>
+  </div>
+<br/>
+
+
+   
+
+';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Por favor, atualize sua senha para sincronização com o fórum. Ficará então com a possibilidade de entrar no forum com a mesma senha de entrada no Piwigo';
+$lang['Sync_Link_Bad'] = '<b>Análise de incompatibilidades entre Piwigo e contas FluxBB</b>';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Sincronização, de FluxBB para Piwigo, parada: e-mail ou nome de utilizador já existente na tabela de utilizadores.';
+$lang['error_config_admin2'] = 'ERRO: O nome de utilizador da conta "Administrador" do FluxBB é diferente da do Piwigo! Verifique a configuração do seu fórum FluxBB e renomeie o utilizador da conta "Administrador"  da mesma forma como utilizador do Piwigo.';
 ?>
