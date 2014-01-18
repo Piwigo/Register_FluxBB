@@ -160,6 +160,10 @@
 2.5.14 - Fix a FluxBB issue (FluxBB mod) : When a new user registers, "Newest registered user" does not show him. See instruction in "About user registration in the FluxBB forum" section
        - Update pl_PL, thanks to : T00kie
        - Add pt_PT, thanks to : ANO
+
+2.6.0  - Compatibility with Piwigo 2.6 checked
+       - Update pt_PT, thanks to : ANO
+       - Add sk_SK, thanks to : Jimako
          
 */
 ?>
