@@ -20,17 +20,17 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Advise_Check_Dup'] = '<b>Impossibile continuare la sincronizzazione se avete duplicati negli account utente di Piwigo o FluxBB.</b><br><br>';
-$lang['Advise_FluxBB_Dup'] = 'ATTENZIONE! Devi fare queste correzioni in FluxBB prima di continuare<br>utilizza le icone per eliminare gli utenti da FluxBB e risolvere il problema.</b>';
-$lang['Advise_PWG_Dup'] = '<b>ATTENZIONE! Devi fare queste correzioni in Piwigo prima di continuare<br>utilizza Piwigo gestione utenti per risolvere il problema.';
+$lang['Advise_Check_Dup'] = '<b>IMPOSSIBILE continuare la sincronizzazione se hai duplicati negli account utente di Piwigo o FluxBB. Prego correggi e riprova</b><br><br>';
+$lang['Advise_FluxBB_Dup'] = 'ATTENZIONE! Devi fare queste correzioni in FluxBB prima di continuare<br>Utilizza le icone per eliminare gli utenti da FluxBB e risolvere il problema.</b>';
+$lang['Advise_PWG_Dup'] = '<b>ATTENZIONE! Devi fare queste correzioni in Piwigo prima di continuare<br>Utilizza Piwigo gestione utenti per risolvere il problema.';
 $lang['Audit_Btn'] = 'Verifica';
-$lang['Audit_FluxBB_Dup'] = '<b>Audit della tabella accounts di FluxBB</b>';
-$lang['Audit_Link_Bad'] = '<b>Audit dei collegamenti difettosi tra gli accounts Piwigo e FluxBB</b>';
-$lang['Audit_Link_Break'] = '<b>Audit dei collegamenti riparabili tra gli accounts Piwigo e FluxBB</b>';
-$lang['Audit_PWG2FluxBB'] = '<b>Audit degli accounts esistenti in Piwigo e mancanti in FluxBB</b>';
-$lang['Audit_PWG_Dup'] = '<b>Audit della tabella accounts di Piwigo</b>';
+$lang['Audit_FluxBB_Dup'] = '<b>Verifica della tabella account di FluxBB</b>';
+$lang['Audit_Link_Bad'] = '<b>Verifica dei collegamenti errati tra gli account Piwigo e FluxBB</b>';
+$lang['Audit_Link_Break'] = '<b>Verifica dei collegamenti riparabili tra gli account Piwigo e FluxBB</b>';
+$lang['Audit_PWG2FluxBB'] = '<b>Verifica degli account esistenti in Piwigo e mancanti in FluxBB</b>';
+$lang['Audit_PWG_Dup'] = '<b>Verifica della tabella account di Piwigo</b>';
 $lang['Audit_Synchro_OK'] = '<b>:Dati di sincronizzazione OK</b>';
-$lang['Audit_Synchro'] = '<b>Audit della sincronizzazione delle password e indirizzi e-mail tra gli accounts Piwigo e FluxBB</b>';
+$lang['Audit_Synchro'] = '<b>Verifica della sincronizzazione delle password e indirizzi e-mail tra gli account Piwigo e FluxBB</b>';
 $lang['Config_Disclaimer'] = 'Controllare le impostazioni della vostra installazione FluxBB e correggerle, se necessario.<br>
 Se è il caso, cambia il comportamento del plugin come tua convenienza.';
 $lang['Config_Title'] = 'Setup plugin';
@@ -67,24 +67,15 @@ $lang['Sync_OK'] = 'Sincronizzazione OK<br><br>';
 $lang['Sync_PWG2FluxBB'] = '<b>Analisi dei conti esistenti in Piwigo e mancanti in FluxBB</b>';
 $lang['Sync_Title'] = 'Sincronizza gli account da Piwigo a FluxBB';
 $lang['Sync_User'] = 'Sincronizzazione accounts :';
-$lang['Tab_Info'] = 'Istruzioni';
-$lang['Tab_Manage'] = 'Fase 1 : Configurazione plugin';
-$lang['Tab_Migration'] = 'Fase 2 : Migrazione degli accounts';
-$lang['Tab_Synchro'] = 'Manutenzione : Risincronizzazione accounts';
-$lang['Title'] = 'Registrazione FluxBB';
 $lang['save_config'] = 'Impostazioni salvate';
-$lang['About_Reg'] = 'Informazioni sulla registrazione degli utenti sul forum FluxBB';
-$lang['Admin'] = 'Nome utente amministratore Piwigo. <b style="color: red">Il nome utente dell\'amministratore di FluxBB deve essere uguale!</b>';
-$lang['Audit_FluxBB2PWG'] = '<b>Audit dei conti esistenti in FluxBB e mancanti in Piwigo</b>';
-$lang['Audit_OK'] = 'Audit OK<br><br>';
-$lang['Bridge_UAM'] = 'Convalida di accesso forum tramite plugin UserAdvManager (UAM): Seleziona qui il ponte tra i due plugin che ti permetterà di bloccare l\'accesso al tuo forum FluxBB finché l\'utente non ha convalidato la sua iscrizione nella galleria (la funzione deve essere attiva su UAM).';
+$lang['Audit_FluxBB2PWG'] = '<b>Verifica degli account esistenti in FluxBB e mancanti in Piwigo</b>';
+$lang['Audit_OK'] = 'Verifica OK<br><br>';
+$lang['Bridge_UAM'] = 'Convalida di accesso al forum tramite plugin UserAdvManager (UAM): Seleziona qui il ponte tra i due plugin che ti permetterà di bloccare l\'accesso al tuo forum FluxBB finché l\'utente non ha convalidato la sua iscrizione nella galleria (la funzione deve essere attiva su UAM).';
 $lang['Del_User'] = 'Cancellazione dal conto FluxBB di:';
 $lang['Error_FluxBB2PWG'] = '<b>L\'account FluxBB non è in Piwigo:</b>';
 $lang['Error_Synchro_Mail'] = 'per l\'indirizzo e-mail';
 $lang['Error_Synchro_Pswd'] = 'per la password';
-$lang['Mig_Btn'] = 'Migrazione';
-$lang['Mig_Del_User'] = '<b>Cancellazione dell\'acount</b>';
-$lang['Add_User'] = 'Aggiungi in FluxBB un\'account';
+$lang['Add_User'] = 'Aggiungi un\'account FluxBB:';
 $lang['Bridge_UAM_false'] = '--> Ponte Register_FluxBB disattivato (predefinito)';
 $lang['Bridge_UAM_true'] = '--> Ponte Register_FluxBB attivato';
 $lang['Disclaimer'] = '*** Per iniziare seguire questi 2 unti ***<br>
@@ -101,38 +92,9 @@ Cioè, se un utente chiamato "test" è già registrato, altre nomi come "Test" o
 Per impostazione predefinita, <b> Piwigo </ b> funziona invece al contrario e quindi è case <u>sensitive </u> al login ("test" sarà differente e quindi altro nome utente da "Test" o "TEST", etc..). <br>
 Per evitare problemi (anche se il comportamento Piwigo può essere facilmente modificato - Vedere le opzioni di configurazione), Register_FluxBB collegherà le due applicazioni come FluxBB: Ovvero case <u>insensitive</u> per fare login.<br><br></div>.';
 $lang['FluxBB_Group'] = 'Specificare l\'ID del <b>FluxBB gruppo</b> in cui gli utenti non devono essere convalidati (da creare in anticipo in FluxBB). Per essere efficace, questo gruppo non dovrebbe avere alcuna autorizzazione sul forum (vedere la fine di questa pagina per ulteriori informazioni su questa opzione).';
-$lang['Mig_Add_AllUsers'] = '<b>Trasferimento conti Piwigo</b>';
-$lang['Mig_Add_User'] = '<b>Trasferimento di account:</b>';
-$lang['Mig_Del_AllUsers'] = '<b>Eliminazione degli account FluxBB</b>';
-$lang['Mig_Del_Link'] = '<b>Rimozione di collegamenti tra accounts Piwigo e FluxBB</b>';
-$lang['Mig_Disclaimer'] = '<div class="warning">NON ESEGUIRE LA MIGRAZIONE PER AGGIORNARE!!!</div>';
-$lang['Mig_End'] = '<b>Migrazione eseguita !</b>';
-$lang['Mig_Start'] = '<b>Migrazione di accounts da Piwigo a FluxBB</b>';
-$lang['Mig_Title'] = 'Migrazione di accounts da Piwigo a FluxBB';
-$lang['Title_Tab'] = 'Register_FluxBB - Versione: ';
 $lang['error_config_admin1'] = 'ERRORE : Il nome utente dell\'admin di Piwigo è errato!';
 $lang['error_config_admin2'] = 'ERRORE : Il nome dell\'account di amministrazione di FluxBB è diverso da quello di Piwigo! Verificare la configurazione del tuo forum FluxBB e rinominare l\'account amministratore con lo stesso nome di quello di Piwigo.';
 $lang['error_config_guest'] = 'ERRORE : Il nome dell\'account guest in FluxBB è sbagliato!';
-$lang['About_Bridge'] = 'About Register_FluxBB / UAM bridge';
-$lang['Mig_Text'] = '<div class="warning"> UTILIZZARE SOLO SE non hai mai usato il plugin per collegare Piwigo a FluxBB <u>E SE</u> non ci sono utenti nel tuo forum !!!</b></div><br>
-  		--> In questo caso, la tua tabella [PrefixFluxBB]_user di FluxBB deve essere svuotata di tutti gli account tranne i 2 account guest e administrator.<br><br>
-  - La migrazione cancellerà dapprima i links tra gli account di Piwigo e FluxBB.<br>
-  - Quindi <b>CANCELLERA? TUTTI GLI ACCOUNTS FluxBB</b> tranne i 2  accounts guest e administrator.<br>
-  <br>
-  <div class="warning">ATTENZIONE: SE AVETE DEGLI ACCOUNT SPECIALI IN FluxBB == NON UTILIZZATE QUESTA FUNZIONE !!!</div><br>
-  - Infine, la migrazione creerà tutti gli account di Piwigo in FluxBB, tranne il guest.<br>
-  <br>
-  Se accadono degli errori durante l\'operazione, correggete la causadel problema e riprovate l\'operazione di migrazione (solo allora potrete rifare la migrazione).<br>';
-$lang['Sync_Text'] = '  <div class="warning">Hai già utilizzato il plugin per collegare il tuo Piwigo (aggiornamento plugin) e/o sono ancora presenti utenti nel tuo forum FluxBB!</div>
-  <br> -> Questo significa che il tuo forum ha degli utenti.<br><br>
-  - La sincronizzazione rileva i dati confrontando i nomi utente, password (criptate) ed il loro indirizzo email in entrambe le tabelle [PrefixPWG]_user e [PrefixFluxBB]_user.<br>
-  - In seguito aggiorna la tabella delle corrispondenze cosi come le password e indirizzi email di ogni account da Piwigo a FluxBB ad eccezione di Piwigo Guest e FluxBB Anonymous.<br>
-  - Infine riporta account orfani che esistono in solo una delle due tabelle ###_user.<br>
-  <br>
-  Al termine dell\'operazione, eseguite un audit e verificate la presenza di utenti duplicati in FluxBB. Se presenti, cancellare il più vecchio (ordinando gli utenti FluxBB secondo la data di registrazione).<br>';
-$lang['No_Reg_advise'] = 'Per una migliore integrazione, si consiglia di apportare le seguenti modifiche al tuo forum FluxBB (<b> Attenzione: Queste modifiche scompariranno quando verrà aggiornato il forum </b>):
-<br>
- <b>* Nel pannello di amministrazione FluxBB, cambiare "Consenti nuove registrazioni" su NO (in: Opzioni - Registrazione) </b>
 <br><br>
  <b>* Modificare il file</b> : [FluxBBRoot]/lang/English/register.php sostituendo la seguente riga:
 <div class="mod">\'No new regs\'				=>	\'Questo forum non accetta nuovi utenti.\'</div>
@@ -174,7 +136,6 @@ $lang['Config_Title2'] = 'Configurazioni avanzate del Plugin';
 $lang['Config_Title_d'] = 'Configurazione Plugin';
 $lang['Instruction_Title'] = 'Istruzioni (importante leggere prima dell\'utilizzo)';
 $lang['Instruction_Title_d'] = 'Istruzioni ed informazioni importanti';
-$lang['Mig_Title_d'] = 'DA UTILIZZARE SOLO SE non hai mai utilizzato prima il plugin';
 $lang['Sync_Title_d'] = 'Risincronizzazione account';
 $lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'Per sincronizzare il vostro accesso al forum con la galleria, sei stato registrato su %s!';
 $lang['RegFluxBB_Email_or_Username_already_exist'] = 'Sincronizzazione da FluxBB a Piwigo fermato: Email di destinazione o nome utente già esistenti nella tabella utenti.';
@@ -187,4 +148,3 @@ $lang['FluxBB_Admin'] = 'Nome utente dell\'account "Webmaster" di Piwigo. <b sty
 $lang['FluxBB_Title'] = 'Register_FluxBB - Versione:';
 $lang['%d email addresses rejected: %s'] = '%d indirizzi email rifiutati: %s';
 $lang['%d email addresses already exist: %s'] = '%d indirizzi email già esistono: %s';
-?>
