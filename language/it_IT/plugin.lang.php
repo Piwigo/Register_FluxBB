@@ -155,3 +155,51 @@ $lang['Sync_Text'] = '  <div class="warning">Hai già utilizzato il plugin per c
   - Infine riporta account orfani che esistono in solo una delle due tabelle ###_user.<br>
   <br>
   Al termine dell\'operazione, eseguite un audit e verificate la presenza di utenti duplicati in FluxBB. Se presenti, cancellare il più vecchio (ordinando gli utenti FluxBB secondo la data di registrazione).<br>';
+  $lang['UAM_Bridge_advice'] = 'Il plugin UserAdvManager permette di forzare i nuovi utenti di confermare la loro registrazione prima di consentire loro di accedere alla intera galleria. L\'utilizzo congiunto di questo plugin con Register_FluxBB può fare lo stesso sul forum collegato: i nuovi utenti non possono postare fino a quando non hanno convalidato la loro registrazione nella galleria. <br>
+Ecco la procedura generale da applicare:
+<br>
+- Nel pannello amministrazione del tuo forum FluxBB, imposta almeno 2 gruppi di utenti (ad esempio: "validato" e "no_validato").<br>
+- Dare al primo gruppo ("validato") le autorizzazioni di accesso che si desidera sul tuo forum e impostarlo come il gruppo predefinito.<br>
+- Rimuovere al secondo gruppo ("no_validato") tutte le autorizzazioni per il tuo forum (i membri di questo gruppo possono leggere solo i messaggi pubblici).<br>
+- Individuare l\'ID del secondo gruppo "no_validato".<br>
+- Inserire questo Codice ID nel plugin Register_FluxBB, attivare il bridge e salvare le impostazioni.
+<br>
+<b class="mod"><u>Importanti note:</u></b>
+<br>
+Se si utilizza già una versione precedente di Register_FluxBB, gli accounts Piwigo collegati tra la galleria e il tuo forum FluxBB non saranno influenzati dagli effetti del bridge. Solo le nuove registrazioni saranno interessate dopo l\'attivazione del bridge.<b><u>Risincronizzazione accounts funzioni saranno annullate.</u></b><br>
+Allo stesso modo, se non hai mai usato Register_FluxBB, la fase migrazione accounts Piwigo dalla galleria al tuo forum FluxBB non prenderà in considerazione lo stato convalidato o meno per gli accounts in occasione del lancio della fase di migrazione.';
+$lang['No_Reg_advise'] = 'Per una migliore integrazione, si consiglia di apportare le seguenti modifiche al tuo forum FluxBB (<b> Attenzione: Queste modifiche scompariranno quando verrà aggiornato il forum </b>):
+<br>
+ <b>* Nel pannello di amministrazione FluxBB, cambiare "Consenti nuove registrazioni" su NO (in: Opzioni - Registrazione) </b>
+<br><br>
+ <b>* Modificare il file</b> : [FluxBBRoot]/lang/English/register.php sostituendo la seguente riga:
+<div class="mod">\'No new regs\'				=>	\'Questo forum non accetta nuovi utenti.\'</div>
+<b>con :</b>
+<div class="info">\'No new regs\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Vai qui per iscriverti &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+ <br>
+ Naturalmente si dovrebbe anche fare la stessa modifica per le altre lingue del tuo forum FluxBB.
+<br><br>
+<b>* Modifica il file</b> : [FluxBBRoot]/login.php sostituendo la linea 69:
+ <div class="mod">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;login.php?action=forget&quot;&gt;</div>
+ <b>with :</b>
+<b>with :</b>
+ <div class="info">message($lang_login[\'Wrong user/pass\'].\'&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot;&gt;</div>
+<br>
+ e alla linea 216:
+ <div class="mod">&lt;a href=&quot;login.php?action=forget&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\']&lt;/a&gt;</div>
+<b>con :</b>
+ <div class="info">&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Forgotten pass\'] ?&gt;&lt;/a&gt;</div>
+ <br>';
+$lang['UAM_Bridge_advice'] = 'Il plugin UserAdvManager permette di forzare i nuovi utenti di confermare la loro registrazione prima di consentire loro di accedere alla intera galleria. L\'utilizzo congiunto di questo plugin con Register_FluxBB può fare lo stesso sul forum collegato: i nuovi utenti non possono postare fino a quando non hanno convalidato la loro registrazione nella galleria. <br>
+Ecco la procedura generale da applicare:
+<br>
+- Nel pannello amministrazione del tuo forum FluxBB, imposta almeno 2 gruppi di utenti (ad esempio: "validato" e "no_validato").<br>
+- Dare al primo gruppo ("validato") le autorizzazioni di accesso che si desidera sul tuo forum e impostarlo come il gruppo predefinito.<br>
+- Rimuovere al secondo gruppo ("no_validato") tutte le autorizzazioni per il tuo forum (i membri di questo gruppo possono leggere solo i messaggi pubblici).<br>
+- Individuare l\'ID del secondo gruppo "no_validato".<br>
+- Inserire questo Codice ID nel plugin Register_FluxBB, attivare il bridge e salvare le impostazioni.
+<br>
+<b class="mod"><u>Importanti note:</u></b>
+<br>
+Se si utilizza già una versione precedente di Register_FluxBB, gli accounts Piwigo collegati tra la galleria e il tuo forum FluxBB non saranno influenzati dagli effetti del bridge. Solo le nuove registrazioni saranno interessate dopo l\'attivazione del bridge.<b><u>Risincronizzazione accounts funzioni saranno annullate.</u></b><br>
+Allo stesso modo, se non hai mai usato Register_FluxBB, la fase migrazione accounts Piwigo dalla galleria al tuo forum FluxBB non prenderà in considerazione lo stato convalidato o meno per gli accounts in occasione del lancio della fase di migrazione.';
