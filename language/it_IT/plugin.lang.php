@@ -94,7 +94,7 @@ Per evitare problemi (anche se il comportamento Piwigo può essere facilmente mo
 $lang['FluxBB_Group'] = 'Specificare l\'ID del <b>FluxBB gruppo</b> in cui gli utenti non devono essere convalidati (da creare in anticipo in FluxBB). Per essere efficace, questo gruppo non dovrebbe avere alcuna autorizzazione sul forum (vedere la fine di questa pagina per ulteriori informazioni su questa opzione).';
 $lang['error_config_admin1'] = 'ERRORE : Il nome utente dell\'admin di Piwigo è errato!';
 $lang['error_config_admin2'] = 'ERRORE : Il nome dell\'account di amministrazione di FluxBB è diverso da quello di Piwigo! Verificare la configurazione del tuo forum FluxBB e rinominare l\'account amministratore con lo stesso nome di quello di Piwigo.';
-$lang['error_config_guest'] = 'ERRORE : Il nome dell\'account guest in FluxBB è sbagliato!';
+$lang['error_config_guest'] = 'ERRORE : Il nome dell\'account guest in FluxBB è sbagliato!
 <br><br>
  <b>* Modificare il file</b> : [FluxBBRoot]/lang/English/register.php sostituendo la seguente riga:
 <div class="mod">\'No new regs\'				=>	\'Questo forum non accetta nuovi utenti.\'</div>
