@@ -148,3 +148,10 @@ $lang['FluxBB_Admin'] = 'Nome utente dell\'account "Webmaster" di Piwigo. <b sty
 $lang['FluxBB_Title'] = 'Register_FluxBB - Versione:';
 $lang['%d email addresses rejected: %s'] = '%d indirizzi email rifiutati: %s';
 $lang['%d email addresses already exist: %s'] = '%d indirizzi email già esistono: %s';
+$lang['Sync_Text'] = '  <div class="warning">Hai già utilizzato il plugin per collegare il tuo Piwigo (aggiornamento plugin) e/o sono ancora presenti utenti nel tuo forum FluxBB!</div>
+  <br> -> Questo significa che il tuo forum ha degli utenti.<br><br>
+  - La sincronizzazione rileva i dati confrontando i nomi utente, password (criptate) ed il loro indirizzo email in entrambe le tabelle [PrefixPWG]_user e [PrefixFluxBB]_user.<br>
+  - In seguito aggiorna la tabella delle corrispondenze cosi come le password e indirizzi email di ogni account da Piwigo a FluxBB ad eccezione di Piwigo Guest e FluxBB Anonymous.<br>
+  - Infine riporta account orfani che esistono in solo una delle due tabelle ###_user.<br>
+  <br>
+  Al termine dell\'operazione, eseguite un audit e verificate la presenza di utenti duplicati in FluxBB. Se presenti, cancellare il più vecchio (ordinando gli utenti FluxBB secondo la data di registrazione).<br>';
