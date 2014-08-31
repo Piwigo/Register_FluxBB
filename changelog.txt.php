@@ -164,6 +164,9 @@
 2.6.0  - Compatibility with Piwigo 2.6 checked
        - Update pt_PT, thanks to : ANO
        - Add sk_SK, thanks to : Jimako
-         
+
+2.7.0  - Compatibility with Piwigo 2.7
+       - Update sk_SK, thanks to : JoeKundlak
+       - Update it_IT, thanks to : Ericnet
 */
 ?>

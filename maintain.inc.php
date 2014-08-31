@@ -7,7 +7,7 @@ if(!defined('REGFLUXBB_PATH'))
 include_once (PHPWG_ROOT_PATH.'/include/constants.php');
 include_once (REGFLUXBB_PATH.'include/functions.inc.php');
 
-function plugin_install()
+function plugin_install($id, $version, &$errors)
 {
   global $prefixeTable, $conf;
 
@@ -63,7 +63,7 @@ PRIMARY KEY  (id_user_pwg),
 
 }
 
-function plugin_activate()
+function plugin_activate($id, $version, &$errors)
 {
   global $conf;
 
