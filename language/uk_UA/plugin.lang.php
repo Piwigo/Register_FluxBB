@@ -21,9 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['Audit_Btn'] = 'Аудит';
-$lang['Tab_Manage'] = 'Крок 1: Конфігурації плаґіна';
-$lang['Tab_Migration'] = 'Крок 2: Облікові записи міграції';
-$lang['Title'] = 'Реєстрація FluxBB';
 $lang['error_config_guest'] = 'ПОМИЛКА : ім\'я облікового запису гостя FluxBB неправильне!';
 $lang['error_config_admin1'] = 'ПОМИЛКА : ім\'я користувача адміністратора Piwigo неправильне!';
 $lang['save_config'] = 'Налаштування збережені';
@@ -38,8 +35,6 @@ $lang['Link_Dup'] = 'Видалення дублікатів';
 $lang['Sync_Btn'] = 'Синхронізація';
 $lang['Sync_OK'] = 'Синхронізація OK<br><br>';
 $lang['Sync_User'] = 'Обліковий запис синхронізації';
-$lang['Tab_Info'] = 'Інструкції';
-$lang['Title_Tab'] = 'Register_FluxBB - Версія:';
 $lang['%d email addresses already exist: %s'] = '%d адрес електронної пошти вже існують: %s';
 $lang['%d email addresses rejected: %s'] = '%d адрес електронної пошти відкинуто: %s';
 $lang['%d registrations on error: %s'] = '%d реєстрацій з помилкою: %s';
@@ -60,4 +55,11 @@ $lang['Audit_OK'] = 'Аудит завершено успішно<br/><br/>';
 $lang['Audit_PWG2FluxBB'] = '<b>Аудит існуючих облікових записів у Piwigo та відстуніх у FluxBB</b>';
 $lang['Audit_PWG_Dup'] = '<b>Аудит таблиці облікових записів FluxBB</b>';
 $lang['Del_Pt'] = 'Видалення тем і повідомлень користувача з форуму, якщо його профіль видалено з Piwigo';
-?>
+$lang['Sync_Title_d'] = 'Використати для синхронізації аккаунтів';
+$lang['Instruction_Title'] = 'Інструкції (важливо спочатку прочитати)';
+$lang['Config_Title2'] = 'Розширене налаштування плагіна';
+$lang['Confirm_true'] = '--&gt; Не питати підтвердження';
+$lang['Del_Pt_true'] = '--&gt; Видалити все';
+$lang['Audit_Synchro_OK'] = '<b>: Данні сінхронізовані ОК</b>';
+$lang['Config_Title_d'] = 'Налаштування плагіна';
+$lang['Config_Title'] = 'Налаштування плагіна';
