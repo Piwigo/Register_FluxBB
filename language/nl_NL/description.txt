@@ -1,0 +1,1 @@
+Maak een connectie tussen de gebruikersregistratie van Piwigo en het FluxBB forum (registratie, wachtwoord wijzigingen, verwijdering, etc.).
