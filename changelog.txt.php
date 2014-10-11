@@ -168,5 +168,8 @@
 2.7.0  - Compatibility with Piwigo 2.7
        - Update sk_SK, thanks to : JoeKundlak
        - Update it_IT, thanks to : Ericnet
+
+2.7.1  - Update uk_UA, thanks to : StreamThreader
+       - Add nl_NL, thanks to : Blackbird
 */
 ?>
