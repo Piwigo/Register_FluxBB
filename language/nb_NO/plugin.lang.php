@@ -99,3 +99,80 @@ $lang['Audit_Link_Bad'] = '<b>Tilsyn av dårlige koblinger mellom Piwigo og Flux
 $lang['Audit_Link_Break'] = '<b>Tilsyn av reparerbare koblinger mellom Piwigo og FluxBB kontoer</b>';
 $lang['Audit_OK'] = 'Tilsyn OK<br/><br/>';
 $lang['Audit_PWG2FluxBB'] = '<b>Tilsyn av eksisterende kontoer i Piwigo og mangler i FluxBB </b>';
+$lang['UAM_Bridge_advice'] = 'Programtillegget UserAdvManager tillater å tvinge nye registranter til å måtte bekrefte sin registrering før de tillates tilgang til hele galleriet. Felles bruk av dette programtillegget og med Register_FluxBB kan gjøre det samme på det koblede forumet: Registranter kan ikke starte før de har fått godkjent sin registrering til galleriet. <br/>
+Her er den generelle fremgangsmåten for å søke:
+<br/>
+- I administrasjonspanelet på FluxBB forum, sett minst to grupper av brukere (for eksempel: "godkjent" og "ikke_godkjent") <br/>.
+- Gi den første gruppen ("godkjent") tilgangstillatelser du vil ha på forumet og angi den som standardgruppen <br/>.
+- Fra den andre gruppen ("ikke_godkjent") fjern alle tillatelser på forumet (medlemmer av denne gruppen kan bare lese offentlige innlegg).<br/>
+- Finn ID\'en  til den andre gruppen "ikke_godkjent".<br/>
+- Skriv inn denne ID-en i Register_FluxBB programtillegget, aktivere broen og lagre innstillingene.
+<br/>
+<bclass = "endre"> <u> Viktig:</u></b>
+<br/>
+Hvis du allerede har brukt en tidligere versjon av Register_FluxBB, vil Piwigo kontoen som knytte galleriet og din FluxBB forum ikke bli påvirket av effekten av broen. Kun ny registre vil bli påvirket etter aktivering av broen.<b><u> Resynkroniserings funksjonen av kontoer vil bli annullert.</U></b><br/>
+Tilsvarende, hvis du aldri har brukt Register_FluxBB, Piwigo\'s kontos migrasjonsprosess fra galleriet ditt til FluxBB forumet vil godkjenningen bli ignorert men ikke for kontoer ved starten av migrasjonen.';
+$lang['error_config_admin1'] = 'FEIL: Piwigo\'s "Webmaster" brukernavn er feil!';
+$lang['error_config_admin2'] = 'FEIL: Brukernavnet til FluxBB\'s "Administrator" konto er forskjellig fra Piwigo\'s sitt! Sjekk innstillingene til FluxBB forumet og skift navn på "Administrator" kontoens brukernavn på samme måte som for Piwigo\'s';
+$lang['error_config_guest'] = 'FEIL: Brukernavnet til FluxBB\'s er "gjest" kontoen er feil!';
+$lang['save_config'] = 'Innstillingene er lagret';
+$lang['Please change your password at your first connexion on the gallery'] = 'Vennligst endre passordet på din første tilkobling til galleriet for å avslutte datasynkronisering';
+$lang['Prefix'] = 'FluxBB prefiks tabeller:';
+$lang['RegFluxBB_Email_or_Username_already_exist'] = 'Synkronisering fra FluxBB til Piwigo stoppet: E-postadressen eller brukernavnet finnes allerede  i Piwigo bruker tabeller.';
+$lang['RegFluxBB_Password_Reset_Msg'] = 'Vennligst oppdater passordet for å synkronisere med forumet. Da vil du være i stand til å logge inn på forumet med samme konto som galleriet.';
+$lang['Sync_Btn'] = 'Synkronisering';
+$lang['Sync_Check_Dup'] = '<b>Analyse av brukertabell kopier kontrolleres</b>';
+$lang['Sync_DataUser'] = '<b>Analyse av passord og e-postadresser mellom Piwigo og FluxBB kontoer</b>';
+$lang['Sync_FluxBB2PWG'] = '<b>Analyse av eksisterende kontoer i FluxBB men som mangler i Piwigo</b>';
+$lang['Sync_Link_Bad'] = '<b>Analyse av dårlige relasjoner mellom Piwigo og FluxBB kontoer </b>';
+$lang['Sync_Link_Break'] = '<b>Analyse av reparerbare koblinger mellom kontoer i Piwigo og FluxBB</b>';
+$lang['Sync_OK'] = 'Synkronisering OK<br/><br/>';
+$lang['Sync_PWG2FluxBB'] = '<b>Analyse av eksisterende kontoer i Piwigo men mangler i FluxBB </b>';
+$lang['Sync_Text'] = '<div class = "advarsel"> Synkronisering er en stor påkjenning som vil tappe forumbrukerne om det er noen! Kjør en revisjon for å håndtere hvert enkelt tilfelle. </div><br/><br/>
+  
+  Påminnelser: <br/>
+  Passordene til manuelt synkroniserte kontoer (ved revisjon eller den generelle synkronisering) fra Piwigo til FluxBB er ikke restituert. Hver bruker det gjelder bør endre sitt passord ved neste pålogging til galleriet (han vil automatisk bli omdirigert til hans profilside), slik at synkroniseringen skal bli effektiv, og han kan igjen koble til forumet.<br/><br/>
+  Så langt er det ennå ikke mulig å synkronisere eksisterende brukere på et FluxBB forum til et Piwigo galleri. Dette er grunnen til at den foreslåtte revisjonen handlingen sletter FluxBB kontoer. Du kan la disse ikke-synkronisert kontoer (de vil kun være i stand til å koble til forumet) vente på den neste evolusjonen av programtillegget som da vil utføre denne synkroniseringen.<br/><br/>';
+$lang['Sync_Title'] = 'Synkronisere kontoer fra Piwigo til FluxBB';
+$lang['Sync_Title_d'] = 'Bruk for å resynkronisere kontoer';
+$lang['Sync_User'] = 'Konto synkronisering: ';
+$lang['To synchronize your forum access with the gallery you have been registered at %s!'] = 'For å synkronisere forum tilgang med galleriet, må du være registrert på %s!';
+$lang['Link_Del'] = 'Fjerning av link: ';
+$lang['Link_Dup'] = 'Fjerning av kopier';
+$lang['New_Link'] = 'Konto tilknyttet:';
+$lang['No_Reg_advise'] = '  For bedre integrering, er det tilrådelig å gjøre følgende endringer i ditt FluxBB forum (<b>Advarsel: Disse endringene vil forsvinne når du oppdaterer forumets skript</b>):
+<br/><br/>
+  <B>* I FluxBB\'s administrasjon panel, endre "Tillat nye registreringer" til NEI (se: Options - Registrering) </ b>
+<br/>
+  <B>* Endre fil</b>: [FluxBBRoot]/lang/Norwegian/register.php ved å erstatte følgende linje:
+   <div class="mod">\'Ingen nye registreringer\'				=>	\'Dette forumet tillater ikke nye brukere.\'</div>
+  <b>med :</b>
+  <div class="info">\'Ingen nye registreringer\'				=>	\'&lt;a href=&quot;http://[YourPiwigoRoot]/register.php&quot; &gt; Gå her for å registrere &lt;/a&gt;&lt;br/&gt;&lt;br/&gt;\'</div>
+  <br/>
+  Selvfølgelig bør du også gjøre den samme endringen for andre språk i ditt FluxBB forum.
+<br/><br/>
+  <b>* Endre fil</b>: [FluxBBRoot]/login.php ved å skifte ut følgende rundt linje 64:
+  <div class="endre">beskjed($lang_login[\'Feil bruker/passord\'].\'&lt;a href=&quot;login.php?handling=glemt&quot;&gt;</div>
+  <b>med :</b>
+  <div class="info">beskjed($lang_login[\'Feil bruker/passord\'].\'&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot;&gt;</div>
+<br/>
+  og rudt linje 295:
+  <div class="endre">&lt;a href=&quot;login.php?handling=glemt&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Glemt passord\']&lt;/a&gt;</div>
+  <b>med :</b>
+  <div class="info">&lt;a href=&quot;../[YourPiwigoRoot]/password.php&quot; tabindex=&quot;5&quot;&gt;&lt;?php echo $lang_login[\'Glemt passord\'] ?&gt;&lt;/a&gt;</div>
+<br/><br/>
+  <b>* Endre fil</b> : [FluxBBRoot]/index.php <b>efter</b> linje 18 :
+  <div class="endre">
+// Last index.php språk fil<br/>
+påkrevd PUN_ROOT.\'lang/\'.$pun_user[\'språk\'].\'/index.php\';
+  </div>
+  <b>Sett inn :</b>
+  <div class="info">
+// Endre for å regenerere bruker cache på hver lasting<br/>
+&nbsp;if (!definert(\'FORUM_CACHE_FUNCTIONS_LOADED\'))<br/>
+&nbsp;&nbsp;&nbsp;require PUN_ROOT.\'include/cache.php\';
+<br/><br/>
+&nbsp;&nbsp;&nbsp;generate_users_info_cache();<br/>
+// ------------------------------------------<br/>
+  </div>
+<br/>';
