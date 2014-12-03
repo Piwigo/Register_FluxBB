@@ -171,5 +171,7 @@
 
 2.7.1  - Update uk_UA, thanks to : StreamThreader
        - Add nl_NL, thanks to : Blackbird
+
+2.7.2  - Add nb_NO, thanks to paulen
 */
 ?>
