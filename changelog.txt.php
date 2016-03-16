@@ -173,5 +173,7 @@
        - Add nl_NL, thanks to : Blackbird
 
 2.7.2  - Add nb_NO, thanks to paulen
+
+2.8.0  - Update zh_CN, thanks to winson
 */
 ?>
